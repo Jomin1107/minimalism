@@ -90,15 +90,14 @@
 		background-color: white;
 		color: black;
 	}
-	.cancle_btn {
+	.changePw_btn {
 		background-color: gray;
 	    color: white;
 	    border-radius: 2px;
 	    border: 0px;
-	    width: 100px;
-	    height: 40px;
+
 	}
-	.cancle_btn:hover {
+	.changePw_btn:hover {
 		background-color: white;
 		color: black;
 		border: 2px solid gray;
