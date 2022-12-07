@@ -41,7 +41,7 @@
 						<td>${qna.rq_title}</td>
 						<td>${qna.rq_name}</td>
 						<td>
-							<fmt:formatDate value="${review.rq_date}" type="date" pattern="YYYY.MM.dd"/>
+							<fmt:formatDate value="${qna.rq_date}" type="date" pattern="YYYY.MM.dd"/>
 						</td>
 						<td>${qna.rq_readcount}</td>
 					</tr>
