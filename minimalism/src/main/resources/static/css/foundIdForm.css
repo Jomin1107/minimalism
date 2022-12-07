@@ -1,0 +1,128 @@
+@charset "UTF-8";
+/* 내용 */	
+.title {
+	width: 100%;
+	max-width: 1680px;
+	text-align: center;
+	margin : 0 auto;
+	margin-top: 10%
+}
+h2 {
+	color: #1a1a1a;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1;
+    display: inline-block;
+}
+.findId {
+	padding: 49px 39px;
+	color: #2e2e2e;
+}
+fieldset {
+	width: 380px;
+	padding: 0;
+	margin: auto;
+}
+.info {
+    margin: 0 0 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.message {
+	background: none;
+    text-align: center;
+    padding: 0;
+    border: 0;
+}
+.information {
+	padding: 30px 0;
+	font-size: 13px;
+}
+.thumbnail {
+	display: table-cell;
+    padding: 0 15px;
+    width: 70px;
+    text-align: center;
+    vertical-align: middle;
+}
+.thumbnail img {
+	max-width: 70px;
+}
+.description {
+	display: table-cell;
+    padding: 0 10px;
+    width: auto;
+    line-height: 1.5em;
+    border-left: 1px solid #e8e8e8;
+    vertical-align: middle;
+}
+.ec-base-desc {
+    overflow: hidden;
+    text-align: left;
+    padding: 0;
+}
+.ec-base-desc li {
+	padding-left: 0;
+}
+.desc {
+	display: block;
+    margin: 0 0 2px;
+    min-height: 22px;
+    line-height: 22px;
+    font-size: 13px;
+    float: left;
+}
+.term {
+	float: left;
+	margin: 0 0 2px;
+    padding: 0 15px 0 0;
+    line-height: 22px;
+}
+img, fieldset {
+	border: none;
+    vertical-align: top;
+}
+li {
+	list-style: none;
+}
+a, a:hover {
+    text-decoration: none;
+}
+.login fieldst > a {
+	 position: static;
+	 top: 0 ;
+	 right: 9px;
+}
+.login_box {
+	line-height: 18px;
+    font-weight: 300;
+}
+.btn_login {
+	width: 378px;
+    height: 48px;
+    line-height: 50px;
+    font-size: 15px;
+    display: block;
+    background-color: #333;
+    color: #fff;;
+    text-align: center;	
+    transition: all 0.5s;
+}
+.password_box {
+    color: #888;
+    line-height: 18px;
+    font-weight: 300;
+    font-size: 13px;
+}
+.btn_password {
+	width: 378px;
+    height: 48px;
+    line-height: 50px;
+    font-size: 15px;
+    display: block;
+    background-color: #fff;
+    color: #333;
+    text-align: center;
+    border: 1px solid #e3e3e3;
+    transition: all 0.5s;
+}

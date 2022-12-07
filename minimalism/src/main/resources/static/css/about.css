@@ -1,0 +1,9 @@
+@charset "UTF-8";
+	/* main */
+	div[class=about] {
+		margin-top: 150px;
+		text-align: center;
+	}
+	p[class=eng] {
+		margin-bottom: 60px;
+	}

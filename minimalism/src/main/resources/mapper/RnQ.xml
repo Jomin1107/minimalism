@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.minimalism.RnqDtoMapper">
+	<!-- 리뷰 -->
+	<select id="hjReviewTotal" resultType="int">
+		SELECT Count(*) FROM RnQ
+	</select>
+	
+	<select id="hjReviewAll" parameterType="RnqDto" resultType="RnqDto">
+		SELECT * 
+		FROM
+        		(
+        		SELECT ROWNUM rn, a.*
+        		FROM
+                	(SELECT    r.rq_id, p.stored_thumbnail, r.rq_title, r.rq_name, rq_date,  r.rq_readcount
+                      FROM     rnq r , product_img p
+                      WHERE    p.product_number = r.product_number
+                      AND      rq_category = 'r') a
+        		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 문의 -->
+	<select id="hjQnaTotal" resultType="int">
+		SELECT Count(*) FROM RnQ
+	</select>
+	
+	<select id="hjQnaAll" parameterType="RnqDto" resultType="RnqDto">
+		SELECT * 
+		FROM
+        		(
+        		SELECT ROWNUM rn, a.*
+        		FROM
+                	(SELECT * FROM RnQ
+                	 WHERE rq_category = 'q'
+                	 ORDER BY rq_id) a
+        		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+</mapper>

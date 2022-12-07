@@ -1,0 +1,84 @@
+server:
+  port  : 5555
+  
+# Oracle Connect
+spring:
+  profiles:
+    include: oauth
+  datasource: 
+    url:  jdbc:oracle:thin:@localhost:1521/xe
+    username: mini
+    password: tiger
+    driver-class-name:  oracle.jdbc.driver.OracleDriver
+    
+  # File Size
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  # Jpa Setting
+  jpa:  
+    hibernate:
+      ddl-auto: none # none create update
+    properties: 
+      hibernate:
+        defalut_batch_fetch_size : 500  # 성능 최적화
+      show_sql:   true  # System.out 에 하이버네이트 실행 SQL
+      format_sql: true
+  
+  # view Resolver
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+      
+# Mybatis Setting
+mybatis:
+  config-location: classpath:configuration.xml
+  mapper-locations: classpath:mapper/*.xml
+
+logging.level:  
+  org.hibernate.SQL: debug   # logger를 통해 하이버네이트 실행 SQL
+
+---      
+ spring: 
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 0cb58b922c8e079d965912dc2ca6d55b
+            client-secret: 42SwecHgVFvyOVPf6zJqol9T8Vj0hl8V
+            redirect-uri: http://localhost:5555/login/oauth2/code/kakao
+            authorization-grant-type: authorization_code
+            client-authentication-method: POST
+            client-name: Kakao
+            scope: 
+            - profile_nickname
+            - account_email
+            - age_range
+            - birthday
+
+          naver:
+            client-id: _G8B9e0cPKA1OvpOldfE
+            client-secret: oPujs7CZV9
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:5555/login/oauth2/code/naver
+            client-name: Naver
+            scope: 
+              - name
+              - email
+              
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+          naver:
+            authorization-uri: https://nid.naver.com/oauth2.0/authorize
+            token-uri: https://nid.naver.com/oauth2.0/token
+            user-info-uri: https://openapi.naver.com/v1/nid/me
+            user-name-attribute: response 

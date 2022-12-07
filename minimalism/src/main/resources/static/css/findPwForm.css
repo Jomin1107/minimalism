@@ -1,0 +1,99 @@
+@charset "UTF-8";
+	/* 내용 */	
+.title {
+	width: 100%;
+	max-width: 1680px;
+	text-align: center;
+	margin : 0 auto;
+	margin-top: 10%
+}
+h2 {
+	color: #1a1a1a;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1;
+    display: inline-block;
+}
+.login {
+	padding: 49px 39px;
+	color: #2e2e2e;
+}
+fieldset {
+	width: 380px;
+	padding: 0;
+	margin: auto;
+}
+.id {
+	overflow: hidden;
+	display: block;
+	width: 100%;
+	margin: 0 0 30px;
+	border: 0;
+	border-bottom: 1px solid #e6e6e6;
+    border-radius: 0;
+	color: #555;
+}
+.name {
+	overflow: hidden;
+	display: block;
+	width: 100%;
+	margin: 0 0 30px;
+	border: 0;
+	border-bottom: 1px solid #e6e6e6;
+    border-radius: 0;
+	color: #555;
+}
+input {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	padding: 6px 0 0 0;
+	border: 0 none;
+	color: #555;
+}
+.email {
+	overflow: hidden;
+    display: block;
+    width: 100%;
+    margin: 0 0 0;
+    border: 0;
+    border-bottom: 1px solid #e6e6e6;
+    border-radius: 0;
+    color: #555;
+}
+center {
+	display: block;
+    text-align: -webkit-center;
+    margin-top: 50px;
+}
+img, fieldset {
+	border: none;
+    vertical-align: top;
+}
+li {
+	list-style: none;
+}
+a, a:hover {
+    text-decoration: none;
+}
+.login fieldst > a {
+	 position: static;
+	 top: 0 ;
+	 right: 9px;
+}
+.login_box {
+	line-height: 18px;
+    font-weight: 300;
+    margin-top: 50px;
+}
+.btn_login {
+	width: 378px;
+    height: 48px;
+    line-height: 50px;
+    font-size: 15px;
+    display: block;
+    background-color: #333;
+    color: #fff;;
+    text-align: center;	
+    transition: all 0.5s;
+}

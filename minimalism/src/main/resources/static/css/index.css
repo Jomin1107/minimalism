@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+	html, body {
+		height: 100%;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		position: relative;
+	}
+	body {
+		flex: 1;
+	}
+	/* main의 내용이 적어도 한페이지에 공백을 채워서 footer가 하단에 고정 */
+	main {
+		margin-top: 100px;
+	}
+	/* input 중에 id가 trigger인 항목에 대한 css */
+	input[id=trigger] {
+	    display: none;
+	}
+	/* label 중에 for가 trigger인 항목 */
+	label[for=trigger] {
+	    /* border: 1px solid red; */
+	    width: 30px;
+	    height: 20px;
+	    display: block;
+	    position: relative;
+	    cursor: pointer;
+	}
+	/* label 중에 for가 trigger인 항목 안의 span */
+	label[for=trigger] span {
+	    display: block;
+	    height: 1px;
+	    background-color: #000;
+	    left: 0;
+	    width: 100%;
+	    position: absolute;
+	    transition: 0.5s;
+	    z-index: 1000; 
+	}
+	/* label[for=trigger] > span의 n번째 요소 */
+	label[for=trigger] span:nth-child(1) {
+	    top:0;
+	}
+	label[for=trigger] span:nth-child(2) {
+	    top:50%;
+	}
+	label[for=trigger] span:nth-child(3) {
+	    top:100%;
+	}
+	/* check시 변하는 label[for=trigger] > span의 n번째 요소  */
+	input[id=trigger]:checked + label span:nth-child(1) {
+	    top: 50%;
+	    transform: rotate(45deg);
+	}
+	
+	input[id=trigger]:checked + label span:nth-child(2) {
+	    opacity: 0;
+	}
+	
+	input[id=trigger]:checked + label span:nth-child(3) {
+	    top: 50%;
+	    transform: rotate(-45deg);
+	}
+	/* 사이드바 */
+	.sidebar {
+	    width: 400px;
+	    height: 100vh;
+	    background-color: white;
+		box-shadow: 0px 0px 0px 2px #EAEAEA;
+	    position: fixed;
+	    top: 0;
+	    left: 0;  
+	    left: -400px;
+	    transition: 0.5s;
+	}
+	/* input[id=trigger]가 체크되었을 때 사이드바가 나오는 형제 인접자, left:0을 줘서 원래 위치에 배치 */
+	input[id=trigger]:checked ~ .sidebar {
+	    left: 0;
+	}
+	/* check시 같이 밀려나가는 CSS 햄버거 메뉴 */
+	input[id=trigger]:checked + label[for=trigger] {
+	    left: 310px;
+	    transition: 0.5s;
+	}
+	div[class=sidebarList] {
+		margin-top: 100px;
+		margin-left: 80px;
+	}
+	label[class=list] {
+		margin-top: 30px;
+		margin-bottom: 10px;
+		font-size: 23px;
+		font-weight: normal;
+	}
+	a[class=a] {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 20px;
+		color: gray;
+		font-size: 18px;
+		font-weight: lighter;
+	}
+	ul {
+		list-style-type: none;
+		padding-right: 10px;
+		display: inline-block;
+	}
+	li {
+		display: inline-block;
+		font-size: 15px;
+		font-weight: normal;
+		vertical-align: middle;
+		padding-left: 30px;
+	}
+	a {
+		color: gray;
+		text-decoration: none;
+		vertical-align: middle;
+	}
+	a:hover {
+		color: black;
+		text-decoration: none;
+	}
+	/* footer */
+	.left-footer {
+		float: left;
+		padding: 50px;
+	}
+	.left-footer p {
+		font-weight: lighter;
+		font-size: 12px;
+		color: #5D5D5D;
+		margin-bottom: 5px;
+		letter-spacing : 2.5px;
+		line-height:20px;
+	}
+	.right-footer {
+		float: right;
+		padding: 50px;
+		margin-right: 230px;
+	}
+	.right-footer p {
+		font-weight: lighter;
+		font-size: 12px;
+		color: #5D5D5D;
+		margin-bottom: 5px;
+		letter-spacing : 2.5px;
+		line-height:20px;
+	}

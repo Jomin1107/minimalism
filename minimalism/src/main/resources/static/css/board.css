@@ -1,0 +1,83 @@
+@charset "UTF-8";
+	body {
+		  margin: 0px;
+	}
+	.flex-container {
+            display: flex;  /* 컨테이너들 수직정렬 */
+            justify-content: center;
+    }
+	div {
+		/* border: 1px solid black;   */
+	}
+	table {
+		   width: 70%;
+		   border-top: 1px solid black;
+		   border-bottom: 1px solid #d5d5d5;
+		   padding-top: 10px;
+		   padding-bottom: 10px;
+	}
+	table th {
+		font-weight: normal;
+		font-size: 12px;
+		padding: 10px;
+		text-align: center;
+	}
+	table td {
+		text-align: center;
+		padding-top: 8px;
+		padding-bottom: 8px;
+		font-size: 12px;
+	}
+	.flex-container.p {
+					   font-size: 23px;
+					   font-weight: lighter;
+					   padding: 50px;
+					   margin-top: 150px;
+	}
+	.flex-container.noticeListForm {
+								    height: 500px;
+								    margin-bottom: 5px;
+								    align-items: flex-start;
+	}
+	.flex-container.writebutton {
+		height: 50px;
+		justify-content: center;
+		margin-left: 1250px;
+	}
+	.flex-container.pageForm {
+							  height: 50px;
+							  margin-bottom: 5px;
+	}
+	.flex-container.searchForm {
+								height: 50px;
+								margin-bottom: 30px;
+								
+	}
+	.search {
+			padding-bottom: 5px;
+	}
+	select {
+			border-radius: 0px;
+			border: 1px solid #d5d5d5;
+			width: 90px;
+			height: 35px;
+			margin-top: -1px;
+	}
+	.search_box {
+		   border-radius: 0px;
+		   border: 1px solid #d5d5d5;
+		   width: 200px;
+		   height: 36px;
+		   padding: 5px;
+		   margin-top: -1px;
+    }
+    .submit_box {
+    			 border-radius: 0px;
+    			 border: 1px solid #d5d5d5;
+    			 width: 80px;
+    			 height: 37px;
+    			 background-color: black;
+    			 color: white;   
+    			 padding: 5px;
+    			 
+    }

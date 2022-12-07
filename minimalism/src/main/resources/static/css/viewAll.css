@@ -1,0 +1,55 @@
+@charset "UTF-8";
+	/* 내용 */
+	.area {
+		width: 1300px;
+		margin: auto;
+	}
+	.select_area {		
+   		margin-bottom: 30px;
+   		display: flex;
+   		justify-content: end;
+   		margin-right: 50px;
+	}
+	.select_box {
+		width: 90px;
+		height: 30px;
+	}
+	.cards_area {
+		margin: auto;
+	}
+	.card_area {
+		width: 340px;
+    	height: 500px;
+    	float: left;
+    	margin-left: 47px; 
+    	margin-right: 46px;    	    	
+    	margin-bottom: 100px;    	
+	}
+	.img_area {
+		width: 340px;
+    	height: 450px;
+    	display: flex;
+    	justify-content: space-between;
+	}
+	.card_body {
+		width: 340px;
+		height: 50px;
+		margin-top: 10px;
+	}
+	.card_price {
+		margin: 0;
+	}
+	.color {
+		font-size: 12px;
+	}
+	.pageForm {
+		margin-top: 50%;
+	}
+	.pages {
+		margin: auto;
+		width: max-content;
+	}
+	a {
+		margin: 2px;
+	}
+	

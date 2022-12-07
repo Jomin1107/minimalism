@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.minimalism.ProductMapper">
+	<select id="productTotal" resultType="int">
+		SELECT COUNT(*) FROM product
+	</select>
+	
+	<select id="jhViewAllList" parameterType="ProductDto" resultType="ProductDto">
+		SELECT *
+		FROM
+		(
+        	SELECT ROWNUM rn , a.*
+        	FROM 
+                (	SELECT i.stored_thumbnail, p.product_number, p.product_name, p.product_price, p.product_color 
+					FROM product p, product_img i
+					WHERE i.product_number = p.product_number
+					AND NOT i.stored_thumbnail IS NULL ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+<!-- Shoulder 갯수 -->
+	<select id="product1Total" resultType="int">
+		SELECT  COUNT(*)
+		FROM product
+		WHERE category_code LIKE '1%'
+	</select>
+	<!-- Shoulder -->
+	<select id="jhViewShoulderList" parameterType="ProductDto" resultType="ProductDto">
+	<![CDATA[
+		SELECT *
+		FROM
+		(
+        	SELECT ROWNUM rn , a.*
+        	FROM 
+                (	SELECT i.stored_thumbnail, p.product_number, p.product_name, p.product_price, p.product_color, c.category_code, c.category_name
+					FROM product p, product_img i, product_cate c
+					WHERE i.product_number = p.product_number
+					AND c.category_code=1000
+					AND i.product_number <2000 ) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	]]>
+	</select>
+	<!-- Cross 갯수 -->
+	<select id="product2Total" resultType="int">
+		SELECT  COUNT(*)
+		FROM product
+		WHERE category_code LIKE '2%'
+	</select>
+	<!-- Cross -->
+	<select id="jhViewCrossList" parameterType="ProductDto" resultType="ProductDto">
+	<![CDATA[
+		SELECT *
+		FROM
+		(
+        	SELECT ROWNUM rn , a.*
+        	FROM 
+                (	SELECT i.stored_thumbnail, p.product_number, p.product_name, p.product_price, p.product_color, c.category_code, c.category_name
+					FROM product p, product_img i, product_cate c
+					WHERE i.product_number = p.product_number
+					AND c.category_code=2000
+					AND i.product_number <3000
+					AND i.product_number >1999) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	]]>
+	</select>
+	<!-- Bucket 갯수 -->
+	<select id="product3Total" resultType="int">
+		SELECT  COUNT(*)
+		FROM product
+		WHERE category_code LIKE '3%'
+	</select>	
+	<!-- Bucket -->
+	<select id="jhViewBucketList" parameterType="ProductDto" resultType="ProductDto">
+	<![CDATA[
+		SELECT *
+		FROM
+		(
+        	SELECT ROWNUM rn , a.*
+        	FROM 
+                (	SELECT i.stored_thumbnail, p.product_number, p.product_name, p.product_price, p.product_color, c.category_code, c.category_name
+					FROM product p, product_img i, product_cate c
+					WHERE i.product_number = p.product_number
+					AND c.category_code=3000
+					AND i.product_number <4000
+					AND i.product_number >2999) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	]]>	
+	</select>
+	<!-- Tote 갯수 -->
+	<select id="product4Total" resultType="int">
+		SELECT  COUNT(*)
+		FROM product
+		WHERE category_code LIKE '4%'
+	</select>	
+	<!-- Tote -->
+	<select id="jhViewToteList" parameterType="ProductDto" resultType="ProductDto">
+	<![CDATA[
+		SELECT *
+		FROM
+		(
+        	SELECT ROWNUM rn , a.*
+        	FROM 
+                (	SELECT i.stored_thumbnail, p.product_number, p.product_name, p.product_price, p.product_color, c.category_code, c.category_name
+					FROM product p, product_img i, product_cate c
+					WHERE i.product_number = p.product_number
+					AND c.category_code=4000
+					AND i.product_number <5000
+					AND i.product_number >3999) a
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	]]>	
+	</select>
+	
+	<!-- 상품 상세조회 -->
+	<select id="hjProductOne"  parameterType="ProductDto" resultType="ProductDto">
+		SELECT 		i.stored_thumbnail stored_thumbnail, 
+		            p.product_number   product_number, 
+		            p.product_name     product_name, 
+		            p.product_price    product_price, 
+		            p.product_color    product_color
+		FROM 		product p, product_img i
+		WHERE 		i.product_number = p.product_number
+		AND         p.product_number   = #{product_number}
+	</select> 
+
+</mapper>

@@ -1,0 +1,30 @@
+@charset "UTF-8";
+	/* main */
+	div[id=map] {
+		width: 650px;
+		height: 250px;
+		margin: auto;
+		margin-top: 150px;
+	}
+	div[class=u] {
+		margin-bottom: 30px;
+		font-size: 23px;
+		color: gray;
+	}
+	div[class=box] {
+		width: 650px;
+		height: 200px;
+		margin: auto;
+		margin-top: 20px;
+	}
+	div[class=address] {
+		float: left;
+	}
+	div[class=strong] {
+		margin-bottom: 15px;
+		font-weight: lighter;
+	}
+	div[class=p] {
+		font-size: 12px;
+		font-weight: lighter;
+	}

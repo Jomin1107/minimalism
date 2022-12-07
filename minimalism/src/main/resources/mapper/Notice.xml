@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.minimalism.NoticeDtoMapper">
+
+	<!-- 목록구현 -->
+	<select id="hjNoticeTotal" resultType="int">
+		SELECT Count(*) FROM notice
+	</select>
+	<!-- 목록내용 -->
+	<select id="hjNoticeAll" parameterType="NoticeDto" resultType="NoticeDto">
+		<![CDATA[
+		SELECT * 
+		FROM
+        		(
+        		SELECT ROWNUM rn, a.*
+        		FROM
+                	(SELECT * FROM notice ORDER BY notice_id) a
+        		)
+		WHERE rn >=  #{start} 
+		AND   rn <=  #{end}
+		]]>
+	</select> 
+	
+	<!-- 검색기능 -->
+	<select id="hjNoticeTotalKeyword"  parameterType="NoticeDto"    resultType="int">
+		SELECT    Count(*)
+		FROM      notice
+		<choose>
+			<when test="search == 'notice_title' ">	
+   				WHERE     notice_title  LIKE '%' || #{keyword} || '%'  
+			</when>
+			<when test="search == 'notice_name' ">		
+ 				WHERE     notice_name   LIKE '%' || #{keyword} || '%'  
+			</when>
+		</choose>
+	</select>
+	
+	<select id="hjNoticeSearch" parameterType="NoticeDto" resultType="NoticeDto">
+		SELECT  notice_id, notice_title, notice_name
+		FROM
+				(
+				SELECT ROWNUM rn, a.*
+				FROM
+					(
+		
+		<choose>
+			<when test="search == 'notice_title' ">	
+                SELECT   notice_id, notice_title, notice_name
+                FROM 	 notice
+                WHERE    notice_title LIKE '%' || #{keyword} || '%'
+                ORDER BY notice_id) a
+			</when>
+			<when test="search == 'notice_name' ">		
+                SELECT   notice_id, notice_title, notice_name
+                FROM 	 notice
+                WHERE    notice_name LIKE '%' || #{keyword} || '%'
+                ORDER BY notice_id) a
+			</when>
+			<otherwise>
+				AND notice_title LIKE '%'
+			</otherwise>
+		</choose>
+					)
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	
+
+	
+	<!-- 상세보기 -->
+	<select id="hjNoticeDetail" parameterType="int" resultType="NoticeDto">
+		SELECT * FROM notice WHERE notice_id = #{notice_id}
+	</select>
+	
+	<!-- 내용 수정 -->
+	<update id="hjNoticeUpdate" parameterType="NoticeDto">
+		UPDATE notice SET notice_title = #{notice_title}, notice_content = #{notice_content}
+		WHERE  notice_id = #{notice_id}
+	</update>
+	
+	<!-- 내용 삭제 -->
+	<delete id="hjNoticeDelete" parameterType="int">
+		DELETE FROM notice WHERE notice_id = #{notice_id}
+	</delete>
+	
+
+</mapper>

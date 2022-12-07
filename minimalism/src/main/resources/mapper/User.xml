@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.oracle.minimalism.mapper.UserMapper"> 
+	<insert id="insert" parameterType="UserDto">
+	INSERT INTO USERS
+	(id,password,username,age,address1,address2,address3,phone,email,user_delete,role)
+	VALUES
+	(#{id} , #{password} , #{username} , #{age} , #{address1} , #{address2} , #{address3} , #{phone}, #{email} , #{user_delete} , #{role} )
+	</insert>
+	
+	<select id="login" resultType="UserDto">
+			SELECT * FROM USERS
+			WHERE id=#{id} AND password=#{password}
+	</select>
+	
+	<select id="findbyusername" resultType="UserDto">
+			SELECT * FROM USERS
+			WHERE username=#{username}
+	</select>
+	
+	<select id="findbyId" resultType="UserDto">
+			SELECT * FROM USERS
+			WHERE id=#{id}
+	</select>	
+	
+	<update id="update"  parameterType="UserDto">
+			UPDATE USERS SET
+		  	address1=#{address1}, address2=#{address2}, address3=#{address3}, phone=#{phone}, age=#{age}
+			WHERE id=#{id}
+	</update>
+	
+	<!-- 이메일 임시 비밀번호 전송 및 변경때 사용 -->
+	<update id="update1"  parameterType="UserDto"> 
+		UPDATE USERS SET
+		password=#{password}
+		WHERE id=#{id}
+	</update>
+</mapper>
