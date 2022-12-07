@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+	body {
+		margin: 0px;
+	}
+	.flex-container {
+    	display: flex;  /* 컨테이너들 수직정렬 */
+    	justify-content: center;
+    }
+    div {
+    	/* border: 1px solid black;  */
+    }
+    .flex-container.p {
+		font-size: 23px;
+		font-weight: lighter;
+		padding: 50px;
+		margin-top: 150px;
+	}
+	.flex-container.detailForm {
+		height: 650px;
+		margin-bottom: 10px;
+		align-items: flex-start;	
+	}
+	.flex-container.imgtablebox {
+		width: 480px;
+		height: 640px;
+	}
+	.imgtable {
+		/* border: 1px solid black; */
+		/* background-color: #000000; */
+		margin-left: 20px; 
+		
+	}
+	.imgtable img {
+		width: 480px;
+		height: 640px;
+	}
+	.flex-container.detailtablebox {
+		margin-top: 160px;
+	}
+	.detailtable {
+		/* border: 1px solid black; */
+		width: 500px;
+		height: 500px;
+		padding: 10px;	
+		margin-left: 20px; 
+	}
+	.detailtable th {
+		text-align: left;
+		padding-left: 10px;
+	}
+	.detailtable td {
+		height: 20px;
+		padding: 0px 5px 0px 5px;
+	}
+	select {
+			border-radius: 0px;
+			border: 1px solid #d5d5d5;
+			width: 90px;
+			height: 35px;
+			margin-top: -1px;
+	}
+	.submit_box {
+    			 border-radius: 0px;
+    			 border: 1px solid #d5d5d5;
+    			 width: 225px;
+    			 height: 50px;
+    			 background-color: black;
+    			 color: white;   
+    			 padding: 5px;		 
+    }
+    .return_box {
+    	border-radius: 0px;
+    	border: 1px solid #d5d5d5;
+    	width: 100px;
+    	height: 37px;
+    	background-color: white;
+    	color: black;   
+    	padding: 5px;
+    }
+    .line{
+		    width: 100%;
+		    border-top:1px solid #d5d5d5;  		
+  	}
+	.flex-container.productdescription {
+		margin-bottom: 5px;
+		padding: 5px; 
+		align-items: flex-start;
+	}
+	.descriptable {
+		border: 1px ridge ;
+		width: 1000px;  
+		padding: 5px;
+		text-align: center;
+	}
