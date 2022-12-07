@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/qnaWriteForm.css">
+<link rel="stylesheet" href="/css/reviewWriteForm.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>
@@ -38,7 +38,7 @@
             		</tr>
             		<tr>
                			<td colspan="2">
-               				<a href="http://localhost:8282/reviewChoiceForm" 
+               				<a href="http://localhost:5555/reviewChoiceForm" 
                				   onclick="window.open(this.href, '_blank', 'width=500px, height=500px, toolbars=no, scrollbars=yes'); return false;">
                      			<input class="productSubmit_box" type="submit" value="상품정보선택">            				
                				</a>
