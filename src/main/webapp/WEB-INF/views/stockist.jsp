@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/js/bootstrap.min.js">
-<link rel="stylesheet" href="/css/stockist.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/js/bootstrap.min.js">
+<link rel="stylesheet" type="text/css" href="/css/stockist.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>

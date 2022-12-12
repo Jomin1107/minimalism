@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/reviewWriteForm.css">
+<link rel="stylesheet" type="text/css" href="/css/reviewWriteForm.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>

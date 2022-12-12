@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호찾기</title>
-<link rel="stylesheet" href="/css/findPwForm.css">
+<link rel="stylesheet" type="text/css" href="/css/findPwForm.css">
 </head>
 <body>
 <main>

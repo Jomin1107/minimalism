@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<link rel="stylesheet" href="/css/join.css">
+<link rel="stylesheet" type="text/css" href="/css/join.css">
 <!-- 카카오 우편번호 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

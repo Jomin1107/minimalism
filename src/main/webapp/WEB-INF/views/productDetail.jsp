@@ -5,9 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Product Detail</title>
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/js/bootstrap.min.js">
-<link rel="stylesheet" href="/css/productDetail.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/resources/js/bootstrap.min.js">
+<link rel="stylesheet" type="text/css" href="/css/productDetail.css">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 	function changeAmount(){

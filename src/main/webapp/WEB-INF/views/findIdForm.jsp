@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디찾기</title>
-<link rel="stylesheet" href="/css/findIdForm.css">
+<link rel="stylesheet" type="text/css" href="/css/findIdForm.css">
 </head>
 <body>
 <main>

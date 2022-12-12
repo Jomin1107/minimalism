@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Notice</title>
-<link rel="stylesheet" href="/css/board.css">
+<link rel="stylesheet" type="text/css" href="/css/board.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>

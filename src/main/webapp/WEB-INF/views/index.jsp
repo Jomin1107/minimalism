@@ -10,9 +10,9 @@
 <meta charset="UTF-8">
 <title>minimalism</title>
 <!-- 부트스트랩 css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/js/bootstrap.min.js">
-<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/js/bootstrap.min.js">
+<link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
@@ -34,8 +34,8 @@
         		<div class="sidebar">
         			<div class="sidebarList">
 	        			<label class="list">MINIMALISM</label><br>
-		        			<a class="a" href="/about">About</a><br>
-		        			<a class="a" href="/stockist">Stockist</a><br>
+		        			<a class="a" href="/storeInfo/about">About</a><br>
+		        			<a class="a" href="/storeInfo/stockist">Stockist</a><br>
 	        			<label class="list">BAG</label><br>
 		        			<a class="a" href="/viewAll">View all</a><br>
 		        			<a class="a" href="/viewShoulder">Shoulder</a><br>

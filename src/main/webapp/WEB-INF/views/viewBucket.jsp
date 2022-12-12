@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>viewBucket</title>
-<link rel="stylesheet" href="/css/viewAll.css">
+<link rel="stylesheet" type="text/css" href="/css/viewAll.css">
 </head>
 <body>
 	<main>
