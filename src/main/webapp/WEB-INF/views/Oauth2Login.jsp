@@ -79,7 +79,7 @@ const autoHyphen2 = (target) => {
 	<div class="title">
 		<h2>추가 정보 입력</h2>
 	</div>
-	<form action="" method="post">
+	<form method="post">
 	  	<div class="join">
 	  		<fieldset>
 			  	<p class="info">기본정보</p>

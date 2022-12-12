@@ -11,7 +11,7 @@
 <title>minimalism</title>
 <!-- 부트스트랩 css-->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/js/bootstrap.min.js">
+<link rel="stylesheet" type="text/js" href="${pageContext.request.contextPath}/resources/js/bootstrap.min.js">
 <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
