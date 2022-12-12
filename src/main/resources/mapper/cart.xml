@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.minimalism.CartMapper">
+	<!-- 카트 추가 -->
+	<insert id="addCart" parameterType="CartDto">
+		insert 
+		into cart(cart_number, id, product_number, product_count)
+		values(cart_seq.nextval, #{id}, #{product_number}, #{product_count}) 
+	</insert>
+	
+	<!-- 카트 삭제 -->
+	<delete id="deleteCart" parameterType="CartDto">
+		delete 
+		from cart
+		where cart_number = #{cart_number}
+	</delete>
+	
+	<!-- 카트 수량 수정 -->
+	<update id="modifyCount" parameterType="CartDto">
+		update cart
+		set product_count = #{product_count}
+		where cart_number = #{cart_number}
+	</update>
+	
+	<!-- 카트 목록 -->
+	<select id="getCart" parameterType="String" resultType="CartDto">
+		select *
+		from  (select c.cart_number, c.id, c.product_number, c.product_count, p.product_name, p.product_color, p.product_price, i.stored_thumbnail
+		      from   product p, product_img i, cart c
+		      where  p.product_number = i.product_number
+		      and    p.product_number = c.product_number)
+		where id = #{id}
+	</select>
+	
+	<!-- 카트 확인 -->
+	<select id="checkCart" parameterType="CartDto" resultType="int">
+		select count(*)
+		from cart
+		where id = #{id} and product_number = #{product_number}
+	</select>
+
+	<!-- 카트 삭제 -->
+	<delete id="deleteOrderCart">
+		delete 
+		from cart 
+		where id = #{id} and product_number = #{product_number}
+	</delete>
+	
+	<!-- 카트 전체 삭제 -->
+	<delete id="deleteAllCart" parameterType="CartDto">
+		delete 
+		from cart
+		where id = #{id}
+	</delete>
+</mapper>

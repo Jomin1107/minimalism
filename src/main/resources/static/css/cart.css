@@ -118,6 +118,22 @@
 		background-color: #F6F6F6;
 		cursor: default;
 	}
+	.deleteAll {
+		display: flex;
+	}
+	.deleteAll_btn {
+		border: 1px solid #aaa;
+		background-color: white;
+		border-radius: 2px;
+		width: 150px;
+		margin-left: auto;
+		margin-bottom: 20px;
+	}
+	.deleteAll_btn:hover {
+		border: 1px solid #aaa;
+		background-color: #F6F6F6;
+		cursor: default;
+	}
 	.content_total_section {
 		background-color: #F6F6F6;
 	}		

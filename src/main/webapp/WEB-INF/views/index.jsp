@@ -66,7 +66,7 @@
 						<a href="/joinForm">JOIN</a>
 					</li>
 					<li class="nav-item">
-						<a href="">CART</a>
+						<a href="/cart/${loginUser.id}">CART</a>
 					</li>
 					</c:if>
 					<c:if test="${loginUser != null}">
@@ -78,7 +78,7 @@
 					</li>
 					
 					<li class="nav-item">
-						<a href="">CART</a>
+						<a href="/cart/${loginUser.id}">CART</a>
 					</li>			
 					</c:if>
 				</ul>

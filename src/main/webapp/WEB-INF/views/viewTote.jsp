@@ -22,7 +22,7 @@
 			<div class="cards_area">
 				<c:forEach var="product" items="${listviewTote}">
 					<div class="card_area">
-						<a href="">
+						<a href="/productDetail/${product.product_number}">
 						<div class="img_area">
 							<img src="${product.stored_thumbnail}" style="width: 340px; height: 450px;">
 						</div>
