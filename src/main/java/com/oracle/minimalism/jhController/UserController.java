@@ -62,6 +62,7 @@ public class UserController {
             /* 회원가입 실패시 입력 데이터 값을 유지 */
             model.addAttribute("user", user);
             
+            /* 유효성 검사에 실패한 필드 목록을 받음 */
             for (FieldError error : errors.getFieldErrors()) {
                 String validKeyName = String.format("valid_%s", error.getField());
                 model.addAttribute(validKeyName, error.getDefaultMessage());

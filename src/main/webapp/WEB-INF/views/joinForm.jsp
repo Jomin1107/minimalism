@@ -101,7 +101,7 @@ const autoHyphen2 = (target) => {
 						</tr>
 						<tr>    
 						    <th scope="row">비밀번호확인</th>
-						    <td><input type="password" class="passwordck" id="passwordck" >
+						    <td><input type="password" class="passwordck" id="passwordck" name="passwordck" >
 						    <div class="Msg" id="passwordckInvalid"></div>
 						    </td>
 						</tr>
