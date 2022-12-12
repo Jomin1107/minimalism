@@ -30,4 +30,11 @@ public class HomeController {
 		log.info("storeInfoStockist Start...");
 		return "/stockist";
 	}
+	
+	/* 회원정보 - mypageForm페이지연결 */
+	   @GetMapping(value = "/mypageForm")
+	   public String userMypageForm() {
+	      log.info("HomeController userMypageForm Start...");
+	      return "/mypageForm";
+	   }
 }

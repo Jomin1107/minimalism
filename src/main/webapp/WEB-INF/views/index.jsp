@@ -71,7 +71,7 @@
 					</c:if>
 					<c:if test="${loginUser != null}">
 					<li class="nav-item">
-						<a href="/mypageInfo">${loginUser.username}(${loginUser.id})</a>
+						<a href="/mypageForm">${loginUser.username}(${loginUser.id})</a>
 					
 					<li class="nav-item">
 						<a href="/logout">LOGOUT</a>
