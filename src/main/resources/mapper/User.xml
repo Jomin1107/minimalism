@@ -3,38 +3,70 @@
 
 
 <mapper namespace="com.oracle.minimalism.mapper.UserMapper"> 
-	<insert id="insert" parameterType="UserDto">
-	INSERT INTO USERS
-	(id,password,username,age,address1,address2,address3,phone,email,user_delete,role)
-	VALUES
-	(#{id} , #{password} , #{username} , #{age} , #{address1} , #{address2} , #{address3} , #{phone}, #{email} , #{user_delete} , #{role} )
-	</insert>
 	
+	<!-- 일반회원가입 -->
+	<insert id="join" parameterType="UserRequestDto">
+			INSERT INTO USERS
+			(id,password,username,age,address1,address2,address3,phone,email,user_delete,role)
+			VALUES
+			(#{id} , #{password} , #{username} , #{age} , #{address1} , #{address2} , #{address3} , #{phone}, #{email} , #{user_delete} , #{role} )
+	</insert>
+	<!-- 소셜회원가입 -->
+	<insert id="insert" parameterType="UserDto">
+			INSERT INTO USERS
+			(id,password,username,age,address1,address2,address3,phone,email,user_delete,role)
+			VALUES
+			(#{id} , #{password} , #{username} , #{age} , #{address1} , #{address2} , #{address3} , #{phone}, #{email} , #{user_delete} , #{role} )
+	</insert>	
+	<!-- 로그인 -->
 	<select id="login" resultType="UserDto">
 			SELECT * FROM USERS
 			WHERE id=#{id} AND password=#{password}
 	</select>
-	
+	<!-- 이름으로 찾기 -->
 	<select id="findbyusername" resultType="UserDto">
 			SELECT * FROM USERS
 			WHERE username=#{username}
 	</select>
-	
+	<!-- 아이디로 찾기 -->
 	<select id="findbyId" resultType="UserDto">
 			SELECT * FROM USERS
 			WHERE id=#{id}
-	</select>	
-	
+	</select>
+	<!-- 이메일로 찾기(이메일 중복확인용) -->
+	<select id="findbyEmail" resultType="UserDto">
+			SELECT * FROM USERS
+			WHERE email=#{email}
+	</select>
+	<!-- 소셜로그인시 추가정보 -->
 	<update id="update"  parameterType="UserDto">
 			UPDATE USERS SET
 		  	address1=#{address1}, address2=#{address2}, address3=#{address3}, phone=#{phone}, age=#{age}
 			WHERE id=#{id}
 	</update>
-	
 	<!-- 이메일 임시 비밀번호 전송 및 변경때 사용 -->
 	<update id="update1"  parameterType="UserDto"> 
-		UPDATE USERS SET
-		password=#{password}
-		WHERE id=#{id}
+			UPDATE USERS SET
+			password=#{password}
+			WHERE id=#{id}
 	</update>
+	<!-- 마이페이지 회원정보 수정 -->
+	<update id="mypageUpdate" parameterType="UserDto">
+			UPDATE USERS SET
+			username=#{username}, address1=#{address1}, address2=#{address2}, address3=#{address3}, phone=#{phone}, email=#{email} , password=#{password}
+			WHERE id=#{id}
+	</update>
+	<!-- 마이페이지 비밀번호 변경 -->
+	<update id="mypagePwUpdate" parameterType="UserDto">
+			UPDATE USERS SET
+			password=#{password}
+			WHERE id=#{id}
+	</update>
+	<!-- 회원탈퇴 / 데이터베이스에서 user_delete 를 0->1로 변경 -->
+	<update id="delete"  parameterType="UserDto">
+			UPDATE USERS SET
+			user_delete=#{user_delete}
+			WHERE id=#{id}
+	</update>
+	
 </mapper>

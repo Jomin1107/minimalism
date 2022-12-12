@@ -4,9 +4,10 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias alias="UserDto" type="com.oracle.minimalism.dto.UserDto" />
-		<typeAlias alias="ProductDto" type="com.oracle.minimalism.dto.ProductDto" />
-		<typeAlias alias="NoticeDto" type="com.oracle.minimalism.dto.NoticeDto"/>
-		<typeAlias alias="RnQDto" type="com.oracle.minimalism.dto.RnQDto"/>
+		<typeAlias alias="UserRequestDto" type="com.oracle.JH.dto.UserRequestDto" />
+		<typeAlias alias="UserDto" 		  type="com.oracle.minimalism.dto.UserDto" />
+		<typeAlias alias="ProductDto" 	  type="com.oracle.minimalism.dto.ProductDto" />
+		<typeAlias alias="NoticeDto" 	  type="com.oracle.minimalism.dto.NoticeDto"/>
+		<typeAlias alias="RnQDto" 		  type="com.oracle.minimalism.dto.RnQDto"/>
 	</typeAliases>
 </configuration>
