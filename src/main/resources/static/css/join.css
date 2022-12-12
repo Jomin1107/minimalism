@@ -51,6 +51,16 @@
 		background-color: rgb(234,234,234);
 		padding: 10px;
 	}
+	/* 중복아이디 존재하지 않는경우 */
+	.id_input_re_1{
+		color : green;
+		display : none;
+	}
+	/* 중복아이디 존재하는 경우 */
+	.id_input_re_2{
+		color : red;
+		display : none;
+	}
 	.msg {
 		font-size: 12px;
 		color: gray;
@@ -66,6 +76,11 @@
 	}
 	#address2, #address3 {
 		width: 40%;
+	}
+	/* 유효성검사 */
+	.Msg {
+		font-size: 13px;
+		color: red;
 	}
 	/* 약관동의 */
 	.TOS_box {

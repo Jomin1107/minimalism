@@ -7,8 +7,10 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="/css/join.css">
+<!-- 카카오 우편번호 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script> // 우편번호 API
+<script>
+/* 우편번호 API */
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -57,16 +59,27 @@ function sample6_execDaumPostcode() {
     }).open();    
 }
 </script>
+<script type="text/javascript">
+/* 핸드폰 자동 하이픈 */
+const autoHyphen2 = (target) => {
+	 target.value = target.value
+	   .replace(/[^0-9]/g, '')
+	  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+	}
+</script>
 </head>
 <body>
+<!-- 이용약관 아코디언 접었다 펴기 -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- 유효성검사 -->
+<script defer="defer" src="/js/userJoinForm.js"></script>
 <!------------------------------------------------------------->
 <main>
 	<div class="title">
 		<h2>회원가입</h2>
 	</div>
-	<form action="joinForm" method="post">
+	<form class="needs-validation" novalidate action="joinForm" method="post" name="userJoinForm">
 	  	<div class="join">
 	  		<fieldset>
 			  	<p class="info">기본정보</p>
@@ -74,38 +87,58 @@ function sample6_execDaumPostcode() {
 					<table>
 						<tr class="table_top">
 							<th scope="row">아이디<img src="//img.echosting.cafe24.com/skin/base_ko_KR/order/ico_required.gif" alt="변경불가"></th>
-		                	<td><input type="text" class="id" id="id" name="id" maxlength="15" required="required"><span class="msg">( 영문소문자/숫자, 4~15자 )</span></td>
+		                	<td><input type="text" class="" id="id" name="id">
+		                		<span class="msg" >(*중복불가) ( 영문소문자/숫자, 6~15자 ) </span> 
+		            			<div class="Msg" id="idInvalid">${valid_id}</div>
+		                	</td>
 		            	</tr>
 		            	<tr>
 						  	<th scope="row">비밀번호</th>
-						    <td><input type="password" class="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$" maxlength="15" required="required"><span class="msg" >( 영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10~15자 )</span></td>
+						    <td><input type="password" class="" id="password" name="password" value="${user.password}">
+						    	<span class="msg" >( 영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8~16자 )</span>
+						    	<div class="Msg">${valid_password}</div>
+						    </td>
 						</tr>
 						<tr>    
 						    <th scope="row">비밀번호확인</th>
-						    <td><input type="password" class="passwordchk" id="passwordchk" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$" required="required"></td>
+						    <td><input type="password" class="passwordck" id="passwordck" >
+						    <div class="Msg" id="passwordckInvalid"></div>
+						    </td>
 						</tr>
 						<tr>
 							<th scope="row">이름</th>
-						    <td><input type="text" class="username" id="username" name="username" required="required"></td>
+						    <td><input type="text" class="username" id="username" name="username" required="required" value="${user.username}">
+						    	<div class="Msg">${valid_username}</div>
+						    </td>
 						</tr>
 						<tr>
 							<th scope="row">생년월일<img src="//img.echosting.cafe24.com/skin/base_ko_KR/order/ico_required.gif" alt="변경불가"></th>
-							<td><input type="text" class="age" id="age" name="age" pattern="[0-9]{6}" maxlength="6" required="required" ></td>
+							<td><input type="text" class="age" id="age" name="age"  maxlength="6" required="required" value="${user.age}">
+								<span class="msg" >( 생년월일 6자리  ex)960520 )</span>
+								<div class="Msg">${valid_age}</div>
+							</td>
 						</tr>
 						<tr>
 					  		<th scope="row">주소</th>
-					      	<td><input type="text" id="address1" name="address1">
+					      	<td><input type="text" id="address1" name="address1" value="${user.address1}">
 							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호" required="required"><br>
-							<input type="text" id="address2" name="address2" required="required" ><span class="msg" >기본주소</span><br>
-							<input type="text" id="address3" name="address3" ><span class="msg">상세주소</span><br>
+							<input type="text" id="address2" name="address2" required="required" value="${user.address2}"><span class="msg" >기본주소</span><br>
+							<input type="text" id="address3" name="address3" value="${user.address3}"><span class="msg">상세주소</span><br>
+				   			<div class="Msg">${valid_address3}</div>
 				   		</tr>
 				   		<tr>
-				   			<th scope="row">전화번호</th>
-				   			<td><input type="text" class="phone" id="phone" name="phone" placeholder="010-XXXX-XXXX" maxlength="13" required="required"></td>
-				   		<tr>
-						     <th scope="row">이메일</th>
-						     <td><input type="email" class="email" id="email" name="email" placeholder="example@gmail.com" pattern="^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{3,3}$" required="required"></td>
+						    <th scope="row">이메일</th>
+						    <td><input type="email" class="" id="email" name="email" placeholder="example@gmail.com" required="required">
+						     	<span class="msg">( *중복불가 )</span> 
+						     	<div class="Msg" id="emailInvalid">${valid_email}</div>
+						    </td>
 						 </tr>
+				   		<tr>
+				   			<th scope="row">전화번호</th>
+				   			<td><input type="text" class="phone" id="phone" name="phone" oninput="autoHyphen2(this)" maxlength="13" placeholder="010-XXXX-XXXX" value="${user.phone}">
+				   			<div class="Msg">${valid_phone}</div>
+				   			</td>
+				   		</tr>			   		
 					</table>
 				<div class="TOS_area">
 			   	<p>약관동의</p>
@@ -122,7 +155,7 @@ function sample6_execDaumPostcode() {
 					      	제 1 장 총 칙<p><br>
 					      	
 							제 1 조 (목적)<br>
-							이 약관은 {COMPANY_NAME}(이하 "사이트"라 합니다)에서 제공하는 인터넷서비스(이하 "서비스"라 합니다)의 이용 조건 및 절차에 관한 기본적인 사항을 규정함을 목적으로 합니다.<p><br>
+							이 약관은 MINIMALISM (이하 "사이트"라 합니다)에서 제공하는 인터넷서비스(이하 "서비스"라 합니다)의 이용 조건 및 절차에 관한 기본적인 사항을 규정함을 목적으로 합니다.<p><br>
 							
 							제 2 조 (약관의 효력 및 변경)<br>
 							① 이 약관은 서비스 화면이나 기타의 방법으로 이용고객에게 공지함으로써 효력을 발생합니다.<br>
@@ -156,7 +189,7 @@ function sample6_execDaumPostcode() {
 	    		</div>
 	    		<input type="hidden" name="user_delete" value="0">
 			    <div class="submit">
-			      <button type="submit" id="submit">회원가입</button>
+			      <button type="submit" id="submit" class="submit_btn">회원가입</button>
 			    </div>
 			</fieldset>
 		 </div>

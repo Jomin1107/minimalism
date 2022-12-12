@@ -4,36 +4,37 @@ package com.oracle.minimalism.jhController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.oracle.minimalism.dto.MailDto;
 import com.oracle.minimalism.dto.UserDto;
+import com.oracle.minimalism.dto.UserRequestDto;
 import com.oracle.minimalism.jhService.UserService;
 import com.oracle.minimalism.mapper.UserMapper;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Controller 	// Spring MVC 컨테이너에서 관리하는 servlet
-@RequiredArgsConstructor // final 붙은 필드의 생성자를 자동으로 생성해주는 lombok 어노테이션
 public class UserController {
 	
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	private final UserService userService;
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	UserMapper usermapper;	
@@ -50,14 +51,26 @@ public class UserController {
                         //main을 제외한 나머지 코드가 정의되어 있기 때문에 따로 작성하지 않아도 된다.
         
     }
-	
-
 	// 회원가입
 	@GetMapping("/joinForm")
-	public void insert() {}
+	public void insert(){}
 	
 	@PostMapping("/joinForm")
-	public String insert(UserDto user, HttpSession session) {
+	public String insert(@Valid UserRequestDto user,Errors errors,Model model, HttpSession session) {
+				
+        if (errors.hasErrors()) {
+            /* 회원가입 실패시 입력 데이터 값을 유지 */
+            model.addAttribute("user", user);
+            
+            for (FieldError error : errors.getFieldErrors()) {
+                String validKeyName = String.format("valid_%s", error.getField());
+                model.addAttribute(validKeyName, error.getDefaultMessage());
+            }
+            
+            /* 회원가입 페이지로 다시 리턴 */
+            return "/joinForm";
+        }
+		
 		int insert = 0;
 		String msg = "";
 		String password = bCryptPasswordEncoder.encode(user.getPassword());
@@ -66,12 +79,12 @@ public class UserController {
 
 		System.out.println(user);
 		try {
-			insert= usermapper.insert(user);
+			insert = usermapper.join(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		if(insert > 0 )
+		if(insert > 0)
 		{
 			msg = "회원가입 성공";
 			session.setAttribute("msg", msg);
@@ -81,6 +94,47 @@ public class UserController {
 			session.setAttribute("msg", msg);
 			return "redirect:/joinForm";
 		}
+		
+	}
+	// 아이디 중복 검사
+	@PostMapping("/user/findid")
+	public @ResponseBody int userfindid(@RequestParam String id) {
+		System.out.println("id = " + id);
+		UserDto user = null;
+		
+		try {
+			user = usermapper.findbyId(id);
+			if(user != null)
+			{
+				return 1; // 중복되는 id가 있다면 1 반환
+			}else {
+				return 0; // 중복되는 id가 없다면 0 반환
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 2;
+	}
+	// 이메일 중복 검사
+	@PostMapping("/user/findemail")
+	public @ResponseBody int userfindemail(@RequestParam String email) {
+		System.out.println("email = " + email);
+		UserDto user = null;
+		
+		try {
+			user = usermapper.findbyEmail(email);
+			if(user != null)
+			{
+				return 1; // 중복되는 id가 있다면 1 반환
+			}else {
+				return 0; // 중복되는 id가 없다면 0 반환
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 2;
 	}
 	
 	// loginForm 이동
@@ -97,20 +151,32 @@ public class UserController {
 		return "redirect:/";
 	}
 	@PostMapping("/loginhelp")
-	public String loginhelp(HttpServletRequest request, HttpServletResponse response,HttpSession session, String username )
-	{			
-		String msg = "";
-		System.out.println("login: " + username);
-		UserDto user = usermapper.findbyId(username);
-		if(user != null)
-		{
-			msg = "로그인 완료";
-			session.setAttribute("loginUser", user);
-			session.setAttribute("msg", msg);
-		}
-		
-		return "redirect:/";
-	}
+	   public String loginhelp(HttpServletRequest request, 
+	                         HttpServletResponse response,
+	                         String username
+	                         )
+	   {         
+	      HttpSession session = request.getSession();
+	      String msg = "";
+	      System.out.println("login: " + username);
+	      UserDto user = usermapper.findbyId(username);
+	      // hj request
+	      String jspPage = (String) session.getAttribute("jspPage");
+	      System.out.println("jspPage: " + jspPage);
+
+	      if(user != null){
+	         msg = "로그인 완료";
+	         session.setAttribute("loginUser", user);
+	         session.setAttribute("msg", msg);
+	      }
+	      
+	      if (jspPage == null) {
+	         return "redirect:/";
+	      } else {
+	         return "redirect:/reviews";
+	      }
+	      
+	   }	
 	
 	// 소셜로그인
 	@GetMapping("/Oauth2Login/{username}")
@@ -133,7 +199,7 @@ public class UserController {
 	// 소셜로그인 (update후)
 	@GetMapping("/Oauth2Login")
 	public String oauth2Login(Model model, HttpSession session) {
-		UserDto user = (UserDto) session.getAttribute("oauth2Login");
+		UserDto user = (UserDto) session.getAttribute("oauth2Login"); // 
 		model.addAttribute("user",user);
 		return "/Oauth2Login";
 	}
@@ -176,7 +242,9 @@ public class UserController {
 				if(!email.equals(user.getEmail())) {
 					msg = "이메일을 잘못 입력하셨습니다."; // username은 있는대 데이터베이스에 이메일과 다를때
 				}else {
-					return "redirect:/foundIdForm/"+ user.getId(); // 둘다 맞을때
+					session.setAttribute("findUser", user);
+					return "redirect:/foundIdForm";
+					// return "redirect:/foundIdForm/"+ user.getId(); // 둘다 맞을때 
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -185,29 +253,36 @@ public class UserController {
 		session.setAttribute("msg", msg);
 		return "redirect:/findIdForm";
 	}
-	
-	@GetMapping("/foundIdForm/{Id}")
-	public String foundId(@PathVariable String Id, Model model) {
-		System.out.println("Id :" + Id);
-		UserDto user = null;
-		user = usermapper.findbyId(Id);
+	// 이름과 이메일 정보가 일치해서 찾은 id 불러오기
+	@GetMapping("/foundIdForm")
+	public String foundId(HttpSession session, Model model) {
+		UserDto user = (UserDto) session.getAttribute("findUser");
 		model.addAttribute("loginUser", user);
 		return "/foundIdForm";
 	}
-			
-	// 비번찾기
+	
+//			@GetMapping("/foundIdForm/{Id}")
+//			public String foundId(@PathVariable String Id, Model model) {
+//				System.out.println("Id :" + Id);
+//				UserDto user = null;
+//				user = usermapper.findbyId(Id);
+//				model.addAttribute("loginUser", user);
+//				return "/foundIdForm";
+//			}
+	
+	// 비밀번호찾기
 	@GetMapping("/findPwForm")
 	public void findPw() {}
 	
 	@PostMapping("/findPwForm")
-	public String findPw(String id, String email,String username, HttpSession session) {
+	public String findPw(String id, String email, String username, HttpSession session) {
 		System.out.println("userid: " +id );
 		System.out.println("email: " +email );
 		System.out.println("name: " + username);
 		
 		String msg = "";
 		
-		if(id == null && email == null && username == null)
+		if(id == null || email == null || username == null)
 		{
 			msg = "입력을 확인해주세요.";
 		}else	
@@ -230,7 +305,7 @@ public class UserController {
 		}
 		session.setAttribute("msg", msg);
 		return "redirect:/loginForm";
-	}	
+	}		
 	
 	// 로그아웃
 	@GetMapping("/logout.do")
@@ -250,6 +325,8 @@ public class UserController {
     	return "redirect:/loginForm";
     }
     
+    
+
 }
 
 

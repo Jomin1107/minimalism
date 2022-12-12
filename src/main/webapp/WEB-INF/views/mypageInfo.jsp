@@ -7,8 +7,10 @@
 <meta charset="UTF-8">
 <title>마이페이지수정</title>
 <link rel="stylesheet" href="/css/mypageInfo.css">
+<!-- 카카오 우편번호 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script> // 우편번호 API
+<script>
+/* 우편번호 API */
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -57,61 +59,71 @@ function sample6_execDaumPostcode() {
     }).open();    
 }
 </script>
+<script type="text/javascript">
+/* 핸드폰 자동 하이픈 */
+const autoHyphen2 = (target) => {
+	 target.value = target.value
+	   .replace(/[^0-9]/g, '')
+	  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+	}
+</script>
 </head>
 <body>
+<!-- 유효성검사 -->
+<script defer="defer" src="/js/userJoinForm.js"></script>
+<!------------------------------------------------------------->
 <main>
 	<div class="title">
 		<h2>회원정보수정</h2>
 	</div>
-	<form action="" method="post">
+	<form name="userJoinForm" method="post">
 	  	<div class="join">
 	  		<fieldset>
 			  	<p class="info">기본정보</p>
-			  	<p class="default"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/order/ico_required.gif" alt="변경불가">변경불가</p>
+			  	<p class="default"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/order/ico_required.gif" alt="변경불가">변경불가</p>					
 					<table>
 						<tr class="table_top">
 							<th scope="row">아이디<img src="//img.echosting.cafe24.com/skin/base_ko_KR/order/ico_required.gif" alt="변경불가"></th>
-		                	<td><input type="text" class="id" id="id" name="id"></td>
-		            	</tr>
-		            	<tr>
-						  	<th scope="row">비밀번호</th>
-						    <td><input type="password" class="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$" maxlength="15" required="required"><span class="msg" >( 영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10~15자 )</span></td>
-						</tr>
-						<tr>    
-						    <th scope="row">비밀번호확인</th>
-						    <td><input type="password" class="passwordchk" id="passwordchk" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$" required="required"></td>
-						</tr>
+		                	<td><input type="text" class="id" id="id" name="id" value="${loginUser.id}" disabled></td>
+		            	</tr>		            	
 						<tr>
 							<th scope="row">이름</th>
-						    <td><input type="text" class="username" id="username" name="username" required="required"></td>
+						    <td><input type="text" class="username" id="username" name="username" value="${loginUser.username}"></td>
 						</tr>
 						<tr>
 							<th scope="row">생년월일<img src="//img.echosting.cafe24.com/skin/base_ko_KR/order/ico_required.gif" alt="변경불가"></th>
-							<td><input type="text" class="age" id="age" name="age"></td>
+							<td><input type="text" class="age" id="age" name="age" value="${loginUser.age}" disabled></td>
 						</tr>
 						<tr>
 					  		<th scope="row">주소</th>
-					      	<td><input type="text" id="address1" name="address1">
+					      	<td><input type="text" id="address1" name="address1" value="${loginUser.address1}">
 							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호" required="required"><br>
-							<input type="text" id="address2" name="address2" required="required" ><span class="msg" >기본주소</span><br>
-							<input type="text" id="address3" name="address3" ><span class="msg">상세주소</span><br>
+							<input type="text" id="address2" name="address2" value="${loginUser.address2}" required="required" ><span class="msg" >기본주소</span><br>
+							<input type="text" id="address3" name="address3" value="${loginUser.address3}" ><span class="msg">상세주소</span><br>
 				   		</tr>
 				   		<tr>
 				   			<th scope="row">전화번호</th>
-				   			<td><input type="text" class="phone" id="phone" name="phone" placeholder="010-XXXX-XXXX" maxlength="13" required="required"></td>
+				   			<td><input type="text" class="phone" id="phone" name="phone" oninput="autoHyphen2(this)" placeholder="010-XXXX-XXXX" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${loginUser.phone}" required="required"></td>
 				   		<tr>
 						     <th scope="row">이메일</th>
-						     <td><input type="email" class="email" id="email" placeholder="example@gmail.com" pattern="^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{3,3}$" required="required"></td>
+						     <td><input type="email" class="email" id="email" name="email" placeholder="example@gmail.com" pattern="^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{3,3}$" value="${loginUser.email}" required="required"></td>
 						 </tr>
+						 <tr>
+						  	<th scope="row">비밀번호 확인</th>
+						    <td><input type="password" class="password" id="password" name="password" placeholder="현재 비밀번호 입력" required="required"></td>
+						</tr>
 					</table>
+					<input type="hidden" name="id" value="${loginUser.id}">
+					<input type="hidden" name="age" value="${loginUser.age}">
+	    			<input type="hidden" name="user_delete" value="0">
 			    <div class="submit">
 			      	<div class="submit_area">
-				      <button type="submit" id="submit" class="submit_btn">정보수정</button>
-				      <button type="submit" id="cancle" class="cancle_btn">취소</button>				
+				      <button type="submit" formaction="/mypageUpdate" id="submit" class="submit_btn">정보수정</button>
+				      <a href="/changePwForm" class="changePw_btn" style="font-size: 16px; padding:10.4px;" >비밀번호변경</a>				      				
 					    <div class="delete_btn_area">
-					   	  <button type="submit" id="delete" class="delete_btn">회원탈퇴</button>
+					   	  <button type="submit" formaction="/mypageDelete" class="delete_btn">회원탈퇴</button>
 				   		</div>
-				   	</div>
+				   	</div>				   	
 			    </div>
 			</fieldset>
 		 </div>
