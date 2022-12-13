@@ -8,21 +8,9 @@ public interface ProductDao {
 
 	int 				totalProduct(); // viewAll 갯수
 
-	List<ProductDto> 	listviewAll(ProductDto productDto);
+	List<ProductDto> 	listviewAll(ProductDto productDto, int value); //viewAll
 	
-	int 				totalProduct1(); // shoulder 갯수
+	int 				totalProduct1(int category); // 카테고리별 갯수
 
-	List<ProductDto> 	listviewShoulder(ProductDto productDto);
-	
-	int 				totalProduct2(); // cross 갯수	
-
-	List<ProductDto> 	listviewCross(ProductDto productDto);
-	
-	int 				totalProduct3(); // bucket 갯수
-	
-	List<ProductDto> 	listviewBucket(ProductDto productDto);
-	
-	int 				totalProduct4(); // tote 갯수
-
-	List<ProductDto> 	listviewTote(ProductDto productDto);
+	List<ProductDto> 	listviewCate(ProductDto productDto, int category, int value); // 카테고리별
 }

@@ -177,7 +177,7 @@
 			</table>		
 		</div>
 		<div class="flex-container listreturn">
-			<input class="return_box" type="button" value="목록" onclick="location.href='/viewAll'">
+			<input class="return_box" type="button" value="목록" onclick="location.href='/viewAll?currentPage=1&value=1&category=0'">
 		</div>
 	</div>
 </body>

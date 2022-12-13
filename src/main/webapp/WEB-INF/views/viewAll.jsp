@@ -7,16 +7,38 @@
 <meta charset="UTF-8">
 <title>viewAll</title>
 <link rel="stylesheet" type="text/css" href="/css/viewAll.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
+<script type="text/javascript">
+ function optionChange(){
+	 var value = $('#viewSelect').val();
+	 console.log(value);
+	 location.href = "/viewAll?currentPage="+ ${page.currentPage} + "&value=" + value + "&category=" + ${category};
+ }
+ var i = "${page.currentPage}";
+ console.log(i);
+</script>
 <body>
 	<main>
 		<div class="area">
 			<div class="select_area">
-			<select class="select_box">
+			<select class="select_box" id="viewSelect" onchange="optionChange();">
 				<option disabled="disabled">-정렬방식-</option>	
-				<option value="">신상품</option>
-				<option value="">낮은가격</option>
-				<option value="">높은가격</option>
+			<c:if test="${value == 1}">
+				<option value="1" selected="selected">신상품</option>
+				<option value="2">낮은가격</option>
+				<option value="3">높은가격</option>
+			</c:if>
+			<c:if test="${value == 2}">
+				<option value="1">신상품</option>
+				<option value="2" selected="selected">낮은가격</option>
+				<option value="3">높은가격</option>
+			</c:if>
+			<c:if test="${value == 3}">
+				<option value="1">신상품</option>
+				<option value="2">낮은가격</option>
+				<option value="3" selected="selected">높은가격</option>
+			</c:if>
 			</select>
 			</div>
 			<div class="cards_area">
@@ -39,13 +61,13 @@
 			<div class="pageForm">
 				<div class="pages">
 					<c:if test="${page.startPage > page.pageBlock}">
-						<a href="viewAll?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
+						<a href="viewAll?currentPage=${page.startPage - page.pageBlock}&value=${value}&category=${category}">[이전]</a>
 					</c:if>
 					<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-						<a href="viewAll?currentPage=${i}">[${i}]</a>
+						<a href="viewAll?currentPage=${i}&value=${value}&category=${category}">[${i}]</a>
 					</c:forEach>
 					<c:if test="${page.endPage < page.totalPage}">
-						<a href="viewAll?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
+						<a href="viewAll?currentPage=${page.startPage + page.pageBlock}&value=${value}&category=${category}">[다음]</a>
 					</c:if>
 				</div>
 			</div>

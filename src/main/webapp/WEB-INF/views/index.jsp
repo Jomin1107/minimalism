@@ -37,11 +37,11 @@
 		        			<a class="a" href="/storeInfo/about">About</a><br>
 		        			<a class="a" href="/storeInfo/stockist">Stockist</a><br>
 	        			<label class="list">BAG</label><br>
-		        			<a class="a" href="/viewAll">View all</a><br>
-		        			<a class="a" href="/viewShoulder">Shoulder</a><br>
-		        			<a class="a" href="/viewCross">Cross</a><br>
-		        			<a class="a" href="/viewBucket">Bucket</a><br>
-		        			<a class="a" href="/viewTote">Tote</a><br>
+		        			<a class="a" href="/viewAll?currentPage=1&value=1&category=0">View all</a><br>
+		        			<a class="a" href="/viewAll?currentPage=1&value=1&category=1">Shoulder</a><br>
+		        			<a class="a" href="/viewAll?currentPage=1&value=1&category=2">Cross</a><br>
+		        			<a class="a" href="/viewAll?currentPage=1&value=1&category=3">Bucket</a><br>
+		        			<a class="a" href="/viewAll?currentPage=1&value=1&category=4">Tote</a><br>
 	        			<label class="list">BOARD</label><br>
 		        			<a class="a" href="/notice">NOTICE</a><br>
 		        			<a class="a" href="/reviews">REVIEW</a><br>
