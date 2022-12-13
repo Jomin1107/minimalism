@@ -18,14 +18,14 @@ public class HomeController {
 	}
 	
 	/* 가게정보 - about페이지연결 */
-	@GetMapping(value = "storeInfo/about")
+	@GetMapping(value = "/about")
 	public String storeInfoAbout() {
 		log.info("storeInfoAbout Start...");
 		return "/about";
 	}
 	
 	/* 가게정보 - stockist페이지연결 */
-	@GetMapping(value = "storeInfo/stockist")
+	@GetMapping(value = "/stockist")
 	public String storeInfoStockist() {
 		log.info("storeInfoStockist Start...");
 		return "/stockist";

@@ -34,8 +34,8 @@
         		<div class="sidebar">
         			<div class="sidebarList">
 	        			<label class="list">MINIMALISM</label><br>
-		        			<a class="a" href="/storeInfo/about">About</a><br>
-		        			<a class="a" href="/storeInfo/stockist">Stockist</a><br>
+		        			<a class="a" href="/about">About</a><br>
+		        			<a class="a" href="/stockist">Stockist</a><br>
 	        			<label class="list">BAG</label><br>
 		        			<a class="a" href="/viewAll?currentPage=1&value=1&category=0">View all</a><br>
 		        			<a class="a" href="/viewAll?currentPage=1&value=1&category=1">Shoulder</a><br>
