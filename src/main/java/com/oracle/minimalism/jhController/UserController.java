@@ -200,7 +200,7 @@ public class UserController {
 	// 소셜로그인 (update후)
 	@GetMapping("/Oauth2Login")
 	public String oauth2Login(Model model, HttpSession session) {
-		UserDto user = (UserDto) session.getAttribute("oauth2Login"); // 
+		UserDto user = (UserDto) session.getAttribute("oauth2Login");
 		model.addAttribute("user",user);
 		return "/Oauth2Login";
 	}
@@ -236,7 +236,7 @@ public class UserController {
 			msg = "입력폼을 확인해주세요.";
 		}else {  
 			try {
-				user = usermapper.findbyusername(username); //이름을 이용해서 user를 가져옴
+				user = usermapper.findbyusername(username); // 이름을 이용해서 user를 가져옴
 				if(user == null) {
 					msg = "입력하신 정보가 없습니다."; // username이 없을때
 				}
