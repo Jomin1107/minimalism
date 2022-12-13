@@ -62,7 +62,7 @@ public class UserService {
     public void mailSend(MailDto mailDto){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailDto.getAddress());
-        message.setFrom("rlawlgus8649@naver.com");
+        message.setFrom("minimalism2022@naver.com");
         message.setSubject(mailDto.getTitle());
         message.setText(mailDto.getMessage());
         mailSender.send(message);
