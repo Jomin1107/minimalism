@@ -10,5 +10,6 @@
 		<typeAlias alias="CartDto" 		  type="com.oracle.minimalism.dto.CartDto"/>
 		<typeAlias alias="NoticeDto" 	  type="com.oracle.minimalism.dto.NoticeDto"/>
 		<typeAlias alias="RnQDto" 		  type="com.oracle.minimalism.dto.RnQDto"/>
+		<typeAlias alias="OrderDto"		  type="com.oracle.minimalism.dto.OrderDto"/>
 	</typeAliases>
 </configuration>

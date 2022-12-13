@@ -28,7 +28,7 @@
 	
 	// 서버로 전송할 데이터
 	const form = {
-		userId : '${loginUser.id}',
+		id : '${loginUser.id}',
 		product_number : '${product.product_number}',
 		product_count : ''
 	}
@@ -72,6 +72,7 @@
 			location.href = '/loginForm';
 		}
 	}
+	
 </script>
 </head>
 <body>
@@ -79,17 +80,18 @@
 		<div class="flex-container p">
 			<p>Product Detail</p>		
 		</div>
-		<form action="" name="frm">
+		<form action="/order/page" name="frm">
 			<div class="flex-container detailForm">
 				<div class="flex-container imgtablebox">
 					<table class="imgtable">
 						<tr>
-							<td style="width: 500 ">
+							<td style="width: 500">
 								<img src="${product.stored_thumbnail}">
 							</td>
 						</tr>				
 					</table>
 				</div>
+				<input type="hidden" id="selectProduct_number" name="product_number" value="${product.product_number}">
 				<div class="flex-container detailtablebox">
 					<table class="detailtable">
 						<tr>
@@ -116,7 +118,7 @@
 						<tr>
 							<th>수량</th>
 							<td>
-								<select id="selectAmount" class="quantity" name="quantity" required="required" onchange="changeAmount()">
+								<select id="selectAmount" class="quantity" name="product_count" required="required" onchange="changeAmount()">
 									<option selected="selected">선택</option>
 									<option>1</option>
 									<option>2</option>
