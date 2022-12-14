@@ -1,0 +1,102 @@
+@charset "UTF-8";
+/* main */
+	main[class="box"] {
+		margin: 150px 60px 50px 60px;
+	}
+	h4 {
+		text-align: center;
+		margin-bottom: 50px;
+	}
+	table {
+	 	border-collapse: collapse;
+	 	width: 100%;
+	}
+	.table_text_align_center {
+		text-align: center;
+	}	
+	.content_totalCount_section {
+	 	margin-bottom: 20px;
+	}
+	.subject_table {
+		font-size: 14px;
+	    width: 100%;
+	    line-height: 20px;
+	    text-align: center; 	
+	}
+	th {
+	    border-bottom: 1px solid #e7e7e7;
+	    border-top: 1px solid #e7e7e7;
+	    background: #F6F6F6;
+	    padding: 2px 0;	 
+	}
+	.subject_table tbody tr {
+		height: 150px;
+	}
+	.subject_table td {
+		border-bottom: 1px solid #e7e7e7;
+	}
+	.td_width_0 {
+		width: 0%;
+	}
+	.td_width_1 {
+		width: 5%;
+	}	 	 	 
+	.td_width_2 {
+		width: 10%;
+	}	 	 
+	.td_width_3 {
+		width: 15%;
+	}
+	.td_width_6 {
+		width: 30%;
+	}
+	input[class="individual_order_checkbox"] {
+		width: 15px;
+		height: 15px;
+		vertical-align: middle;
+	}	
+	.thumbnail {
+		height: 120px;
+		width: auto;
+	}
+	.quantity_div {
+		position: relative;
+	    width: 42px;
+		height: 25px;
+		margin: 5px auto;		
+	}
+	.quantity_input {
+		position: absolute;
+		width: 28px;
+		height: 25px;
+		text-align: center;
+		border: 1px solid #c6c6c6;
+		border-right: 0px;
+		line-height: 19px;
+		font-size: 12px;
+		left: 0;
+	}
+	.select_div {
+		height: 30px;
+	}
+	.select {
+		width: 100px;
+		height: 26px;
+		padding: 1px 5px;
+		font-size: 13px;
+	}
+	.table_text_align_center {
+		text-align: center;
+	}	
+	.cancle_btn {
+		border: 1px solid #aaa;
+		background-color: white;
+		border-radius: 2px;
+		width: 80px;
+	}
+	.cancle_btn:hover {
+		border: 1px solid #aaa;
+		background-color: #F6F6F6;
+		cursor: default;
+	}
+	
