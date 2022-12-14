@@ -1,6 +1,5 @@
 package com.oracle.minimalism.jhController;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -40,17 +39,17 @@ public class UserController {
 	UserMapper usermapper;	
 	
 	
-	@RequestMapping(value = "/jsp") //url pattern mapping
-	public String main() {
-		//Model : 데이터를 담는 그릇 역할, map 구조로 저장됨
-        // model.addattribute("변수명", 값)
-        // <beans:property name = "prefix" value="WEB-INF/views" />
-        // <beans:property name = "suffix" value = ".jsp" />
-        // /WEB-INF/ views/main.jsp
-        return "index"; //원래 코드는   "/WEB-INF/views/main.jsp"이지만 servlet-context에 
-                        //main을 제외한 나머지 코드가 정의되어 있기 때문에 따로 작성하지 않아도 된다.
-        
-    }
+//	@RequestMapping(value = "/jsp") //url pattern mapping
+//	public String main() {
+//		//Model : 데이터를 담는 그릇 역할, map 구조로 저장됨
+//        // model.addattribute("변수명", 값)
+//        // <beans:property name = "prefix" value="WEB-INF/views" />
+//        // <beans:property name = "suffix" value = ".jsp" />
+//        // /WEB-INF/ views/main.jsp
+//        return "index"; //원래 코드는   "/WEB-INF/views/main.jsp"이지만 servlet-context에 
+//                        //main을 제외한 나머지 코드가 정의되어 있기 때문에 따로 작성하지 않아도 된다.
+//        
+//    }
 	// 회원가입
 	@GetMapping("/joinForm")
 	public void insert(){}
@@ -161,10 +160,17 @@ public class UserController {
 	      String msg = "";
 	      System.out.println("login: " + username);
 	      UserDto user = usermapper.findbyId(username);
-	      // hj request
+
 	      String jspPage = (String) session.getAttribute("jspPage");
 	      System.out.println("jspPage: " + jspPage);
-
+	      
+	      if(user.getUser_delete() == 1)
+	      {
+	    	  msg = "이미 탈퇴한 회원입니다.";
+	    	  session.setAttribute("msg", msg);
+	    	  return "redirect:/loginForm";
+	      }
+	      
 	      if(user != null){
 	         msg = "로그인 완료";
 	         session.setAttribute("loginUser", user);
