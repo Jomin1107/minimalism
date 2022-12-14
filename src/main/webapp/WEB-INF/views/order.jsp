@@ -110,6 +110,7 @@ function sample6_execDaumPostcode() {
 				   		<tr>
 				   			<th scope="row">전화번호</th>
 				   			<td><input type="text" class="phone" id="phone" name="phone" oninput="autoHyphen2(this)" placeholder="010-XXXX-XXXX" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${loginUser.phone}" required="required"></td>
+						</tr>
 					</table>	
 			</div>
 			<div class="order">

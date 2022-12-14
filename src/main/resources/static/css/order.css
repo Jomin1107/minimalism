@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* main */
 	div[class="box"] {
-		width: 1000px;
+		width: 50%;
 		margin: 0 auto;
 	}
 	h4 {
@@ -31,7 +31,7 @@
 	}
 	/* 배송지 */
 	table {
-		width: 1000px;
+		width: 100%;
 		margin-bottom: 30px;
 		border: none;
 	}
@@ -63,8 +63,17 @@
 		height: 120px;
 		width: auto;
 	}
+	td {
+		font-weight: bold;
+    	border-bottom: thin;
+    	border-bottom-style: solid;
+    	border-bottom-color: #BDBDBD;
+	}
 	/* 주문 */
-	div[class="order"], div[class="pay"] {
+	div[class="order"] {
+		margin: 20px 40px;
+	}
+	div[class="pay"] {
 		border-bottom: thin;
 		border-bottom-style: solid;
 		border-bottom-color: #BDBDBD;
