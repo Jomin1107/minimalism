@@ -59,6 +59,16 @@ function sample6_execDaumPostcode() {
         }
     }).open();    
 }
+</script>
+<script type="text/javascript">
+	/* 핸드폰 자동 하이픈 */
+	const autoHyphen2 = (target) => {
+	    target.value = target.value
+	      .replace(/[^0-9]/g, '')
+	     .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+	}
+</script>
+<script type="text/javascript">
 
 //	$(document).ready(function() {
 //		setTotalInfo();
@@ -92,24 +102,28 @@ function sample6_execDaumPostcode() {
 	<main>
 		<div class="box">
 		<h4>ORDER</h4>
+		<form action="/order/create" id="orderForm" method="post">
 			<div class="delivery">
 				<div class="black">주문/결제</div>
 				<div class="title">배송지</div>
 					<table>
 						<tr>
 							<th scope="row">받는사람</th>
-							<td><input type="text" class="username" id="username" name="username" value="${loginUser.username}" required="required"></td>
+							<td>
+								<input type="hidden" name="id" value="${loginUser.id}">  
+								<input type="text" class="username" id="username" name="receiver_name" value="${loginUser.username}" required="required">
+							</td>
 						<tr/>
 						<tr>
 					  		<th scope="row">주소</th>
-					      	<td><input type="text" id="address1" name="address1" value="${loginUser.address1}">
+					      	<td><input type="text" id="address1" name="receiver_address1" value="${loginUser.address1}">
 							<input type="button" id="Abutton" onclick="sample6_execDaumPostcode()" value="우편번호" required="required"><br>
-							<input type="text" id="address2" name="address2" value="${loginUser.address2}" required="required" ><span class="msg" >기본주소</span><br>
-							<input type="text" id="address3" name="address3" value="${loginUser.address3}" ><span class="msg">상세주소</span><br>
+							<input type="text" id="address2" name="receiver_address2" value="${loginUser.address2}" required="required" ><span class="msg" >기본주소</span><br>
+							<input type="text" id="address3" name="receiver_address3" value="${loginUser.address3}" ><span class="msg">상세주소</span><br>
 				   		</tr>
 				   		<tr>
 				   			<th scope="row">전화번호</th>
-				   			<td><input type="text" class="phone" id="phone" name="phone" oninput="autoHyphen2(this)" placeholder="010-XXXX-XXXX" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${loginUser.phone}" required="required"></td>
+				   			<td><input type="text" class="phone" id="phone" name="receiver_phone" oninput="autoHyphen2(this)" placeholder="010-XXXX-XXXX" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${loginUser.phone}" required="required"></td>
 						</tr>
 					</table>	
 			</div>
@@ -122,15 +136,20 @@ function sample6_execDaumPostcode() {
 									<a href="/productDetail/${product.product_number}" class="thumbnail">
 										<img alt="product_img" src="${product.stored_thumbnail}" class="thumbnail">
 									</a>
+									<input type="hidden" name="product_number" value="${product.product_number}">
 								</td>
 								<td class="line">
 									<a href="/productDetail/${product.product_number}">${product.product_name}</a><br>
 									${product.product_color}
 								</td>
 								<td class="line">
+									<input type="hidden" name="product_price" value="${product.product_price}">
 									<fmt:formatNumber value="${product.product_price}" pattern="#,###원"/>
 								</td>
-								<td class="line">주문수량 : ${order.product_count} 개</td>
+								<td class="line">
+									<input type="hidden" name="product_count" value="${order.product_count}">
+									주문수량 : ${order.product_count} 개
+								</td>
 							</tr>
 						<%-- </c:forEach> --%>
 					</table>
@@ -148,11 +167,12 @@ function sample6_execDaumPostcode() {
 						</p> 
 					</div>
 				<div class="black">
-					<a class="pay" href="">
+					<a class="pay" onclick="$('#orderForm').submit()">
 						<fmt:formatNumber value="${product.product_price * order.product_count}" pattern="#,###원"/> 결제하기
 					</a>
 				</div>
 			</div>
+			</form>
 		</div>
 	</main>
 </body>

@@ -3,5 +3,18 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.oracle.minimalism.OrderMapper">
+	<!-- 주문 추가 -->
+	<insert id="createOrder" parameterType="OrderDtoVO" useGeneratedKeys="true" keyColumn="order_number" keyProperty="order_number">
+		insert 
+		into orders(order_number, id, order_date, receiver_address1, receiver_address2, receiver_address3, receiver_name, receiver_phone, order_status) 
+		values(order_seq.nextval, #{id}, sysdate, #{receiver_address1}, #{receiver_address2}, #{receiver_address3}, #{receiver_name}, #{receiver_phone}, 1)
+	</insert>
+	
+	<!-- 주문 상세 추가 -->
+	<insert id="createDetailOrder" parameterType="OrderDtoVO">
+		insert
+		into order_detail(order_number, order_detail_number, product_number, product_count, product_price, refund_check)
+		values(#{order_number}, order_seq.nextval, #{product_number}, #{product_count}, #{product_price}, 1)
+	</insert>
 
 </mapper>

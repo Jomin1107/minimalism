@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import com.oracle.minimalism.dto.OrderDto;
+import com.oracle.minimalism.dto.OrderDtoVO;
 import com.oracle.minimalism.dto.ProductDto;
 import com.oracle.minimalism.dto.UserDto;
 import com.oracle.minimalism.hjService.ProductDetailService;
@@ -22,7 +23,6 @@ public class OrderController {
 	@Autowired
 	private ProductDetailService productService;
 	
-	
 	/* 주문 페이지 이동 */
 	@GetMapping("/order")
 	public String orderPage() {
@@ -32,16 +32,15 @@ public class OrderController {
 	}
 	
 	@GetMapping("/order/page")
-	public String orderPageGET(OrderDto orderDto, Model model, HttpSession session) {
+	public String orderPageGET(OrderDtoVO orderVo, Model model, HttpSession session) {
 		System.out.println("OrderController orderPageGET 실행");
-		System.out.println("id => " + orderDto.getId());
-		System.out.println("getProduct_number => " + orderDto.getProduct_number());
-		System.out.println("getProduct_count => " + orderDto.getProduct_count());
+		System.out.println("getProduct_number => " + orderVo.getProduct_number());
+		System.out.println("getProduct_count => " + orderVo.getProduct_count());
 		
 		ProductDto productDto = new ProductDto();
-		productDto.setProduct_number(orderDto.getProduct_number());
+		productDto.setProduct_number(orderVo.getProduct_number());
 		model.addAttribute("product", productService.productDetail(productDto));
-		model.addAttribute("order", orderDto);
+		model.addAttribute("order", orderVo);
 		
 		UserDto user = (UserDto) session.getAttribute("loginUser");
     	String msg;
@@ -51,7 +50,27 @@ public class OrderController {
     		return "/loginForm";
     	}
 		return "/order";
+	}
+	
+	/* 주문하기 */
+	@PostMapping("/order/create")
+	public String createOrder(OrderDtoVO order, HttpSession session) {
+		System.out.println("OrderController createOrder 실행");
+		System.out.println("orderDto => " + order);
 		
+		int result = orderService.createOrder(order);
+		System.out.println("result => " + result);
+		
+		String msg;
+		if(result == 0) {
+			msg = "결제에 실패하였습니다.";
+			session.setAttribute("msg", msg);
+			return "/order/page";
+		} else {
+			msg = "결제가 완료되었습니다.";
+			session.setAttribute("msg", msg);
+			return "redirect:/";
+		}
 	}
 	
 }
