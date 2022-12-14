@@ -222,7 +222,7 @@
 		<c:if test="${empty cartInfo}">
 			<div class="content_total_section" style="background-color: white;">			
 				<div class="content_btn_section"> 
-					<a href="/viewAll" class="shopping">쇼핑하러가기</a>
+					<a href="/viewAll?currentPage=1&value=1&category=0" class="shopping">쇼핑하러가기</a>
 				</div>
 			</div>
 		</c:if>
