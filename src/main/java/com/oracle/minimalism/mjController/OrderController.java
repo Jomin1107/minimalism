@@ -46,7 +46,7 @@ public class OrderController {
 		UserDto user = (UserDto) session.getAttribute("loginUser");
     	String msg;
     	if(user == null) {
-    		msg = "로그인 시간이 만료 되었습니다.";
+    		msg = "로그인이 필요한 서비스입니다.";
     		session.setAttribute("msg", msg);
     		return "/loginForm";
     	}

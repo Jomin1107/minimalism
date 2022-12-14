@@ -17,13 +17,17 @@
 	    var selectPrice = $("#productPrice").val();
 	    //alert('selectPrice->'+selectPrice);
 	    var showPrice = Number(selectValue) * selectPrice;
-	    
 	    //alert('showPrice->'+showPrice);
 	    // input태그
 	    //  $('#total_amount').val(showPrice);
 	    // div태그
-	    $('#totalPrice').html(showPrice.toLocaleString('en-US'));
-	    $('#totalCount').html(selectValue);
+	    if(selectValue == '선택') {
+	    	$('#totalPrice').html(0);
+	    	$('#totalCount').html(0);
+	    } else {
+		    $('#totalPrice').html(showPrice.toLocaleString('en-US'));
+		    $('#totalCount').html(selectValue);
+	    }
 	}
 	
 	// 서버로 전송할 데이터
@@ -72,7 +76,16 @@
 			location.href = '/loginForm';
 		}
 	}
-	
+ 	
+	function chk() {
+		var selectValue = selectAmount.options[selectAmount.selectedIndex].value;
+		
+		if(selectValue == '선택') {
+			alert("수량을 선택해주세요.");
+			return false;
+		} 
+		return true;
+	} 
 </script>
 </head>
 <body>
@@ -80,7 +93,7 @@
 		<div class="flex-container p">
 			<p>Product Detail</p>		
 		</div>
-		<form action="/order/page" name="frm">
+		<form action="/order/page" onsubmit="return chk()">
 			<div class="flex-container detailForm">
 				<div class="flex-container imgtablebox">
 					<table class="imgtable">
@@ -146,7 +159,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input class="submit_box" type="submit" value="BUY">
+								<input class="submit_box" id="btn_buy" type="submit" value="BUY">
 							</td>
 							<td>
 								<input class="submit_box" id="btn_cart" type="button" value="CART">

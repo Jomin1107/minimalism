@@ -18,8 +18,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		                        .excludePathPatterns("/cart/add", "/cart/update");    // /cart/add, /cart/update 경로는 인터셉터가 가로채지 않는다
 		
 		registry.addInterceptor(new OrderInterceptor())
-								.addPathPatterns("/order/**");  // "/order" url을 타는 모든 요청이 OrderInterceptor를 거친다
-						        //.excludePathPatterns("/order");
+								.addPathPatterns("/order/**")  // "/order" url을 타는 모든 요청이 OrderInterceptor를 거친다
+						        .excludePathPatterns("/order/page");
 	}
 	
 	
