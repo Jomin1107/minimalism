@@ -118,19 +118,19 @@ function sample6_execDaumPostcode() {
 					<table>
 						<%-- <c:forEach items="${product}"> --%>
 							<tr class="product">
-								<td>
+								<td class="line">
 									<a href="/productDetail/${product.product_number}" class="thumbnail">
 										<img alt="product_img" src="${product.stored_thumbnail}" class="thumbnail">
 									</a>
 								</td>
-								<td>
+								<td class="line">
 									<a href="/productDetail/${product.product_number}">${product.product_name}</a><br>
 									${product.product_color}
 								</td>
-								<td>
+								<td class="line">
 									<fmt:formatNumber value="${product.product_price}" pattern="#,###원"/>
 								</td>
-								<td>주문수량 : ${order.product_count} 개</td>
+								<td class="line">주문수량 : ${order.product_count} 개</td>
 							</tr>
 						<%-- </c:forEach> --%>
 					</table>

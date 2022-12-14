@@ -63,7 +63,7 @@
 		height: 120px;
 		width: auto;
 	}
-	td {
+	td[class="line"] {
 		font-weight: bold;
     	border-bottom: thin;
     	border-bottom-style: solid;
