@@ -69,6 +69,15 @@ function sample6_execDaumPostcode() {
 	}
 </script>
 <script type="text/javascript">
+function chk() {
+	var phone = $("#phone").val();
+	//길이 확인
+	if(phone.length < 13) {
+		alert("올바르지 않은 전화번호 입니다.");
+		return false;
+	}
+	return true;
+} 
 
 //	$(document).ready(function() {
 //		setTotalInfo();
@@ -102,7 +111,7 @@ function sample6_execDaumPostcode() {
 	<main>
 		<div class="box">
 		<h4>ORDER</h4>
-		<form action="/order/create" id="orderForm" method="post">
+		<form action="/order/create" id="orderForm" method="post" onsubmit="return chk()">
 			<div class="delivery">
 				<div class="black">주문/결제</div>
 				<div class="title">배송지</div>
@@ -167,7 +176,7 @@ function sample6_execDaumPostcode() {
 						</p> 
 					</div>
 				<div class="black">
-					<a class="pay" onclick="$('#orderForm').submit()">
+					<a class="pay" onclick="$('#orderForm').submit()" >
 						<fmt:formatNumber value="${product.product_price * order.product_count}" pattern="#,###원"/> 결제하기
 					</a>
 				</div>
