@@ -58,4 +58,19 @@ public class OrderDaoImpl implements OrderDao {
 			}
 			return orderDetail;
 		}
+
+		@Override
+		public int cancleOrder(OrderDto order) {
+			System.out.println("OrderDaoImpl cancleOrder 실행");
+			System.out.println("OrderDaoImpl cancleOrder order.getOrder_number() => " + order.getOrder_number());
+			
+			int cancleOrder = 0;
+			try {
+				cancleOrder = session.update("cancleOrder", order);
+				session.update("cancleDetailOrder", order);
+			} catch (Exception e) {
+				System.out.println("OrderDaoImpl cancleOrder Exception => " + e.getMessage());
+			}
+			return cancleOrder;
+		}
 }

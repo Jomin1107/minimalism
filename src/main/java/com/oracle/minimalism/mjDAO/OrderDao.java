@@ -16,4 +16,7 @@ public interface OrderDao {
 	/* 주문상세조회 */
 	OrderDto orderOneDetail(OrderDto orderDto);
 
+	/* 주문 취소 */
+	int cancleOrder(OrderDto order);
+
 }

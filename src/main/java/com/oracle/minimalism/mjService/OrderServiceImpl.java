@@ -42,4 +42,11 @@ public class OrderServiceImpl implements OrderService {
 		
 		return orderDetail;
 	}
+
+	@Override
+	public int cancleOrder(OrderDto order) {
+		System.out.println("OrderServiceImpl cancleOrder 실행");
+		
+		return orderDao.cancleOrder(order);
+	}
 }

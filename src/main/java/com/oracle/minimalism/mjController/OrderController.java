@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracle.minimalism.dto.OrderDto;
 import com.oracle.minimalism.dto.OrderDtoVO;
@@ -103,5 +104,18 @@ public class OrderController {
 		model.addAttribute("order", orderDetail);
 		
 		return "/orderDetail";
+	}
+	
+	/* 주문 취소 */
+	@PostMapping("/order/cancle")
+	@ResponseBody
+	public String cancleOrderPOST(OrderDto order) {
+		System.out.println("OrderController cancleOrderPOST 실행");
+		System.out.println("OrderController cancleOrderPOST order.getOrder_number() ->" + order.getOrder_number());
+		
+		int cancleCount = orderService.cancleOrder(order);
+		String cancleCntStr = String.valueOf(cancleCount);
+		
+		return cancleCntStr;
 	}
 }

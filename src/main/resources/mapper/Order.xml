@@ -45,4 +45,18 @@
 		      and   o.id = u.id)
 		where order_number = #{order_number}
 	</select>
+	
+	<!-- 주문 취소 -->
+	<update id="cancleOrder" parameterType="OrderDto">
+		update orders
+		set    order_status = 5
+		where  order_number = #{order_number}
+	</update>
+	
+	<!-- 주문상세 취소 -->
+	<update id="cancleDetailOrder" parameterType="OrderDto">
+		update order_detail
+		set    refund_check = 5
+		where  order_number = #{order_number}
+	</update>
 </mapper>

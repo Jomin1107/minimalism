@@ -15,4 +15,7 @@ public interface OrderService {
 	/* 주문 상세 조회 */
 	OrderDto orderDetail(OrderDto orderDto);
 
+	/* 주문 취소 */
+	int cancleOrder(OrderDto order);
+
 }
