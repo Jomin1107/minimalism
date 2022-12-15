@@ -11,7 +11,7 @@
 <body>
 <main>
 	<div class="title">
-		<h2>비밀번호찾기</h2>
+		<h2>FIND PW</h2>
 	</div>
 	<form action="" method="post">
 		<div class="login">

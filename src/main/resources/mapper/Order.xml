@@ -14,7 +14,35 @@
 	<insert id="createDetailOrder" parameterType="OrderDtoVO">
 		insert
 		into order_detail(order_number, order_detail_number, product_number, product_count, product_price, refund_check)
-		values(#{order_number}, order_seq.nextval, #{product_number}, #{product_count}, #{product_price}, 1)
+		values(#{order_number}, (SELECT NVL(MAX(order_detail_number), 0) + 1
+								 FROM   order_detail
+								 WHERE  order_number = #{order_number}), #{product_number}, #{product_count}, #{product_price}, 1)
 	</insert>
 
+	<!-- 주문목록 리스트 -->
+	<select id="getOrder" parameterType="String" resultType="OrderDto">
+		select *
+		from
+		    (select o.order_number, o.id, o.order_date, d.product_number, d.product_count, p.product_name, p.product_color, d.product_price, i.stored_thumbnail, o.order_status, d.refund_check
+		     from   product p, product_img i, orders o, order_detail d
+		     where  o.order_number   = d.order_number
+		     and    d.product_number = p.product_number
+		     and    p.product_number = i.product_number)
+		where id = #{id}
+	</select>
+	
+	<!-- 주문상세조회 -->
+	<select id="orderOneDetail" parameterType="OrderDto" resultType="OrderDto">
+		select *
+		from 
+		     (select o.order_number, o.order_date, o.receiver_name, o.receiver_address1, o.receiver_address2, o.receiver_address3, o.receiver_phone, o.order_status,
+		             d.order_detail_number, d.product_number, d.product_count, d.product_price, d.refund_check,
+		             p.product_name, p.product_color, u.username, i.stored_thumbnail
+		      from  product p, product_img i, orders o, order_detail d, users u
+		      where o.order_number = d.order_number
+		      and   d.product_number = p.product_number
+		      and   p.product_number = i.product_number
+		      and   o.id = u.id)
+		where order_number = #{order_number}
+	</select>
 </mapper>

@@ -57,7 +57,7 @@
 			<ul class="con">
 				<li class="content">
 					<img src="img/userOrder.PNG" class="img">
-					<a href="/orderList">
+					<a href="/order/list/${loginUser.id}">
 						<strong class="content">Order</strong>
 						<span class="item">주문내역 조회</span>
 					</a>

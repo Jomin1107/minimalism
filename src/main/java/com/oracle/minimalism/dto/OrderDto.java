@@ -18,6 +18,14 @@ public class OrderDto {
 	
 	private int    product_number;      // 상품번호
 	private int    product_count;       // 상품수량
+	private int    product_price;       // 상품가격 
+	private String product_name;        // 상품이름
+	private String product_color;       // 상품색상
 	
+	private int    refund_check;        // 취소여부
+	
+	private String stored_thumbnail;    // 상품이미지
+	
+	private String username;
 }
 

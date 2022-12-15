@@ -74,7 +74,7 @@ const autoHyphen2 = (target) => {
 <!------------------------------------------------------------->
 <main>
 	<div class="title">
-		<h2>회원정보수정</h2>
+		<h2>MY INFORMATION</h2>
 	</div>
 	<form name="userJoinForm" method="post">
 	  	<div class="join">

@@ -77,7 +77,7 @@ const autoHyphen2 = (target) => {
 <!------------------------------------------------------------->
 <main>
 	<div class="title">
-		<h2>회원가입</h2>
+		<h2>JOIN</h2>
 	</div>
 	<form class="needs-validation" novalidate action="joinForm" method="post" name="userJoinForm">
 	  	<div class="join">

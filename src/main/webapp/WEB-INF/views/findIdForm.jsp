@@ -11,7 +11,7 @@
 <body>
 <main>
 	<div class="title">
-		<h2>아이디찾기</h2>
+		<h2>FIND ID</h2>
 	</div>
 	<form action="/findIdForm" method="post">
 		<div class="login">
