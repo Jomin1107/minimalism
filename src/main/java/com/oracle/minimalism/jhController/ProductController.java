@@ -25,10 +25,10 @@ public class ProductController {
 	
 	
 	// 제품 전체 불러오기
-	@GetMapping(value = "/viewAll") // get, post mapping
-	public String ListviewAll( ProductDto productDto, String currentPage ,int value,int category, Model model) {
+	@GetMapping(value = "/viewAll")
+	public String ListviewAll( ProductDto productDto, String currentPage, int value, int category, Model model) {
 		
-		// 0 전체 1 숄더  2 크로스 3 버킷 4 토드
+		// 0 전체  1 숄더  2 크로스 3 버킷  4 토드
 		int totalProduct = 0;
 		if(category == 0)
 		{
@@ -45,7 +45,6 @@ public class ProductController {
 		
 		// Paging 작업  -> 모듈화를 시켜놓음으로써 어디서든 paging 처리를 할 수 있음
 		ViewPaging page = new ViewPaging(totalProduct, currentPage);
-		// Parameter emp --> Page만 추가 Setting
 		productDto.setStart(page.getStart());  // 시작시 1
 		productDto.setEnd(page.getEnd());  	// 종료시 6
 		List<ProductDto> listviewAll = null;
@@ -67,8 +66,9 @@ public class ProductController {
 		model.addAttribute("productTotal"	, totalProduct);
 		model.addAttribute("listviewAll"	, listviewAll);
 		model.addAttribute("page"			, page);
-		model.addAttribute("value", valueck);
-		model.addAttribute("category", categoryck);
+		model.addAttribute("value"			, valueck);
+		model.addAttribute("category"		, categoryck);
+		
 		return "/viewAll";
 	}
 	

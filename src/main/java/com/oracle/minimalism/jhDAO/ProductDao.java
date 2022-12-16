@@ -8,7 +8,7 @@ public interface ProductDao {
 
 	int 				totalProduct(); // viewAll 갯수
 
-	List<ProductDto> 	listviewAll(ProductDto productDto, int value); //viewAll
+	List<ProductDto> 	listviewAll(ProductDto productDto, int value); // viewAll
 	
 	int 				totalProduct1(int category); // 카테고리별 갯수
 

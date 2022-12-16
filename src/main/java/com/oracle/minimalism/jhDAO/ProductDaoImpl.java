@@ -37,24 +37,21 @@ public class ProductDaoImpl implements ProductDao {
 		List<ProductDto> viewAllList = null;
 		System.out.println("ProductDaoImpl listviewAll Start...");
 		try {
-			//									Map ID			parameter
-			
+			//										Map ID			parameter			
 			if(value == 2) // 낮은 가격
 			{
 				viewAllList = session.selectList("jhViewLowPrice" , productDto); // 여러개면 selectList, 하나면 selectOne
 			}else if(value == 3) // 높은 가격
 			{
-				viewAllList = session.selectList("jhViewHighPrice" , productDto); // 여러개면 selectList, 하나면 selectOne
-			}else 
+				viewAllList = session.selectList("jhViewHighPrice" , productDto);
+			}else  // 신상품
 			{
-				viewAllList = session.selectList("jhViewAllList" , productDto); // 여러개면 selectList, 하나면 selectOne
-			}
-			
-			// viewAllList = session.selectList("jhViewAllList" , productDto); // 여러개면 selectList, 하나면 selectOne
+				viewAllList = session.selectList("jhViewAllList" , productDto);
+			}			
 			System.out.println("ProductDaoImpl listviewAll viewAllList.size()->"+viewAllList.size());
 		} catch (Exception e) {
 			System.out.println("ProductDaoImpl listviewAll e.getMessage()->"+e.getMessage());
-		}		
+		}	
 		return viewAllList;
 	}
 	
@@ -63,8 +60,6 @@ public class ProductDaoImpl implements ProductDao {
 	public int totalProduct1(int category) {
 		int totProduct1Count = 0;
 		System.out.println("ProductDaoImpl Start total1...");
-		
-		// 문제가 생기면 확인할 수 있도록
 		try {
 			System.out.println(category);
 			totProduct1Count = session.selectOne("product1Total", category);
@@ -83,21 +78,18 @@ public class ProductDaoImpl implements ProductDao {
 		List<ProductDto> viewCateList = null;
 		System.out.println("ProductDaoImpl listviewCate Start...");
 		try {			
+//													Map ID			parameter
 			if(value == 2) // 낮은 가격
 			{
-//													Map ID			parameter
 				viewCateList = session.selectList("jhCateLowPrice" , productDto); // 여러개면 selectList, 하나면 selectOne
 			}else if(value == 3) // 높은 가격
 			{
-//													Map ID			parameter
-				viewCateList = session.selectList("jhCateHighPrice" , productDto); // 여러개면 selectList, 하나면 selectOne
+				viewCateList = session.selectList("jhCateHighPrice" , productDto);
 			}else 
 			{
-//													Map ID		parameter
-				viewCateList = session.selectList("jhCateList" , productDto); // 여러개면 selectList, 하나면 selectOne
+				viewCateList = session.selectList("jhCateList" , productDto);
 			}
 			System.out.println(productDto);
-			// viewShoulderList = session.selectList("jhViewShoulderList" , productDto); // 여러개면 selectList, 하나면 selectOne
 			System.out.println("ProductDaoImpl listviewCate viewCateList.size()->"+viewCateList.size());
 		} catch (Exception e) {
 			System.out.println("ProductDaoImpl listviewCate e.getMessage()->"+e.getMessage());
