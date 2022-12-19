@@ -173,7 +173,7 @@
 								<input class="submit_box" type="submit" id="btn_buy" value="BUY">
 							</td>
 							<td>
-								<input class="submit_box" type="submit" id="btn_cart" value="CART">
+								<input class="submit_box" type="button" id="btn_cart" value="CART">
 							</td>
 						</tr>						
 					</table>

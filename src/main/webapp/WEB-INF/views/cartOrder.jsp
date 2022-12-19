@@ -101,26 +101,28 @@ function sample6_execDaumPostcode() {
 			<div class="order">
 				<div class="title">주문상품</div>
 				<table>
-					<tr class="product">
-						<td class="line">
-							<a href="/productDetail/${order.product_number}" class="thumbnail">
-								<img alt="product_img" src="${order.stored_thumbnail}" class="thumbnail">
-							</a>
-							<input type="hidden" name="product_number" value="${order.product_number}">
-						</td>
-						<td class="line">
-							<a href="/productDetail/${order.product_number}">${order.product_name}</a><br>
-							${order.product_color}
-						</td>
-						<td class="line">
-							<input type="hidden" id="product_price" name="product_price" value="${order.product_price}">
-							<fmt:formatNumber value="${order.product_price}" pattern="#,###원"/>
-						</td>
-						<td class="line">
-							<input type="hidden" id="product_count" name="product_count" value="${order.product_count}">
-							주문수량 : ${order.product_count} 개
-						</td>
-					</tr>
+					<c:forEach items="${order}" var="order" varStatus="status">
+						<tr class="product">
+							<td class="line">
+								<a href="/productDetail/${order.product_number}" class="thumbnail">
+									<img alt="product_img" src="${order.stored_thumbnail}" class="thumbnail">
+								</a>
+								<input type="hidden" name="product_number" value="${order.product_number}">
+							</td>
+							<td class="line">
+								<a href="/productDetail/${order.product_number}">${order.product_name}</a><br>
+								${order.product_color}
+							</td>
+							<td class="line">
+								<input type="hidden" id="product_price" name="product_price" value="${order.product_price}">
+								<fmt:formatNumber value="${order.product_price}" pattern="#,###원"/>
+							</td>
+							<td class="line">
+								<input type="hidden" id="product_count" name="product_count" value="${order.product_count}">
+								주문수량 : ${order.product_count} 개
+							</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 			<div class="pay">
@@ -132,13 +134,11 @@ function sample6_execDaumPostcode() {
 					<div class="gray">
 						<p class="left">결제금액</p>
 						<p class="right">
-							<fmt:formatNumber value="${orderPriceSum}" pattern="#,###원"/>
+							${orderPriceSum} 원
 						</p> 
 					</div>
 				<div class="black">
-					<a class="pay" onclick="$('#orderForm').submit()">
-						<fmt:formatNumber value="${orderPriceSum}" pattern="#,###원"/> 결제하기
-					</a>
+					<a class="pay" onclick="$('#orderForm').submit()">${orderPriceSum} 원</a> 결제하기
 				</div>
 			</div>
 		</form>

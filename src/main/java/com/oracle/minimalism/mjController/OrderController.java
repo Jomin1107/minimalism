@@ -1,7 +1,5 @@
 package com.oracle.minimalism.mjController;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import com.oracle.minimalism.dto.CartDto;
 import com.oracle.minimalism.dto.OrderDto;
 import com.oracle.minimalism.dto.OrderDtoVO;
 import com.oracle.minimalism.dto.UserDto;
-import com.oracle.minimalism.hjService.ProductDetailService;
 import com.oracle.minimalism.mjService.OrderService;
 
 @Controller
@@ -24,9 +21,6 @@ public class OrderController {
 
 	@Autowired
 	private OrderService orderService;
-	
-	@Autowired
-	private ProductDetailService productService;
 	
 	/* 주문 페이지 이동 */
 	@GetMapping("/order")
@@ -36,33 +30,33 @@ public class OrderController {
 		return "/order";
 	}
 	
-	/* 제품상세페이지에서 구매하기 */
-	@GetMapping("/order/page1")
-	public String orderPageGET1(OrderDtoVO orderVo, Model model, HttpSession session) {
-		System.out.println("OrderController orderPageGET1 실행");
-		
-		int productCount = 0;
-		int orderPriceSum = 0;
-		productCount = orderVo.getProduct_count();
+	/* 제품상세페이지에서 한가지 상품 구매하기 */
+	   @GetMapping("/order/page1")
+	   public String orderPageGET1(OrderDtoVO orderVo, Model model, HttpSession session) {
+	      System.out.println("OrderController orderPageGET1 실행");
+	      int productCount = 0;
+	      int orderPriceSum = 0;
+	      productCount = orderVo.getProduct_count();
+	      System.out.println("orderVo.getProduct_count() "+ orderVo.getProduct_count());
 
-		// KTG 단일로우라는 전제(비즈니스적으로)
-		OrderDtoVO order = orderService.productDetailOrder(orderVo);
+	      // KTG 단일로우라는 전제(비즈니스적으로)
+	      OrderDtoVO order = orderService.productDetailOrder(orderVo);
 
-		order.setProduct_count(productCount);
-		orderPriceSum = order.getProduct_price() * order.getProduct_count();
-		
-		model.addAttribute("order", order);
-		model.addAttribute("orderPriceSum", orderPriceSum);
-		
-		UserDto user = (UserDto) session.getAttribute("loginUser");
-    	String msg;
-    	if(user == null) {
-    		msg = "로그인이 필요한 서비스입니다.";
-    		session.setAttribute("msg", msg);
-    		return "/loginForm";
-    	}
-		return "/order";
-	}
+	      order.setProduct_count(productCount);
+	      orderPriceSum = order.getProduct_price() * order.getProduct_count();
+	      
+	      model.addAttribute("order", order);
+	      model.addAttribute("orderPriceSum", orderPriceSum);
+	      
+	      UserDto user = (UserDto) session.getAttribute("loginUser");
+	       String msg;
+	       if(user == null) {
+	          msg = "로그인이 필요한 서비스입니다.";
+	          session.setAttribute("msg", msg);
+	          return "/loginForm";
+	       }
+	      return "/order";
+	   }
 
 	/* 장바구니에서 구매하기(여러개를 가져와서 계산) */
 	@GetMapping("/order/page2")
@@ -87,43 +81,6 @@ public class OrderController {
 		
 //		model.addAttribute("order",         orderList);
 		model.addAttribute("orderPriceSum", orderPriceSum);
-		
-		UserDto user = (UserDto) session.getAttribute("loginUser");
-    	String msg;
-    	if(user == null) {
-    		msg = "로그인이 필요한 서비스입니다.";
-    		session.setAttribute("msg", msg);
-    		return "/loginForm";
-    	}
-		return "/cartOrder";
-	}
-
-	
-
-	/* 장바구니에서 주문하기(여러개를 가져와서 계산) */
-	@GetMapping("/order/page3")
-	public String orderPageGET3(OrderDtoVO orderVo, Model model, HttpSession session) {
-		int orderPrice = 0;
-		int orderPriceSum = 0;
-        System.out.println("OrderController orderPageGET 실행");
-		System.out.println("getProduct_number => " + orderVo.getProduct_number());
-		System.out.println("getProduct_count => " + orderVo.getProduct_count());
-
-		// KTG 
-		List<OrderDtoVO> orderList = orderService.productDetailOrderList(orderVo);
-		for(OrderDtoVO order : orderList) {
-			System.out.println("getProduct_price => " + order.getProduct_price());
-			System.out.println("getProduct_count => " + order.getProduct_count());
-			orderPrice = order.getProduct_price()*order.getProduct_count();
-			System.out.println("orderPrice => " + orderPrice);
-			orderPriceSum += orderPrice;
-		}
-		System.out.println("orderPriceSum => " + orderPriceSum);
-		
-		model.addAttribute("order",         orderList);
-		model.addAttribute("orderPriceSum", orderPriceSum);
-		
-//		model.addAttribute("order", orderService.productDetailOrder(orderVo));
 		
 		UserDto user = (UserDto) session.getAttribute("loginUser");
     	String msg;
