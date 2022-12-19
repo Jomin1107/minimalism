@@ -2,12 +2,17 @@ package com.oracle.minimalism.hjController;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.oracle.minimalism.dto.UserDto;
 import com.oracle.minimalism.dto.NoticeDto;
 import com.oracle.minimalism.dto.RnQDto;
 import com.oracle.minimalism.hjService.BoardPaging;
@@ -23,8 +28,36 @@ public class BoardController {
 	
 	private final BoardService boardService;
 	
+	/* 게시판 - 공지사항 - 글쓰기 페이지 이동 */
+	@RequestMapping(value = "/board/WriteNoticeForm", method = RequestMethod.GET)
+	public String noticeWriteForm(HttpServletRequest request) {
+		System.out.println("BoardController noticeWriteForm Page Start...");
+		
+		/* minimalism만 글쓰기버튼 보이기 - 로그인 체크 */
+		HttpSession session = request.getSession();
+		UserDto userDto = (UserDto) session.getAttribute("loginUser");
+		System.out.println("BoardController noticeWriteForm userDto-> " + userDto);
+				
+		return "noticeWriteForm";
+	}
+	
+	/* 게시판 - 공지사항 - 글쓰기 */
+	@RequestMapping(value = "/board/noticeWrite", method = RequestMethod.POST)
+	public String noticeWrite(NoticeDto noticeDto, Model model) {
+		System.out.println("BoardController noticeWrite Start...");
+		int noticeInsertResult = boardService.noticeInsert(noticeDto);
+		
+		if (noticeInsertResult > 0) {
+			return "redirect:notice";
+		} else {
+			model.addAttribute("msg", "게시글 등록이 되지 않았습니다.");
+			return "forward:noticeWriteForm";
+		}
+		
+	}
+	
 	/* 게시판 - 공지사항 - 페이지연결 및 목록구현 */
-	@RequestMapping(value = "/notice")
+	@RequestMapping(value = "/board/notices")
 	public String boardNotice(NoticeDto noticeDto, String currentPage, Model model) {
 		log.info("boardNotice Start...");
 		System.out.println("BoardController boardNotice Start...");
@@ -46,11 +79,10 @@ public class BoardController {
 	}
 	
 	/* 게시판 - 공지사항 - 검색기능 */
-//	total keyword에 맞게 불러오고
-//	제목, 작성자에 맞게 쿼리짜기
-	@GetMapping(value = "noticeSearch")
+	@GetMapping(value = "/board/noticeSearch")
 	public String noticeSearch(NoticeDto noticeDto, String currentPage, Model model) {
 		System.out.println("BoardController noticeSearch Start...");
+		System.out.println("BoardController noticeSearch currentPage->"+currentPage);
 		System.out.println("BoardController noticeSearch getSearch->"+noticeDto.getSearch());
 		System.out.println("BoardController noticeSearch getKeyword->"+noticeDto.getKeyword());
 
@@ -67,27 +99,34 @@ public class BoardController {
 		
 		model.addAttribute("totalNotice", totalNoticeSearchCnt);
 		model.addAttribute("noticeList", noticeListSearch);
+		model.addAttribute("noticeDto", noticeDto);
 		model.addAttribute("page", page);
 		
 		return "/notice";
 	}
 	
 	/* 게시판 - 공지사항 - 상세보기  */
-	@GetMapping(value = "noticeDetail")
-	public String noticeDetail(int notice_id, Model model) {
+	@GetMapping(value = "/board/noticeDetail")
+	public String noticeDetail(int notice_id, Model model,
+							   HttpServletRequest request) {
 		System.out.println("BoardController noticeDetail Start...");
+		
+		/* 작성자만 수정,삭제버튼 보이기 - 로그인 체크 */
+		HttpSession session = request.getSession();
+		UserDto userDto = (UserDto) session.getAttribute("loginUser");
+		System.out.println("BoardController noticeWriteForm userDto-> " + userDto);
+
 		
 		NoticeDto noticeDto = boardService.noticeDetail(notice_id);
 		System.out.println("BoardController noticeDetail notice_id-> " + notice_id);
 		
 		model.addAttribute("notice",noticeDto);
 		
-		return "noticeDetail";
-		
+		return "noticeDetail";		
 	}
 	
 	/* 게시판 - 공지사항 - 수정페이지 연결  */
-	@GetMapping(value = "noticeModify")
+	@GetMapping(value = "/board/noticeModify")
 	public String noticeModify(int notice_id, Model model) {
 		System.out.println("BoardController noticeModify Start...(페이지연결)");
 		
@@ -100,7 +139,7 @@ public class BoardController {
 	}
 	
 	/* 게시판 - 공지사항 - 내용 수정하기  */
-	@PostMapping(value = "noticeUpdate")
+	@PostMapping(value = "/board/noticeUpdate")
 	public String noticeUpdate(NoticeDto noticeDto, Model model) {
 		System.out.println("BoardController noticeUpdate PostMapping Start...");
 		System.out.println("BoardController noticeUpdate noticeDto.getNotice_title()->"+noticeDto.getNotice_title());
@@ -109,15 +148,16 @@ public class BoardController {
 		int noticeUpdateCtn = boardService.noticeUpdate(noticeDto);
 		System.out.println("BoardController noticeUpdate noticeUpdateCtn-> " + noticeUpdateCtn);
 		
-		return "forward:notice";
+		return "forward:/board/notices";
 	}
 	
 	/* 게시판 - 공지사항 - 내용 삭제하기  */
-	@GetMapping(value = "noticeDelete")
+	@GetMapping(value = "/board/noticeDelete")
 	public String noticeDelete(int notice_id, Model model) {
 		System.out.println("BoardController noticeDelete Start...");
-		int result = boardService.noticeDelete(notice_id);
-		return "redirect:notice";
+		int noticeDeleteResult = boardService.noticeDelete(notice_id);
+		System.out.println("BoardController noticeDeleteResult-> " + noticeDeleteResult);
+		return "redirect:/board/notices";
 	}
 	
 //--------------------------------------------------------------------------------------------------------------

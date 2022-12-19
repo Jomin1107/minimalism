@@ -12,8 +12,9 @@ public interface ProductDetailDao {
 	List<ProductDto> listviewAll(ProductDto productDto);
 	
 	/* -------------------- 상세상품조회 -------------------- */
-//	ProductDto productOneDetail(int product_number);
 	
 	ProductDto productOneDetail(ProductDto productDto);
+	/* 상세설명 */
+	List<ProductDto> descripList(int product_number);
 
 }

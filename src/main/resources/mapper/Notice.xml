@@ -3,39 +3,44 @@
 
 <mapper namespace="com.oracle.minimalism.NoticeDtoMapper">
 
-	<!-- 목록구현 -->
+	<!-- 목록 총 갯수 -->
 	<select id="hjNoticeTotal" resultType="int">
-		SELECT Count(*) FROM notice
+		SELECT   Count(*) 
+		FROM     notice
+		WHERE    n_delete = 0	
 	</select>
-	<!-- 목록내용 -->
+	<!-- 목록 리스트 -->
 	<select id="hjNoticeAll" parameterType="NoticeDto" resultType="NoticeDto">
 		<![CDATA[
-		SELECT * 
+		SELECT  notice_id, notice_title, notice_name 
 		FROM
-        		(
-        		SELECT ROWNUM rn, a.*
-        		FROM
-                	(SELECT * FROM notice ORDER BY notice_id) a
+        		( SELECT ROWNUM rn, a.*
+        		  FROM
+                            (SELECT  * 
+                             FROM    notice
+                             WHERE   n_delete = 0
+                             ) a
         		)
-		WHERE rn >=  #{start} 
+		WHERE rn >=  #{start}
 		AND   rn <=  #{end}
 		]]>
 	</select> 
 	
-	<!-- 검색기능 -->
-	<select id="hjNoticeTotalKeyword"  parameterType="NoticeDto"    resultType="int">
+	<!-- 검색 총갯수 -->
+	<select id="hjNoticeTotalKeyword" parameterType="NoticeDto" resultType="int">
 		SELECT    Count(*)
 		FROM      notice
+		WHERE     n_delete = 0	
 		<choose>
 			<when test="search == 'notice_title' ">	
-   				WHERE     notice_title  LIKE '%' || #{keyword} || '%'  
+   				AND     notice_title  LIKE '%' || #{keyword} || '%'  
 			</when>
 			<when test="search == 'notice_name' ">		
- 				WHERE     notice_name   LIKE '%' || #{keyword} || '%'  
+ 				AND     notice_name   LIKE '%' || #{keyword} || '%'  
 			</when>
 		</choose>
 	</select>
-	
+	<!-- 검색기능 리스트 -->
 	<select id="hjNoticeSearch" parameterType="NoticeDto" resultType="NoticeDto">
 		SELECT  notice_id, notice_title, notice_name
 		FROM
@@ -48,18 +53,15 @@
 			<when test="search == 'notice_title' ">	
                 SELECT   notice_id, notice_title, notice_name
                 FROM 	 notice
-                WHERE    notice_title LIKE '%' || #{keyword} || '%'
-                ORDER BY notice_id) a
+                WHERE    n_delete = 0
+                AND      notice_title LIKE '%' || #{keyword} || '%' ) a
 			</when>
 			<when test="search == 'notice_name' ">		
                 SELECT   notice_id, notice_title, notice_name
                 FROM 	 notice
-                WHERE    notice_name LIKE '%' || #{keyword} || '%'
-                ORDER BY notice_id) a
+                WHERE    n_delete = 0
+                AND      notice_name LIKE '%' || #{keyword} || '%'   ) a
 			</when>
-			<otherwise>
-				AND notice_title LIKE '%'
-			</otherwise>
 		</choose>
 					)
 		WHERE rn BETWEEN #{start} AND #{end}
@@ -78,10 +80,47 @@
 		WHERE  notice_id = #{notice_id}
 	</update>
 	
-	<!-- 내용 삭제 -->
-	<delete id="hjNoticeDelete" parameterType="int">
+	<!-- 내용 삭제 (삭제여부 변경) -->
+	<update id="hjNoticeDelete" parameterType="int">
+		UPDATE  notice
+		SET     n_delete = 1
+		WHERE   notice_id = #{notice_id}
+	</update>
+	
+	<!-- 내용 삭제 (데이터 삭제)-->
+	<delete id="hjNoticeDelete1" parameterType="int">
 		DELETE FROM notice WHERE notice_id = #{notice_id}
 	</delete>
 	
+	
+	<!-- 내용 작성 -->
+	<insert id="hjNoticeInsert1" parameterType="NoticeDto">
+		INSERT INTO notice VALUES 
+			( notice_seq.nextval,
+			 
+			 #{notice_title}, 
+			 #{notice_name}, 
+			 #{notice_content},
+			 sysdate, 
+			 #{n_group    , jdbcType=VARCHAR}, 
+			 #{n_step     , jdbcType=VARCHAR}, 
+			 #{n_level    , jdbcType=VARCHAR}, 
+			 #{n_delete   , jdbcType=VARCHAR}
+			 )
+	</insert>
+	<insert id="hjNoticeInsert" parameterType="NoticeDto">
+		INSERT INTO notice VALUES 
+			( notice_seq.nextval,
+			 
+			 #{notice_title}, 
+			 #{notice_name}, 
+			 #{notice_content},
+			 sysdate, 
+			 #{n_group    }, 
+			 #{n_step     }, 
+			 #{n_level    }, 
+			 #{n_delete   }
+			 )
+	</insert>
 
 </mapper>

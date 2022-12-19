@@ -47,19 +47,6 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
 	}
 	
 	/* -------------------- 상세상품조회 -------------------- */
-//	@Override
-//	public ProductDto productOneDetail(int product_number) {
-//		System.out.println("ProductDaoImpl productOneDetail Start...");
-//		ProductDto productDetail = null;
-//		try {
-//			productDetail = session.selectOne("hjProductOne",product_number);
-//			System.out.println("ProductDaoImpl productOneDetail Product_name-> " + productDetail.getProduct_name());
-//		} catch (Exception e) {
-//			System.out.println("ProductDaoImpl productOneDetail Exception Message-> " + e.getMessage());
-//		}		
-//		return productDetail;
-//	}
-
 	@Override
 	public ProductDto productOneDetail(ProductDto productDto) {
 		System.out.println("ProductDaoImpl productOneDetail Start...");
@@ -71,6 +58,18 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
 			System.out.println("ProductDaoImpl productOneDetail Exception Message-> " + e.getMessage());
 		}		
 		return productDetail;
+	}
+
+	@Override
+	public List<ProductDto> descripList(int product_number) {
+		System.out.println("ProductDaoImpl descripList Start...");
+		List<ProductDto> descripList = null;
+		try {
+			descripList = session.selectList("hjProductDesc",product_number);
+		} catch (Exception e) {
+			System.out.println("ProductDaoImpl descripList Exception Message-> " + e.getMessage());
+		}
+		return descripList;
 	}
 
 }

@@ -41,9 +41,9 @@
 		        			<a class="a" href="/viewAll?currentPage=1&value=1&category=3">Bucket</a><br>
 		        			<a class="a" href="/viewAll?currentPage=1&value=1&category=4">Tote</a><br>
 	        			<label class="list">BOARD</label><br>
-		        			<a class="a" href="/notice">NOTICE</a><br>
-		        			<a class="a" href="/reviews">REVIEW</a><br>
-		        			<a class="a" href="/qnas">Q&amp;A</a><br>
+		        			<a class="a" href="/board/notices">NOTICE</a><br>
+		        			<a class="a" href="/board/reviews">REVIEW</a><br>
+		        			<a class="a" href="/board/qnas">Q&amp;A</a><br>
 		        	</div>
         		</div>
 			</div>

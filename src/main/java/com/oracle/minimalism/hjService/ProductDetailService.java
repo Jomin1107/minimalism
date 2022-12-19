@@ -12,8 +12,9 @@ public interface ProductDetailService {
 	List<ProductDto> listviewAll(ProductDto productDto);
 	
 	/* -------------------- 상세상품조회 -------------------- */
-//	ProductDto productDetail(int product_number);
 	
 	ProductDto productDetail(ProductDto productDto);
+	/* 상세설명 */
+	List<ProductDto> descripList(int product_number);
 
 }

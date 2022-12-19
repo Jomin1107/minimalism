@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.oracle.minimalism.dto.NoticeDto;
+import com.oracle.minimalism.dto.ProductDto;
 import com.oracle.minimalism.dto.RnQDto;
 import com.oracle.minimalism.hjDAO.BoardDao;
 
@@ -17,6 +18,16 @@ public class BoardServiceImpl implements BoardService {
 	private final BoardDao boardDao;
 	
 	/* ---------------------------- 공지사항 ---------------------------- */
+	
+	/* 공지사항 글작성 */
+	@Override
+	public int noticeInsert(NoticeDto noticeDto) {
+		System.out.println("BoardServiceImpl noticeInsert Start...");
+		int noticeInsertResult = 0;
+		noticeInsertResult = boardDao.noticeInsert(noticeDto);
+		return noticeInsertResult;
+	}
+	
 	/* 목록 갯수 */
 	@Override
 	public int totalNotice() {
@@ -77,9 +88,9 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int noticeDelete(int notice_id) {
 		System.out.println("BoardServiceImpl noticeDelete Start...");
-		int result = 0;
-		result = boardDao.noticeDelete(notice_id);		
-		return result;
+		int noticeDeleteResult = 0;
+		noticeDeleteResult = boardDao.noticeDelete(notice_id);		
+		return noticeDeleteResult;
 	}
 	
 	/* ----------------------------  리뷰   ---------------------------- */
@@ -100,6 +111,88 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("BoardServiceImpl reviewList.size-> " + reviewList.size());
 		return reviewList;
 	}
+	
+	/* 검색 갯수 */
+	@Override
+	public int totalReviewSearch(RnQDto rnQDto) {
+		System.out.println("BoardServiceImpl totalReviewSearch Start...");
+		int totalReviewSearchCnt = boardDao.totalReviewSearch(rnQDto);
+		System.out.println("BoardServiceImpl totalReviewSearch totalReviewSearchCnt-> "+totalReviewSearchCnt);
+		return totalReviewSearchCnt;
+	}
+
+	/* 검색 리스트  */
+	@Override
+	public List<RnQDto> reviewListSearch(RnQDto rnQDto) {
+		System.out.println("BoardServiceImpl reviewListSearch Start...");
+		List<RnQDto> reviewListSearch = null;
+		reviewListSearch = boardDao.reviewListSearch(rnQDto);
+		System.out.println("BoardServiceImpl reviewListSearch.size-> " + reviewListSearch.size());
+		return reviewListSearch;
+	}
+	
+	/* 글쓰기 페이지에서 상품명선택 */
+	@Override
+	public List<ProductDto> productNameList() {
+		System.out.println("BoardServiceImpl productNameList Start...");
+		List<ProductDto> productList = null;
+		productList = boardDao.productNameList();
+		System.out.println("BoardController productNameList productList.size-> " + productList.size());
+
+		return productList;
+	}
+	
+	/* 리뷰 글작성 */
+	@Override
+	public int reviewInsert(RnQDto rnQDto, List<String> savedImageList) {
+		System.out.println("BoardServiceImpl reviewInsert Start...");
+		int reviewInsertResult = 0;
+		reviewInsertResult = boardDao.reviewInsert(rnQDto, savedImageList);
+		return reviewInsertResult;
+	}
+	
+	/* 상세보기 */
+	@Override
+	public List<RnQDto> reviewDetail(int rq_id) {
+		System.out.println("BoardServiceImpl reviewDetail Start...");
+		
+		List<RnQDto> reviewDetailList = null;
+		reviewDetailList = boardDao.reviewDetail(rq_id);
+		return reviewDetailList;
+	}
+	
+	/* 글 조회수 */
+	@Override
+	public void boardReadcount(int rq_id) {
+		System.out.println("BoardServiceImpl reviewReadcount Start...");
+		int reviewReadcount = 0;
+		reviewReadcount = boardDao.boardReadcount(rq_id);
+		System.out.println("BoardServiceImpl reviewReadcount-> " + reviewReadcount);
+		
+	}
+	
+	/* 내용수정 */
+	@Override
+	public int reviewUpdate(RnQDto rnQDto) {
+		System.out.println("BoardServiceImpl reviewUpdate Start...");
+		int reviewUpdateCtn = 0;
+		reviewUpdateCtn = boardDao.reviewUpdate(rnQDto);
+		return reviewUpdateCtn;
+	}
+	
+
+	
+	
+	/* 리뷰 내용 삭제 */
+	@Override
+	public int reviewDelete(int rq_id) {
+		System.out.println("BoardServiceImpl reviewDelete Start...");
+		int reviewDeleteResult = 0;
+		reviewDeleteResult = boardDao.reviewDelete(rq_id);	
+		return reviewDeleteResult;
+	}
+
+	
 	/* ----------------------------  문의   ---------------------------- */
 	/* 목록 갯수 */
 	@Override
@@ -119,14 +212,59 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("BoardServiceImpl qnaList.size-> " + qnaList.size());
 		return qnaList;
 	}
+	
+	/* 상세보기 */
+	@Override
+	public List<RnQDto> qnaDetail(int rq_id) {
+		System.out.println("BoardServiceImpl qnaDetail Start...");
+		
+		List<RnQDto> qnaDetailList = null;
+		qnaDetailList = boardDao.qnaDetail(rq_id);
+		System.out.println("BoardServiceImpl qnaDetailList.size-> " + qnaDetailList.size());
+		return qnaDetailList;
+	}
+
+	/* 문의 글쓰기 */
+	@Override
+	public int qnaInsert(RnQDto rnQDto, List<String> savedImageList) {
+		System.out.println("BoardServiceImpl qnaInsert Start...");
+		int qnaInsertResult = 0;
+		qnaInsertResult = boardDao.qnaInsert(rnQDto, savedImageList);
+		return qnaInsertResult;
+	}
+
+	/* 검색 갯수 */
+	@Override
+	public int totalQnaSearch(RnQDto rnQDto) {
+		System.out.println("BoardServiceImpl totalQnaSearch Start...");
+		int totalQnaSearchCnt = boardDao.totalQnaSearch(rnQDto);
+		System.out.println("BoardServiceImpl totalQnaSearch totalQnaSearchCnt-> "+totalQnaSearchCnt);
+		return totalQnaSearchCnt;
+	}
+
+	/* 검색 리스트 */
+	@Override
+	public List<RnQDto> qnaListSearch(RnQDto rnQDto) {
+		System.out.println("BoardServiceImpl qnaListSearch Start...");
+		List<RnQDto> qnaListSearch = null;
+		qnaListSearch = boardDao.qnaListSearch(rnQDto);
+		System.out.println("BoardServiceImpl qnaListSearch.size-> " + qnaListSearch.size());
+		return qnaListSearch;
+	}
+
+	/* 글 삭제 */
+	@Override
+	public int qnaDelete(int rq_id) {
+		System.out.println("BoardServiceImpl qnaDelete Start...");
+		int qnaDeleteResult = 0;
+		qnaDeleteResult = boardDao.qnaDelete(rq_id);	
+		System.out.println("BoardServiceImpl totalQnaSearch qnaDeleteResult-> "+qnaDeleteResult);
+		return qnaDeleteResult;
+	}
+
 
 	
 
 	
-
-	
-
-	
-
 	
 }

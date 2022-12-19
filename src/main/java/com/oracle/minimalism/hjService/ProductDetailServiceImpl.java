@@ -38,15 +38,6 @@ public class ProductDetailServiceImpl implements ProductDetailService {
 	}
 
 	/* -------------------- 상세상품조회 -------------------- */
-//	@Override
-//	public ProductDto productDetail(int product_number) {
-//		System.out.println("ProductServiceImpl productDetail Start...");
-//		ProductDto productDetail = null;
-//		productDetail = productDao.productOneDetail(product_number);
-//		System.out.println("ProductServiceImpl productDetail-> " + productDetail);
-//		return productDetail;
-//	}
-
 	@Override
 	public ProductDto productDetail(ProductDto productDto) {
 		System.out.println("ProductServiceImpl productDetail Start...");
@@ -54,6 +45,15 @@ public class ProductDetailServiceImpl implements ProductDetailService {
 		productDetail = productDao.productOneDetail(productDto);
 		System.out.println("ProductServiceImpl productDetail-> " + productDetail);
 		return productDetail;
+	}
+
+	@Override
+	public List<ProductDto> descripList(int product_number) {
+		System.out.println("ProductServiceImpl descripList Start...");
+		List<ProductDto> descripList = null;
+		descripList	= productDao.descripList(product_number);
+		System.out.println("ProductServiceImpl descripLis.size-> " + descripList.size());
+		return descripList;
 	}
 
 
