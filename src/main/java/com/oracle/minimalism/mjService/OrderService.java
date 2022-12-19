@@ -11,9 +11,13 @@ public interface OrderService {
 	public OrderDtoVO productDetailOrder(OrderDtoVO orderVo);
 	public List<OrderDtoVO> productDetailOrderList(OrderDtoVO orderVo);
 	
-	/* 상품 주문하기 */
-	int createOrder(OrderDtoVO order);
+	/* 상품상세페이지에서 주문하기 */
+	int createProductOrder(OrderDtoVO order);
 
+	/* 카트에서 주문하기 */
+	public int createCartOrder1(OrderDtoVO order);
+	public int createCartOrder2(CartDto cart);
+	
 	/* 주문 정보 리스트 */
 	public List<OrderDto> getOrderList(String id);
 
@@ -24,7 +28,7 @@ public interface OrderService {
 	int cancleOrder(OrderDto order);
 
 	public List<CartDto> productCartList(List<String> cart_numberList);
-
+	
 
 
 }

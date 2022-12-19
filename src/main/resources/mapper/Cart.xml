@@ -42,17 +42,37 @@
 		where id = #{id} and product_number = #{product_number}
 	</select>
 
-	<!-- 카트 삭제 -->
-	<delete id="deleteOrderCart">
-		delete 
-		from cart 
-		where id = #{id} and product_number = #{product_number}
-	</delete>
-	
 	<!-- 카트 전체 삭제 -->
 	<delete id="deleteAllCart" parameterType="CartDto">
 		delete 
 		from cart
 		where id = #{id}
+	</delete>
+	
+	
+	
+	<!-- 카트에서 주문페이지 이동 -->
+	<select id="getCartList" parameterType="java.util.HashMap" resultType="CartDto">
+		select *
+	    from 
+		    (select  c.product_number, c.product_count, p.product_name, p.product_price, p.product_color, c.id, c.cart_number, i.stored_thumbnail
+		     from  product p, product_img i, cart c
+		     where p.product_number = c.product_number
+		     and   i.product_number = p.product_number)
+	    <choose>
+            <when test="cart_numberList.size != 0">
+	    		 where cart_number IN 
+	    		<foreach collection="cart_numberList" item="item" index="index" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+			</when>
+        </choose>
+	</select>
+	
+	<!-- 주문시 카트 삭제 -->
+	<delete id="deleteOrderCart" parameterType="CartDto">
+		delete 
+		from cart 
+		where id = #{id} and product_number = #{product_number}
 	</delete>
 </mapper>

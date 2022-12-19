@@ -37,6 +37,23 @@ $(document).ready(function() {
 		});
 	
 });
+/* 주문 취소 버튼 */
+function cancleOrder(index) {
+	var order_number = $("#order_number"+index).val();
+	//alert('order_number -> ' + order_number);
+	// order_number 주문번호 -> 해당 주문 취소
+	$.ajax({
+            url      : "/order/cancle",
+            type     : 'POST',  // GET, PUT
+            data     : {order_number : order_number},
+            dataType : 'text',
+            success  : function(data){
+            	//alert(".ajax update data -> " + data); 
+                alert('주문이 취소되었습니다.');
+                document.location.reload();
+            }
+	 });
+}
 </script>
 </head>
 <body>
@@ -102,7 +119,9 @@ $(document).ready(function() {
 						</td>
 						<td rowspan="1" class="td_width_1"><!-- 선택 -->
 							<div class="table_text_align_center select_div">
-								<button class="cancle_btn" id="remove${status.index}" onclick="cancleOrder(${status.index})">취소</button>
+								<c:if test="${oi.order_status != 5}">
+									<button class="cancle_btn" id="remove${status.index}" onclick="cancleOrder(${status.index})">취소</button>
+								</c:if>
 							</div>
 						</td>
 					</tr>

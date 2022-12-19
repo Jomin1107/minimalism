@@ -10,31 +10,45 @@
       WHERE   i.product_number = p.product_number
       AND     p.product_number = #{product_number}
    </select> 
-	<!-- 주문페이지 이동 List -->
-	<select id="productDetailOrderList" parameterType="OrderDtoVO" resultType="OrderDtoVO">
-      select *
-	  from 
-		    (select  c.product_number, c.product_count, p.product_name, p.product_price, p.product_color, c.id, c.cart_number, i.stored_thumbnail
-		     from  product p, product_img i, cart c
-		     where p.product_number = c.product_number
-		     and   i.product_number = p.product_number)
-	  where id = #{id} and cart_number = #{cart_number}; 
-   </select> 
 	
-	<!-- 주문 추가 -->
+	<!-- 상세페이지에서 주문 추가 -->
 	<insert id="createOrder" parameterType="OrderDtoVO" useGeneratedKeys="true" keyColumn="order_number" keyProperty="order_number">
 		insert 
 		into orders(order_number, id, order_date, receiver_address1, receiver_address2, receiver_address3, receiver_name, receiver_phone, order_status) 
 		values(order_seq.nextval, #{id}, sysdate, #{receiver_address1}, #{receiver_address2}, #{receiver_address3}, #{receiver_name}, #{receiver_phone}, 1)
 	</insert>
 	
-	<!-- 주문 상세 추가 -->
+	<!-- 상세페이지에서 주문 상세 추가 -->
 	<insert id="createDetailOrder" parameterType="OrderDtoVO">
 		insert
 		into order_detail(order_number, order_detail_number, product_number, product_count, product_price, refund_check)
 		values(#{order_number}, (SELECT NVL(MAX(order_detail_number), 0) + 1
 								 FROM   order_detail
 								 WHERE  order_number = #{order_number}), #{product_number}, #{product_count}, #{product_price}, 1)
+	</insert>
+	
+	<!-- 카트에서 주문 master 추가 -->
+	<insert id="createOrder1" parameterType="OrderDtoVO" useGeneratedKeys="true" keyColumn="order_number" keyProperty="order_number">
+		insert 
+		into orders(order_number, id, order_date, receiver_address1, receiver_address2, receiver_address3, receiver_name, receiver_phone, order_status) 
+		values(order_seq.nextval, #{id}, sysdate, #{receiver_address1}, #{receiver_address2}, #{receiver_address3}, #{receiver_name}, #{receiver_phone}, 1)
+	</insert>
+	
+	<!-- 카트에서 주문 상세 추가 -->
+	<insert id="createOrder2" parameterType="CartDto" >
+		insert
+		into order_detail(order_number, 
+		                  order_detail_number, 
+		                  product_number, 
+		                  product_count, 
+		                  product_price, 
+		                  refund_check)
+		values          (#{order_number}, 
+		                 (SELECT NVL(MAX(order_detail_number), 0) + 1 FROM order_detail)
+						 #{product_number}, 
+						 #{product_count},
+						 #{product_price},
+						  1)
 	</insert>
 
 	<!-- 주문목록 리스트 -->
@@ -47,6 +61,7 @@
 		     and    d.product_number = p.product_number
 		     and    p.product_number = i.product_number)
 		where id = #{id}
+		order by order_number DESC
 	</select>
 	
 	<!-- 주문상세조회 -->
@@ -62,6 +77,7 @@
 		      and   p.product_number = i.product_number
 		      and   o.id = u.id)
 		where order_number = #{order_number}
+		order by order_detail_number ASC
 	</select>
 	
 	<!-- 주문 취소 -->

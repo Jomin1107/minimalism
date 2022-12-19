@@ -16,9 +16,7 @@
 		setTotalInfo();
 		/* 체크여부에따른 종합 정보 변화 */
 		$(".individual_cart_checkbox").on("change", function(){
-			/* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
 			setTotalInfo();
-			
 		});
 		
 		/* 체크박스 전체,체크 선택 */
@@ -52,7 +50,7 @@
 			// 총 갯수
 			totalCount += parseInt($("#totalCount"+$(this).val()).val());
 			// 총 종류
-			totalKind += 1;
+			totalKind  += 1;
 		});
 		/* 값 삽입 */
 		// 총 가격
@@ -134,15 +132,27 @@
                 }
 	     });
 	};
+	
+	
+	function chkChange(selChk) {
+		//alert('selChk->'+selChk);
+		if ($("#chk"+selChk).prop("checked")) {
+			$("#chkSel"+selChk).val('1');
+		} else {
+			$("#chkSel"+selChk).val('0');
+		}
+		
+	}
 </script>
 </head>
 <body>	
-	<main class="box">
+  <main class="box">
 	<h4>CART</h4>
 		<!-- 장바구니 리스트 -->
 		<div class="content_middle_section"></div>
 		<!-- 장바구니 가격 합계 -->
 		<!-- cartInfo -->
+	<form action="/order/page2">
 		<div class="content_totalCount_section">
 			<table class="subject_table">
 				<!-- <caption>표 제목 부분</caption> -->
@@ -172,15 +182,18 @@
 						<c:forEach items="${cartInfo}" var="ci" varStatus="status">
 							<tr>
 								<td class="td_width_1 cart_info_td">
-									<input type="checkbox" name="chk" value="${status.index}" class="individual_cart_checkbox">
+									<input type="checkbox" name="chk" id="chk${status.index}"
+									       onclick="chkChange(${status.index})"
+									       value="${status.index}" class="individual_cart_checkbox">
 								</td>
 								<td class="td_width_0">
+									<input type="hidden" name="chkSel" id="chkSel${status.index}" value="0">
 									<input type="hidden" value="${ci.product_price}">
 									<input type="hidden" id="user_id" value="${ci.id}">
 									<input type="hidden" id="totalCount${status.index}" value="${ci.product_count}">
 									<input type="hidden" id="totalPrice${status.index}" value="${ci.product_price * ci.product_count}">
 									<input type="hidden" value="${ci.product_number}">
-									<input type="hidden" id="cart_number${status.index}" value="${ci.cart_number}">
+									<input type="hidden" name="cart_number"   id="cart_number${status.index}" value="${ci.cart_number}">
 								</td>
 								<td class="td_width_2">
 									<a href="/productDetail/${ci.product_number}">
@@ -222,7 +235,7 @@
 		<c:if test="${empty cartInfo}">
 			<div class="content_total_section" style="background-color: white;">			
 				<div class="content_btn_section"> 
-					<a href="/viewAll?currentPage=1&value=1&category=0" class="shopping">쇼핑하러가기</a>
+					<a href="/viewAll" class="shopping">쇼핑하러가기</a>
 				</div>
 			</div>
 		</c:if>
@@ -260,13 +273,10 @@
 			</div>
 			<!-- 구매 버튼 영역 -->
 			<div class="content_btn_section">
-				<a href="#" class="all">전체상품주문</a>
-				<a href="#" class="select">선택상품주문</a>
+				<button type="submit" class="select">선택상품주문하기</button><p>
 			</div>
-		</c:if>
-			<!-- 주문 form -->
-			<form action="/order/${loginUser.id}" method="get" class="order_form">
-			</form>	
+	       </c:if>
+	  </form>
 	</main>
 </body>
 </html>

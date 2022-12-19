@@ -51,19 +51,55 @@ public class OrderDaoImpl implements OrderDao {
 		}
 		
 		@Override
-		public int createOrder(OrderDtoVO order) {
-			System.out.println("OrderDaoImpl createOrder 실행");
+		public int createProductOrder(OrderDtoVO order) {
+			System.out.println("OrderDaoImpl createProductOrder 실행");
 			int result = 0;
 			
 			try {
 				result = session.insert("createOrder", order);
 				session.insert("createDetailOrder", order);
 			} catch (Exception e) {
-				System.out.println("OrderDaoImpl createOrder Exception => " + e.getMessage());
+				System.out.println("OrderDaoImpl createProductOrder Exception => " + e.getMessage());
 			}
 			return result;
 		}
 
+		/* 카트에서 주문하기 */
+		@Override
+		public int createCartOrder1(OrderDtoVO order) {
+			System.out.println("OrderDaoImpl createCartOrder1 실행");
+			int order_number = 0;
+
+			System.out.println("order => " + order);
+	
+			try {
+				order_number = session.insert("createOrder1", order);
+				System.out.println("order.getOrder_number() => " + order.getOrder_number());
+				System.out.println("order_number => " + order_number);
+			} catch (Exception e) {
+				System.out.println("OrderDaoImpl createCartOrder Exception => " + e.getMessage());
+			}
+			//order의  PK 넘겨주기
+			return order.getOrder_number();
+		}
+
+		@Override
+		public int createCartOrder2(CartDto cart) {
+			System.out.println("OrderDaoImpl createCartOrder2 실행");
+			int result = 0;
+
+			System.out.println("cart => " + cart);
+
+			try {
+				result = session.insert("createDetailOrder", cart);
+				session.delete("deleteOrderCart", cart);
+			} catch (Exception e) {
+				System.out.println("OrderDaoImpl createCartOrder Exception => " + e.getMessage());
+			}
+			return result;
+		}
+		
+		
 		@Override
 		public List<OrderDto> getOrder(String id) {
 			System.out.println("OrderDaoImpl getOrder 실행");

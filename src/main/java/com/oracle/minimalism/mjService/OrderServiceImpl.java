@@ -33,25 +33,42 @@ public class OrderServiceImpl implements OrderService {
 		return productDetailOrderList;	
 		}
 
-//	public OrderDtoVO productDetailOrder(OrderDtoVO orderVo) {
-//		System.out.println("OrderServiceImpl productDetailOrder 실행");
-//		
-//		OrderDtoVO productDetailOrder = null;
-//		
-//		productDetailOrder = orderDao.productDetailGet(orderVo);
-//		
-//		return productDetailOrder;
-//	}
 	
 	@Override
-	public int createOrder(OrderDtoVO order) {
-		System.out.println("OrderServiceImpl createOrder 실행");
+	public int createProductOrder(OrderDtoVO order) {
+		System.out.println("OrderServiceImpl createProductOrder 실행");
 		
-		int result = orderDao.createOrder(order);
+		int result = orderDao.createProductOrder(order);
 		
 		return result;
 	}
+	
+	/* 카트에서 주문하기 */
+	@Override
+	public int createCartOrder1(OrderDtoVO order) {
+	System.out.println("OrderServiceImpl createCartOrder1  실행");
+		
+		System.out.println("order => " + order);
+		int order_number = orderDao.createCartOrder1(order);
+		System.out.println("OrderServiceImpl createCartOrder1  order_number => " + order_number);
+		
+		
+		return order_number;
+	}
 
+	@Override
+	public int createCartOrder2(CartDto cart) {
+		System.out.println("OrderServiceImpl createCartOrder2 실행");
+		// cart를 가지고 order상세를 저장 하러감
+		System.out.println("cart => " + cart);
+		System.out.println("cart_number => " + cart.getCart_number());
+		System.out.println("product_number => " + cart.getProduct_number());
+		System.out.println("product_count => " + cart.getProduct_count());
+		int result = orderDao.createCartOrder2(cart);
+		
+		return result;
+	}
+	
 	@Override
 	public List<OrderDto> getOrderList(String id) {
 		System.out.println("OrderServiceImpl getOrderList 실행");
