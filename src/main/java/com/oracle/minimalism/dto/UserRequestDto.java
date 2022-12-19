@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserRequestDto {
+public class UserRequestDto { // 일반회원가입에 사용 (validation 사용으로) 
 	@NotBlank(message = "아이디는 필수 입력 값입니다.")
 	@Pattern(regexp = "[a-zA-Z0-9]{6,15}" , message = "아이디 형식에 맞지 않습니다.")
 	@Size(min =6, max=10, message = "아이디는 영문소문자/숫자 6~15자 사이 입니다.")

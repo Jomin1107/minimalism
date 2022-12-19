@@ -50,18 +50,18 @@ public class SecurityConfig{
 		 http
 				.csrf().disable()
 				.apply(new MyCustomDsl()) // 커스텀 필터 등록
-			.and()
+			.and() //권한설정
 	            .authorizeHttpRequests()
 	            .antMatchers().authenticated()
 	            .anyRequest().permitAll()
-			.and()
+			.and() // 로그인
 				.formLogin()
 				.loginPage("/loginForm")
 				.loginProcessingUrl("/login")
 				.successForwardUrl("/loginhelp") // 여기서 session에 user정보 저장
 				.failureHandler(loginFailureHandler)
 //				.defaultSuccessUrl("/", true)
-	    	.and() 																// 소셜로그인
+	    	.and() // 소셜로그인
 	    		.oauth2Login()
 	    		.successHandler(oauth2SuccessHandler)
 	    		.userInfoEndpoint()

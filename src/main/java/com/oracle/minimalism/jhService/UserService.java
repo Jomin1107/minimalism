@@ -22,7 +22,8 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder encoder;
     private JavaMailSender mailSender;
-
+    
+    // 임시비밀번호 메일로 전송될 때 내용
     public MailDto createMailAndChangePassword(String id , String email) {
         String str = getTempPassword();
         MailDto dto = new MailDto();
@@ -33,7 +34,8 @@ public class UserService {
         updatePassword(str, id);
         return dto;
     }
-
+    
+    // 임시비밀번호가 전송됨과 동시에 user의 비밀번호를 임시비밀번호로 업데이트
     public void updatePassword(String str, String id) {
     	int update = 0;
         String password = encoder.encode(str);
@@ -44,7 +46,8 @@ public class UserService {
         update = userMapper.update1(user);
         System.out.println(update);
     }
-
+    
+    // 임시비밀번호는 영문+숫자
     public String getTempPassword() {
         char[] charSet = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
                 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -58,7 +61,8 @@ public class UserService {
         }
         return str;
     }
-
+    
+    // 임시비밀번호 보내는 발신자
     public void mailSend(MailDto mailDto){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailDto.getAddress());

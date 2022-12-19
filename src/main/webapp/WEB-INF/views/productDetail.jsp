@@ -217,7 +217,7 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<p>${product.product_description}</p>
+						<p style="font-size: 14px;">${product.product_description}</p>
 					</td>
 				</tr>
 			</table>		
@@ -226,6 +226,7 @@
 			<div class="listreturnForm">
 				<input class="return_box" type="button" value="목록" onclick="location.href='/viewAll?currentPage=1&value=1&category=0'">
 			</div>
+		</div>
 	</div>
 </body>
 </html>

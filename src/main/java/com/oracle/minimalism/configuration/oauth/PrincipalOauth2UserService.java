@@ -1,7 +1,5 @@
 package com.oracle.minimalism.configuration.oauth;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -27,7 +25,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 	private UserMapper userMapper;
 	
 	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-	
 
 	// userRequest 는 code를 받아서 accessToken을 응답 받은 객체
 	
