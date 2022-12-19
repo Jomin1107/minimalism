@@ -48,36 +48,6 @@
 	      	</c:if>
 	      </div>
       </div>
-      <!-- 댓글작성 영역 -->
-      <div class="flex-container replyBox">
-      	<form action="/board/noticeReplyWrite?notice_id=${notice.notice_id}" method="post">
-   <%-- <form action="/board/noticeReplyWrite?notice_id=${notice.notice_id}&pageNum=${pageNum}" method="post"> --%>
-      		<input type="hidden" name="rq_id"    value="${review.rq_id}">
-      		<input type="hidden" name="rq_group" value="${review.rq_group}">
-      		<input type="hidden" name="rq_step"  value="${review.rq_step}">
-      		<input type="hidden" name="rq_level" value="${review.rq_level}">
-      		<input type="hidden" name="rq_id"    value="${review.rq_id}">
-      		
-      		<table class="replyBoxtable">
-      			<tr>
-      				<td colspan="2" style="padding-left: 20px;">댓글쓰기</td>
-      			</tr>
-      			<tr>
-      				<td colspan="2" style="padding-left: 20px;">${loginUser.username}</td>
-      			</tr>
-      			<tr>
-      				<td>
-      					<textarea rows="6" cols="160"></textarea>
-      				</td>
-      				<td>
-      					<input class="replySubmit_box" type="submit" value="확인">
-      				</td>
-      				
-      			</tr>
-      		</table> 	
-      	</form>
-      
-      </div>
 
    </div>
 </body>

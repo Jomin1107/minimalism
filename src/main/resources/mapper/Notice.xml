@@ -16,9 +16,10 @@
 		FROM
         		( SELECT ROWNUM rn, a.*
         		  FROM
-                            (SELECT  * 
-                             FROM    notice
-                             WHERE   n_delete = 0
+                            (SELECT     * 
+                             FROM       notice
+                             WHERE      n_delete = 0
+                             ORDER BY   notice_id
                              ) a
         		)
 		WHERE rn >=  #{start}
