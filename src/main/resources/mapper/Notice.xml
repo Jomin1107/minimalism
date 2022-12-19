@@ -94,32 +94,17 @@
 	
 	
 	<!-- 내용 작성 -->
-	<insert id="hjNoticeInsert1" parameterType="NoticeDto">
-		INSERT INTO notice VALUES 
-			( notice_seq.nextval,
-			 
-			 #{notice_title}, 
-			 #{notice_name}, 
-			 #{notice_content},
-			 sysdate, 
-			 #{n_group    , jdbcType=VARCHAR}, 
-			 #{n_step     , jdbcType=VARCHAR}, 
-			 #{n_level    , jdbcType=VARCHAR}, 
-			 #{n_delete   , jdbcType=VARCHAR}
-			 )
-	</insert>
 	<insert id="hjNoticeInsert" parameterType="NoticeDto">
 		INSERT INTO notice VALUES 
 			( notice_seq.nextval,
-			 
 			 #{notice_title}, 
 			 #{notice_name}, 
 			 #{notice_content},
 			 sysdate, 
-			 #{n_group    }, 
-			 #{n_step     }, 
-			 #{n_level    }, 
-			 #{n_delete   }
+			 notice_seq.currval ,
+			 #{n_step     , jdbcType=VARCHAR}, 
+			 #{n_level    , jdbcType=VARCHAR}, 
+			 #{n_delete   , jdbcType=VARCHAR}
 			 )
 	</insert>
 

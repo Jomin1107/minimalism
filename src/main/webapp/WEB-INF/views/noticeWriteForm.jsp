@@ -17,10 +17,10 @@
 		</div>
 		<form action="/board/noticeWrite" method="post">
 			<div class="flex-container noticeWriteForm">
-			<input type="hidden" name="n_group"  value="0">
-			<input type="hidden" name="n_step"   value="0">
-			<input type="hidden" name="n_level"  value="0">
-			<input type="hidden" name="n_delete" value="0">
+			<input type="hidden" name="notice_name" value="${loginUser.username}">
+			<input type="hidden" name="n_step"      value="0">
+			<input type="hidden" name="n_level"     value="0">
+			<input type="hidden" name="n_delete"    value="0">
 			
 			<table class="writeTable">
 				<tr>

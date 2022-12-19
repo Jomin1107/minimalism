@@ -48,10 +48,10 @@ public class BoardController {
 		int noticeInsertResult = boardService.noticeInsert(noticeDto);
 		
 		if (noticeInsertResult > 0) {
-			return "redirect:notice";
+			return "redirect:/board/notices";
 		} else {
 			model.addAttribute("msg", "게시글 등록이 되지 않았습니다.");
-			return "forward:noticeWriteForm";
+			return "forward:/board/WriteNoticeForm";
 		}
 		
 	}
