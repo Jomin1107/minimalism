@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/css/productDetail.css">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
+	/* 수량체크에 대한 제품값 */
 	function changeAmount(){
 	    var selectAmount = document.getElementById("selectAmount");
 	
@@ -23,9 +24,7 @@
 	    //  $('#total_amount').val(showPrice);
 	    // div태그
 	    $('#totalPrice').html(showPrice);
-	    $('#totalCount').html(selectValue);
-	    
-	    
+	    $('#totalCount').html(selectValue);  
 	}
 	
 </script>
@@ -126,6 +125,13 @@
 				</div>				
 			</div>
 		</form>
+		<!-- 제품 상세 설명 -->
+		<!-- 
+			DESCRIPTION = 사진 이미지와 설명글만 노출
+			SHOPPING &amp; RETURN = 공지사항 글 해당페이지로 이동
+			REVIEW = 리뷰목록 페이지로 이동
+			Q&amp;A = 문의목록 페이지로 이동
+		 -->
 		<div class="flex-container productdescription">
 			<table class="descriptable">
 				<colgroup>
