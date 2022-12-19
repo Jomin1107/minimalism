@@ -16,6 +16,33 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDao orderDao;
 
 	@Override
+	public OrderDtoVO productDetailOrder(OrderDtoVO orderVo) {
+		System.out.println("OrderServiceImpl productDetailOrder 실행");
+		
+		OrderDtoVO productDetailOrder = orderDao.productDetailGet(orderVo);
+		
+		return productDetailOrder;
+	}
+	
+
+	@Override
+	public List<OrderDtoVO> productDetailOrderList(OrderDtoVO orderVo) {
+	    System.out.println("OrderServiceImpl productDetailOrder 실행");
+		List<OrderDtoVO> productDetailOrderList = orderDao.productDetailGetList(orderVo);
+		return productDetailOrderList;	
+		}
+
+//	public OrderDtoVO productDetailOrder(OrderDtoVO orderVo) {
+//		System.out.println("OrderServiceImpl productDetailOrder 실행");
+//		
+//		OrderDtoVO productDetailOrder = null;
+//		
+//		productDetailOrder = orderDao.productDetailGet(orderVo);
+//		
+//		return productDetailOrder;
+//	}
+	
+	@Override
 	public int createOrder(OrderDtoVO order) {
 		System.out.println("OrderServiceImpl createOrder 실행");
 		
@@ -36,6 +63,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public OrderDto orderDetail(OrderDto orderDto) {
 		System.out.println("OrderServiceImpl orderDetail 실행");
+		
 		OrderDto orderDetail = null;
 		orderDetail = orderDao.orderOneDetail(orderDto);
 		System.out.println("OrderServiceImpl orderDetail -> " + orderDetail);
@@ -49,4 +77,6 @@ public class OrderServiceImpl implements OrderService {
 		
 		return orderDao.cancleOrder(order);
 	}
+
+
 }

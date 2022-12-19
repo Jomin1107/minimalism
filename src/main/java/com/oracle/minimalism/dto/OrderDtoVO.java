@@ -11,9 +11,12 @@ public class OrderDtoVO {
 	private String receiver_address3;	// 수령자 상세주소
 	private String receiver_name;       // 수령자 이름
 	private String receiver_phone;      // 수령자 전화번호
-	
+	 
 	private int    product_number;      // 상품번호
 	private int    product_count;       // 상품수량
 	private int    product_price;       // 상품가격 
+	private String product_name;		// 상품이름
+	private String product_color;		// 상품색상
 	
+	private String stored_thumbnail;    // 상품이미지
 }

@@ -3,6 +3,24 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.oracle.minimalism.OrderMapper">
+	<!-- 주문페이지 이동 -->
+	<select id="productDetailOrder" parameterType="OrderDtoVO" resultType="OrderDtoVO">
+      SELECT  i.stored_thumbnail , p.product_number, p.product_name, p.product_price, p.product_color
+      FROM    product p, product_img i
+      WHERE   i.product_number = p.product_number
+      AND     p.product_number = #{product_number}
+   </select> 
+	<!-- 주문페이지 이동 List -->
+	<select id="productDetailOrderList" parameterType="OrderDtoVO" resultType="OrderDtoVO">
+      select *
+	  from 
+		    (select  c.product_number, c.product_count, p.product_name, p.product_price, p.product_color, c.id, c.cart_number, i.stored_thumbnail
+		     from  product p, product_img i, cart c
+		     where p.product_number = c.product_number
+		     and   i.product_number = p.product_number)
+	  where id = #{id} and cart_number = #{cart_number}; 
+   </select> 
+	
 	<!-- 주문 추가 -->
 	<insert id="createOrder" parameterType="OrderDtoVO" useGeneratedKeys="true" keyColumn="order_number" keyProperty="order_number">
 		insert 

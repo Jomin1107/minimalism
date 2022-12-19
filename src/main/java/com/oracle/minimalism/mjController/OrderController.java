@@ -1,5 +1,7 @@
 package com.oracle.minimalism.mjController;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oracle.minimalism.dto.CartDto;
 import com.oracle.minimalism.dto.OrderDto;
 import com.oracle.minimalism.dto.OrderDtoVO;
-import com.oracle.minimalism.dto.ProductDto;
 import com.oracle.minimalism.dto.UserDto;
 import com.oracle.minimalism.hjService.ProductDetailService;
 import com.oracle.minimalism.mjService.OrderService;
@@ -34,16 +36,23 @@ public class OrderController {
 		return "/order";
 	}
 	
-	@GetMapping("/order/page")
-	public String orderPageGET(OrderDtoVO orderVo, Model model, HttpSession session) {
-		System.out.println("OrderController orderPageGET 실행");
-		System.out.println("getProduct_number => " + orderVo.getProduct_number());
-		System.out.println("getProduct_count => " + orderVo.getProduct_count());
+	/* 제품상세페이지에서 구매하기 */
+	@GetMapping("/order/page1")
+	public String orderPageGET1(OrderDtoVO orderVo, Model model, HttpSession session) {
+		System.out.println("OrderController orderPageGET1 실행");
 		
-		ProductDto productDto = new ProductDto();
-		productDto.setProduct_number(orderVo.getProduct_number());
-		model.addAttribute("product", productService.productDetail(productDto));
-		model.addAttribute("order", orderVo);
+		int productCount = 0;
+		int orderPriceSum = 0;
+		productCount = orderVo.getProduct_count();
+
+		// KTG 단일로우라는 전제(비즈니스적으로)
+		OrderDtoVO order = orderService.productDetailOrder(orderVo);
+
+		order.setProduct_count(productCount);
+		orderPriceSum = order.getProduct_price() * order.getProduct_count();
+		
+		model.addAttribute("order", order);
+		model.addAttribute("orderPriceSum", orderPriceSum);
 		
 		UserDto user = (UserDto) session.getAttribute("loginUser");
     	String msg;
@@ -54,12 +63,83 @@ public class OrderController {
     	}
 		return "/order";
 	}
+
+	/* 장바구니에서 구매하기(여러개를 가져와서 계산) */
+	@GetMapping("/order/page2")
+	public String orderPageGET2(String chkSel[], String cart_number[], CartDto cartDto, Model model, HttpSession session) {
+        System.out.println("OrderController orderPageGET2 실행");
+        
+        int orderPrice = 0;
+		int orderPriceSum = 0;
+		
+		for(int i = 0; i < cart_number.length; i++) {
+			System.out.println("kkkk.............." + chkSel[i]);
+			if (chkSel[i].contains("1")) {
+				System.out.println("cart_number[] " + i + "=> " + cart_number[i]);
+				// cart_number를 가지고 상품이미지,상품번호,상품이름,상품가격,상품색상,수량
+			    
+			}
+	    }
+
+//		List<CartDto> orderList = orderService.productDetailOrderList(cartDto);
+		
+		System.out.println("orderPriceSum => " + orderPriceSum);
+		
+//		model.addAttribute("order",         orderList);
+		model.addAttribute("orderPriceSum", orderPriceSum);
+		
+		UserDto user = (UserDto) session.getAttribute("loginUser");
+    	String msg;
+    	if(user == null) {
+    		msg = "로그인이 필요한 서비스입니다.";
+    		session.setAttribute("msg", msg);
+    		return "/loginForm";
+    	}
+		return "/cartOrder";
+	}
+
+	
+
+	/* 장바구니에서 주문하기(여러개를 가져와서 계산) */
+	@GetMapping("/order/page3")
+	public String orderPageGET3(OrderDtoVO orderVo, Model model, HttpSession session) {
+		int orderPrice = 0;
+		int orderPriceSum = 0;
+        System.out.println("OrderController orderPageGET 실행");
+		System.out.println("getProduct_number => " + orderVo.getProduct_number());
+		System.out.println("getProduct_count => " + orderVo.getProduct_count());
+
+		// KTG 
+		List<OrderDtoVO> orderList = orderService.productDetailOrderList(orderVo);
+		for(OrderDtoVO order : orderList) {
+			System.out.println("getProduct_price => " + order.getProduct_price());
+			System.out.println("getProduct_count => " + order.getProduct_count());
+			orderPrice = order.getProduct_price()*order.getProduct_count();
+			System.out.println("orderPrice => " + orderPrice);
+			orderPriceSum += orderPrice;
+		}
+		System.out.println("orderPriceSum => " + orderPriceSum);
+		
+		model.addAttribute("order",         orderList);
+		model.addAttribute("orderPriceSum", orderPriceSum);
+		
+//		model.addAttribute("order", orderService.productDetailOrder(orderVo));
+		
+		UserDto user = (UserDto) session.getAttribute("loginUser");
+    	String msg;
+    	if(user == null) {
+    		msg = "로그인이 필요한 서비스입니다.";
+    		session.setAttribute("msg", msg);
+    		return "/loginForm";
+    	}
+		return "/cartOrder";
+	}
 	
 	/* 주문하기 */
 	@PostMapping("/order/create")
 	public String createOrder(OrderDtoVO order, HttpSession session) {
 		System.out.println("OrderController createOrder 실행");
-		System.out.println("orderDto => " + order);
+		System.out.println("OrderDtoVO => " + order);
 		
 		int result = orderService.createOrder(order);
 		System.out.println("result => " + result);

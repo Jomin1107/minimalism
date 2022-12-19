@@ -32,6 +32,7 @@
 		      where  p.product_number = i.product_number
 		      and    p.product_number = c.product_number)
 		where id = #{id}
+		order by cart_number ASC
 	</select>
 	
 	<!-- 카트 확인 -->

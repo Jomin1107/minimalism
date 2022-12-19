@@ -165,18 +165,34 @@
 	 	text-align: center;
 	 	line-height: 50px;
 	}
-	a[class="all"], a[class="select"], a[class="shopping"] {
-		border: 1px solid black;
-		border-radius: 3px;
-		background-color: black;
-		color: white;
-		font-size: 14px;
-		text-align: center;
-		padding: 5px 20px;
-	}
-	a[class="all"]:hover, a[class="select"]:hover, a[class="shopping"]:hover {
-		border: 1px solid gray;
-		background-color: gray;
-		color: white;
-		cursor: default;
-	} 
+	a[class="shopping"] {
+      border: 1px solid black;
+      border-radius: 3px;
+      background-color: black;
+      color: white;
+      font-size: 14px;
+      text-align: center;
+      padding: 5px 20px;
+   }
+   a[class="shopping"]:hover {
+      border: 1px solid gray;
+      background-color: gray;
+      color: white;
+      cursor: default;
+   } 
+   button[class="select"] {
+      border: 1px solid black;
+      border-radius: 3px;
+      background-color: black;
+      color: white;
+      font-size: 14px;
+      text-align: center;
+      width: 150px;
+      padding: 0px 0px 45px 0px;
+   }
+   button[class="select"]:hover {
+      border: 1px solid gray;
+      background-color: gray;
+      color: white;
+      cursor: default;
+   }

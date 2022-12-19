@@ -6,6 +6,9 @@ import com.oracle.minimalism.dto.OrderDto;
 import com.oracle.minimalism.dto.OrderDtoVO;
 
 public interface OrderDao {
+	/* 주문 페이지 이동 */
+	OrderDtoVO productDetailGet(OrderDtoVO orderVo);
+	List<OrderDtoVO> productDetailGetList(OrderDtoVO orderVo);
 	
 	/* 상품 주문하기 */
 	int createOrder(OrderDtoVO order);
@@ -18,5 +21,6 @@ public interface OrderDao {
 
 	/* 주문 취소 */
 	int cancleOrder(OrderDto order);
+
 
 }

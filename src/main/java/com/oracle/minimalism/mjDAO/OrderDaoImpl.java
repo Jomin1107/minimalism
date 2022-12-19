@@ -17,6 +17,37 @@ public class OrderDaoImpl implements OrderDao {
 		private SqlSession session;
 
 		@Override
+		public List<OrderDtoVO> productDetailGetList(OrderDtoVO orderVo) {
+			System.out.println("OrderDaoImpl productDetailGetList 실행");
+			
+			List<OrderDtoVO> productDetailOrderList = null;
+			
+			try {
+				productDetailOrderList = session.selectList("productDetailOrderList", orderVo);
+				System.out.println("OrderDaoImpl productDetailGetList productDetailOrder.size() => " + productDetailOrderList.size());
+			} catch (NumberFormatException e) {
+				System.out.println("OrderDaoImpl productDetailGetList NumberFormatException => " + e.getMessage());
+			} catch (Exception e) {
+				System.out.println("OrderDaoImpl productDetailGetList Exception => " + e.getMessage());
+			}
+			
+			return productDetailOrderList;
+		}
+		
+		public OrderDtoVO productDetailGet(OrderDtoVO orderVo) {
+			System.out.println("OrderDaoImpl productDetailGet 실행");
+			
+			OrderDtoVO productDetailOrder = null;
+			try {
+				productDetailOrder = session.selectOne("productDetailOrder", orderVo);
+			} catch (Exception e) {
+				System.out.println("OrderDaoImpl productDetailGet Exception => " + e.getMessage());
+			}
+			
+			return productDetailOrder;
+		}
+		
+		@Override
 		public int createOrder(OrderDtoVO order) {
 			System.out.println("OrderDaoImpl createOrder 실행");
 			int result = 0;
@@ -73,4 +104,5 @@ public class OrderDaoImpl implements OrderDao {
 			}
 			return cancleOrder;
 		}
+
 }
