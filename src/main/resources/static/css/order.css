@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* main */
 	div[class="box"] {
-		width: 50%;
+		width: 1000px;
 		margin: 0 auto;
 	}
 	h4 {
@@ -71,13 +71,13 @@
 	}
 	/* 주문 */
 	div[class="order"] {
-		margin: 20px 40px;
+		margin: 20px 0px;
 	}
 	div[class="pay"] {
 		border-bottom: thin;
 		border-bottom-style: solid;
 		border-bottom-color: #BDBDBD;
-		margin: 20px 40px;
+		margin: 20px 0px;
 	}
 	div[class="gray"] {
 		background-color: #F6F6F6; 
