@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ include file="header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,22 +44,21 @@
 
 </script>
 <body>
-<script src="resources/js/bootstrap.min.js"></script>
-<%@ include file="header.jsp" %>
+<main>
 	<div id="bigForm">
 		<div class="flex-container p">
-			<p>NOTICE</p><br>
+			<h2>NOTICE</h2><br>
 			<%-- <h3>목록갯수 : ${totalNotice}</h3>  --%>
 		</div>
 	
 			<div class="flex-container noticeListForm">
 				<!-- 리스트 -->
 				
-				<table>
+				<table class="noticeList">
 					<colgroup>
-						<col width="50">
-						<col width="780">
-						<col width="60">
+						<col width="70">
+						<col width="750">
+						<col width="70">
 					</colgroup>
 					<thead>
 						<tr>
@@ -91,10 +90,10 @@
 				</table>		
 			</div>
 			<!-- 글쓰기 버튼 -->
-			<div class="flex-container writebutton">
+			<div class="flex-container noticeWritebutton">
 				<a href="/board/WriteNoticeForm">
 					<c:if test="${loginUser.username == 'minimanager'}">
-						<input class="writeSubmit_box" type="submit" value="글쓰기">
+						<input class="noticeWriteSubmit_box" type="submit" value="글쓰기">
 					</c:if>
 				</a>
 				
@@ -128,6 +127,7 @@
 			</div>
 		</div>
 	</div>
-<%@ include file="footer.jsp" %>
+</main>
 </body>
 </html>
+<%@ include file="footer.jsp" %>
