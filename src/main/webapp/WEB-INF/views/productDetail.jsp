@@ -6,10 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Product Detail</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/productDetail.css">
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-	/* 수량체크에 대한 제품값 */
 	function changeAmount(){
 	    var selectAmount = document.getElementById("selectAmount");
 	    // select element에서 선택된 option의 value가 저장된다.
@@ -94,7 +93,7 @@
 		<div class="flex-container p">
 			<p>Product Detail</p>		
 		</div>
-		<form action="/order/page1" name="frm" onsubmit="return chk()">
+		<form action="/order/page1" onsubmit="return chk()">
 			<div class="flex-container detailForm">
 				<div class="flex-container imgtablebox">
 					<table class="imgtable">
@@ -119,13 +118,11 @@
 						<tr>
 							<th>가격</th>
 							<td>
-								<fmt:formatNumber value="${product.product_price}" pattern="#,### 원"></fmt:formatNumber>
-							</td>							
+								<fmt:formatNumber value="${product.product_price}" pattern="#,###원"></fmt:formatNumber>
+							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
-								<hr class="line">
-							</td>
+							<td colspan="2"><hr class="line"></td>
 						</tr>
 						<tr>
 							<th>색상</th>
@@ -134,12 +131,7 @@
 						<tr>
 							<th>수량</th>
 							<td>
-								<select id="selectAmount" name="selectAmount" required="required" onchange="changeAmount()">
-									<%-- 
-									<c:forEach begin="0" end="10" var="i">
-										<option value="${i}">${i}</option>
-									</c:forEach> 
-									--%>
+								<select id="selectAmount" class="quantity" name="product_count" required="required" onchange="changeAmount()">
 									<option selected="selected">선택</option>
 									<option>1</option>
 									<option>2</option>
@@ -155,9 +147,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
-								<hr class="line">
-							</td>
+							<td colspan="2"><hr class="line"></td>
 						</tr>
 						<!-- 수량선택시 구매금액 출현 -->
 						<tr>
@@ -165,17 +155,16 @@
 							<td>
 								<input type="hidden" id="productPrice" value="${product.product_price}">
 								<strong id="totalPrice"></strong>원 (<span id="totalCount"></span>개)
-							<!-- <div id="total_amount"></div> -->
 							</td>			
 						</tr>
 						<tr>
 							<td>
-								<input class="submit_box" type="submit" id="btn_buy" value="BUY">
+								<input class="submit_box" id="btn_buy" type="submit" value="BUY">
 							</td>
 							<td>
-								<input class="submit_box" type="button" id="btn_cart" value="CART">
+								<input class="submit_box" id="btn_cart" type="button" value="CART">
 							</td>
-						</tr>						
+						</tr>
 					</table>
 				</div>				
 			</div>
@@ -195,7 +184,7 @@
 					<col width="200">
 					<col width="200">
 				</colgroup>
-				<tr>					
+				<tr>
 					<td>
 						<a href="/description/${product.product_number}">
 						DESCRIPTION
@@ -237,7 +226,6 @@
 			<div class="listreturnForm">
 				<input class="return_box" type="button" value="목록" onclick="location.href='/viewAll?currentPage=1&value=1&category=0'">
 			</div>
-		</div>
 	</div>
 </body>
 </html>

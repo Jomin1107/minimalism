@@ -19,7 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		
 		registry.addInterceptor(new OrderInterceptor())
 								.addPathPatterns("/order/**")  // "/order" url을 타는 모든 요청이 OrderInterceptor를 거친다
-						        .excludePathPatterns("/order/page");
+						        .excludePathPatterns("/order/page1", "/order/page2");
 	}
 	
 	
