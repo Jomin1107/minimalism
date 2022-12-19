@@ -310,6 +310,7 @@ public class UserController {
 					}
 			}
 		}
+		msg = "임시비밀번호가 메일로 전송되었습니다";
 		session.setAttribute("msg", msg);
 		return "redirect:/loginForm";
 	}		

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디찾기완료</title>
+<title>FIND ID</title>
 <link rel="stylesheet" type="text/css" href="/css/foundIdForm.css">
 </head>
 <body>
