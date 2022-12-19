@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.oracle.minimalism.dto.CartDto;
 import com.oracle.minimalism.dto.OrderDto;
 import com.oracle.minimalism.dto.OrderDtoVO;
 import com.oracle.minimalism.mjDAO.OrderDao;
@@ -76,6 +77,14 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println("OrderServiceImpl cancleOrder 실행");
 		
 		return orderDao.cancleOrder(order);
+	}
+
+
+	@Override
+	public List<CartDto> productCartList(List<String> cart_numberList) {
+	    System.out.println("OrderServiceImpl productCartList 실행");
+		List<CartDto> cartList = orderDao.cartGetList(cart_numberList);
+		return cartList;
 	}
 
 

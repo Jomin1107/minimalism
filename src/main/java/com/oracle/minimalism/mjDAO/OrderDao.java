@@ -2,6 +2,7 @@ package com.oracle.minimalism.mjDAO;
 
 import java.util.List;
 
+import com.oracle.minimalism.dto.CartDto;
 import com.oracle.minimalism.dto.OrderDto;
 import com.oracle.minimalism.dto.OrderDtoVO;
 
@@ -21,6 +22,8 @@ public interface OrderDao {
 
 	/* 주문 취소 */
 	int cancleOrder(OrderDto order);
+	
+	List<CartDto> cartGetList(List<String> cart_numberList);
 
 
 }

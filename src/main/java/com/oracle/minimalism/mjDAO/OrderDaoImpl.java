@@ -1,11 +1,14 @@
 package com.oracle.minimalism.mjDAO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.oracle.minimalism.dto.CartDto;
 import com.oracle.minimalism.dto.OrderDto;
 import com.oracle.minimalism.dto.OrderDtoVO;
 
@@ -103,6 +106,27 @@ public class OrderDaoImpl implements OrderDao {
 				System.out.println("OrderDaoImpl cancleOrder Exception => " + e.getMessage());
 			}
 			return cancleOrder;
+		}
+
+		@Override
+		public List<CartDto> cartGetList(List<String> cart_numberList) {
+			System.out.println("OrderDaoImpl cartGetList 실행");
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("cart_numberList", cart_numberList); //map에 list를 넣는다.
+			System.out.println("OrderDaoImpl cartGetList cart_numberList.size() -> " + cart_numberList.size());
+			List<CartDto> cartList = null;
+			
+			try {
+				cartList = session.selectList("getCartList", param);
+				System.out.println("OrderDaoImpl cartGetList cart_numberList.size() => " + cart_numberList.size());
+			} catch (Exception e) {
+				System.out.println("OrderDaoImpl cartGetList Exception => " + e.getMessage());
+			}
+			
+			System.out.println("OrderDaoImpl cartGetList return Before cartList) -> " + cartList);
+		
+			
+			return cartList;
 		}
 
 }
