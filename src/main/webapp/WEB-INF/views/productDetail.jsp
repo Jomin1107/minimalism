@@ -94,7 +94,7 @@
 		<div class="flex-container p">
 			<p>Product Detail</p>		
 		</div>
-		<form action="" name="frm" onsubmit="return clickCheck()">
+		<form action="/order/page1" name="frm" onsubmit="return chk()">
 			<div class="flex-container detailForm">
 				<div class="flex-container imgtablebox">
 					<table class="imgtable">
