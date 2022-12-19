@@ -20,5 +20,5 @@ public class ProductDto {
 	private String pageNum;
 	private int start;				private int end;
 	private String stored_thumbnail; // 썸네일사진
-	
+	private String stored_filename;	 // 상품상세이미지
 }

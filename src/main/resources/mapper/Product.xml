@@ -110,11 +110,13 @@
 	
 	<!-- 상품 상세조회 -->
 	<select id="hjProductOne"  parameterType="ProductDto" resultType="ProductDto">
-		SELECT 		i.stored_thumbnail stored_thumbnail, 
-		            p.product_number   product_number, 
-		            p.product_name     product_name, 
-		            p.product_price    product_price, 
-		            p.product_color    product_color
+		SELECT 		i.stored_thumbnail    stored_thumbnail,
+					i.stored_filename     stored_filename,
+		            p.product_number      product_number, 
+		            p.product_name        product_name, 
+		            p.product_price       product_price, 
+		            p.product_color       product_color,
+		            p.product_description product_description
 		FROM 		product p, product_img i
 		WHERE 		i.product_number = p.product_number
 		AND         p.product_number   = #{product_number}
