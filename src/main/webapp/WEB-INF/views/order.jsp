@@ -70,31 +70,20 @@ function sample6_execDaumPostcode() {
 </script>
 <script type="text/javascript">
 
-//	$(document).ready(function() {
-//		setTotalInfo();
-//	}
+	$(document).ready(function() {
+		setTotalInfo();
+	}
 	
-//	function setTotalInfo() {
-		/* 종합 정보 섹션 정보 삽입 */
-//		let totalPrice = 0;
-//		let totalCount = 0;
-//		let totalKind  = 0;
-//		$("input[name=chk]:checked").each(function() {
-			// 총 가격
-//			totalPrice += parseInt($("#totalPrice"+$(this).val()).val());
-			// 총 갯수
-//			totalCount += parseInt($("#totalCount"+$(this).val()).val());
-			// 총 종류
-//			totalKind += 1;
-//		});
+	function setTotalInfo() {
+		let totalPrice = 0;
+		
+		$("").each(function() {
+			totalPrice += parseInt($("#totalPrice"+$(this).val()).val());
+		});
+		
 		/* 값 삽입 */
-		// 총 가격
-//		$(".totalPrice_span").text(totalPrice.toLocaleString('en-US'));
-		// 총 갯수
-//		$(".totalCount_span").text(totalCount);
-		// 총 종류
-//		$(".totalKind_span").text(totalKind);
-//	};
+		$(".totalPrice_span").text(totalPrice);
+	};
 	
 </script>
 </head>
@@ -129,50 +118,48 @@ function sample6_execDaumPostcode() {
 			</div>
 			<div class="order">
 				<div class="title">주문상품</div>
-					<table>
-						<%-- <c:forEach items="${product}"> --%>
-							<tr class="product">
-								<td class="line">
-									<a href="/productDetail/${product.product_number}" class="thumbnail">
-										<img alt="product_img" src="${product.stored_thumbnail}" class="thumbnail">
-									</a>
-									<input type="hidden" name="product_number" value="${product.product_number}">
-								</td>
-								<td class="line">
-									<a href="/productDetail/${product.product_number}">${product.product_name}</a><br>
-									${product.product_color}
-								</td>
-								<td class="line">
-									<input type="hidden" name="product_price" value="${product.product_price}">
-									<fmt:formatNumber value="${product.product_price}" pattern="#,###원"/>
-								</td>
-								<td class="line">
-									<input type="hidden" name="product_count" value="${order.product_count}">
-									주문수량 : ${order.product_count} 개
-								</td>
-							</tr>
-						<%-- </c:forEach> --%>
-					</table>
+				<table>
+					<tr class="product">
+						<td class="line">
+							<a href="/productDetail/${order.product_number}" class="thumbnail">
+								<img alt="product_img" src="${order.stored_thumbnail}" class="thumbnail">
+							</a>
+							<input type="hidden" name="product_number" value="${order.product_number}">
+						</td>
+						<td class="line">
+							<a href="/productDetail/${order.product_number}">${order.product_name}</a><br>
+							${order.product_color}
+						</td>
+						<td class="line">
+							<input type="hidden" id="product_price" name="product_price" value="${order.product_price}">
+							<fmt:formatNumber value="${order.product_price}" pattern="#,###원"/>
+						</td>
+						<td class="line">
+							<input type="hidden" id="product_count" name="product_count" value="${order.product_count}">
+							주문수량 : ${order.product_count} 개
+						</td>
+					</tr>
+				</table>
 			</div>
-			<div class="pay">
-				<div class="title">결제정보</div>
-					<div>
-						<p class="left">배송비</p>
-						<p class="right">+0원</p> 
+				<div class="pay">
+					<div class="title">결제정보</div>
+						<div>
+							<p class="left">배송비</p>
+							<p class="right">+0원</p> 
+						</div>
+						<div class="gray">
+							<p class="left">결제금액</p>
+							<p class="right">
+								<fmt:formatNumber value="${orderPriceSum}" pattern="#,###원"/>
+							</p> 
+						</div>
+					<div class="black">
+						<a class="pay" onclick="$('#orderForm').submit()">
+							<fmt:formatNumber value="${orderPriceSum}" pattern="#,###원"/>
+						</a>
 					</div>
-					<div class="gray">
-						<p class="left">결제금액</p>
-						<p class="right">
-							<fmt:formatNumber value="${product.product_price * order.product_count}" pattern="#,###원"/>
-						</p> 
-					</div>
-				<div class="black">
-					<a class="pay" onclick="$('#orderForm').submit()">
-						<fmt:formatNumber value="${product.product_price * order.product_count}" pattern="#,###원"/> 결제하기
-					</a>
 				</div>
-			</div>
-			</form>
+		</form>
 		</div>
 	</main>
 </body>
