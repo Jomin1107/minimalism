@@ -101,7 +101,7 @@
 	function deleteCart(index) {
 		var cart_number = $("#cart_number"+index).val();
 		// alert('cart_number -> '+ cart_number);
-		//  cart_number 카트번호 -> 해당 카트 삭제
+		// cart_number 카트번호 -> 해당 카트 삭제
 		 $.ajax({
 	            url      : "/cart/delete",
 	            type     : 'POST',  // GET, PUT
@@ -143,6 +143,18 @@
 		}
 		
 	}
+	
+	$(function() {
+		$('#btn_order').click(function() {
+			//alert('상품주문');
+			var checked = $("input[name=chk]:checked").val();
+			
+			if(checked == null) {
+				alert('상품을 선택해주세요.');
+				return false;
+			} 
+		});
+	});
 </script>
 </head>
 <body>	
@@ -273,7 +285,7 @@
 			</div>
 			<!-- 구매 버튼 영역 -->
 			<div class="content_btn_section">
-				<button type="submit" class="select">선택상품주문하기</button><p>
+				<button type="submit" id="btn_order" class="select">선택상품주문하기</button><p>
 			</div>
 	       </c:if>
 	  </form>
