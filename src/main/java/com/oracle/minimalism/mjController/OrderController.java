@@ -121,7 +121,7 @@ public class OrderController {
 		if(result == 0) {
 			msg = "결제에 실패하였습니다.";
 			session.setAttribute("msg", msg);
-			return "/order/page";
+			return "redirect:/";
 		} else {
 			msg = "결제가 완료되었습니다. 주문정보는 마이페이지에서 확인 가능합니다.";
 			session.setAttribute("msg", msg);
