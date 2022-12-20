@@ -161,8 +161,12 @@ public class UserController {
 	      System.out.println("login: " + username);
 	      UserDto user = usermapper.findbyId(username);
 
-	      String jspPage = (String) session.getAttribute("jspPage");
-	      System.out.println("jspPage: " + jspPage);
+		  // hj review request
+		  String reviewJspPage = (String) session.getAttribute("reviewJspPage");
+	      System.out.println("reviewJspPage: " + reviewJspPage);      
+	      
+//	      String jspPage = (String) session.getAttribute("jspPage");
+//	      System.out.println("jspPage: " + jspPage);
 	      
 	      if(user.getUser_delete() == 1)
 	      {
@@ -177,11 +181,12 @@ public class UserController {
 	         session.setAttribute("msg", msg);
 	      }
 	      
-	      if (jspPage == null) {
-	         return "redirect:/";
-	      } else {
-	         return "redirect:/reviews";
-	      }
+		  // (리뷰 글쓰기 Interceptor)
+	      if (reviewJspPage == null) {
+			  return "redirect:/";
+		  } else {
+			  return "redirect:/board/reviews";
+		  } 
 	      
 	   }	
 	
