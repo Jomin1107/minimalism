@@ -1,4 +1,5 @@
 @charset "UTF-8";
+	/* -----------공용 css------------ */
 	body {
 		margin: 0px;
 	}
@@ -6,36 +7,43 @@
     	display: flex;  /* 컨테이너들 수직정렬 */
     	justify-content: center;
     }
-    table {
-		   width: 70%;
-		   border-top: 1px solid black;
-		   border-bottom: 1px solid #d5d5d5;
-		   padding-top: 10px;
-		   padding-bottom: 10px;
-		   margin-top: 200px;
-		   margin-bottom: 20px;
+    div {
+		/* border: 1px solid black; */
 	}
-	table td {
+	/* -----------공지사항 css------------ */
+    .noticeDetail {
+    	width: 65%;
+		border-top: 1px solid black;
+		border-bottom: 1px solid #d5d5d5;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		margin-top: 150px;
+    }
+    .noticeDetail td {
 		border-bottom: 1px solid #d5d5d5;
 		font-weight: normal;
-		padding-top: 8px;
-		padding-bottom: 8px;
-		font-size: 12px;
-	}
-	.contentTr {
-		
-		text-align: center;
-	}
-	.leftBtnbox {
+		padding-top: 10px;
+		padding-left: 10px;
+		padding-bottom: 10px;
+		font-size: 14px;    
+    }
+    .noticeContentTr td {
+    	border-bottom: 1px solid black;
+    	text-align: center;
+    	height: 300px;
+    }
+	.noticeLeftBtnbox {
 		width: 115px;
-		padding: 5px;
+		padding: 5px 0px;
+		margin: 30px;
+		padding-right: 980px;
 	}
-	.rightBtnbox {
+	.noticeRightBtnbox {
 		width: 210px;
 		padding: 5px 0px;
-		margin-left: 745px;
+		margin: 30px;
 	}
-	.btnSubmit_box {
+	.noticeSubmit_box {
     	border-radius: 0px;
     	border: 1px solid #d5d5d5;
     	width: 100px;
@@ -43,9 +51,54 @@
     	background-color: white;
     	color: black;   
     	padding: 5px;
-    	font-size: 14px;
-    			 
+    	font-size: 14px; 			 
     }
+	/* -----------리뷰문의 css------------ */
+	.reviewDetail {
+    	width: 65%;
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		margin-top: 150px;	
+	}
+	.reviewborder {
+		border-bottom: 1px solid #d5d5d5;
+	}
+    .reviewDetail td {
+		font-weight: normal;
+		padding-top: 10px;
+		padding-left: 10px;
+		padding-bottom: 10px;
+		font-size: 14px;    
+    }
+    .reviewcontentTr td {
+    	text-align: center;
+    	height: 300px;
+    }
+    .reviewLeftBtnbox {
+		width: 115px;
+		padding: 5px 0px;
+		margin: 30px;
+		padding-right: 980px;
+	}
+	.reviewRightBtnbox {
+		width: 210px;
+		padding: 5px 0px;
+		margin: 30px;
+	}
+	.reviewSubmit_box {
+    	border-radius: 0px;
+    	border: 1px solid #d5d5d5;
+    	width: 100px;
+    	height: 37px;
+    	background-color: white;
+    	color: black;   
+    	padding: 5px;
+    	font-size: 14px; 			 
+    }
+	  
+    /* -----------댓글 css------------ */
     .replyBoxtable table {
     	width: 70%;
     }

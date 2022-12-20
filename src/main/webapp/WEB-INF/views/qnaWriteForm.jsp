@@ -12,14 +12,15 @@
 <main>
 	<div class="bigForm">
 		<div class="flex-container p">
-			<h2>REVIEW WRITE</h2><br>
+			<h2>Q&amp;A WRITE</h2><br>
 			<c:if test="${msg != null}"></c:if>
 		</div>
-		<form action="/board/reviewWrite" method="post"  enctype="multipart/form-data">    		
+		<form action="/board/qnaWrite" method="post"  enctype="multipart/form-data">    		
       		<div class="flex-container writeBox">
       		<input type="hidden" name="id"           value="${loginUser.id}">
-      		<input type="hidden" name="rq_category"  value="r">
+      		<input type="hidden" name="rq_category"  value="q">
       		<input type="hidden" name="rq_name"      value="${loginUser.username}">
+      		<!-- <input type="hidden" name="rq_group"     value="0"> -->
 			<input type="hidden" name="rq_step"      value="0">
 			<input type="hidden" name="rq_level"     value="0">
 			<input type="hidden" name="rq_readcount" value="0">
@@ -45,7 +46,8 @@
 				<tr>
 					<td>제목</td>
 					<td>
-						<input type="text" name="rq_title" required="required">
+						<input style="width: 850px; height: 30px;" 
+								type="text" name="rq_title" required="required">
 					</td>
 				</tr>
 				<tr>
@@ -86,7 +88,7 @@
 					</td>
 				</tr>
 				<!-- 비밀글 설정 미구현 -->
-<!-- 			
+<!-- 				
 				<tr>
 					<td style="border-bottom: 1px solid black;">비밀글 설정</td>
 					<td style="border-bottom: 1px solid black;">
@@ -97,14 +99,14 @@
 -->
 			</table>
       		</div>
-	      	<div class="flex-container btnbox">
+      		<div class="flex-container btnbox">
 				<div class="reviewLeftBtnbox">
-					<input class="reviewSubmit_box" type="reset" value="취소" onclick="location.href='/board/reviews'">
+					<input class="reviewSubmit_box" type="reset" value="취소" onclick="location.href='/board/qnas'">
 				</div>
 				<div class="reviewRightBtnbox">
 					<input class="reviewSubmit_box" type="submit" value="등록">
 				</div>
-			</div>
+			</div>		
 		</form>
 	</div>
 </main>

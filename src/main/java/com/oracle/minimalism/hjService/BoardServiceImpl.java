@@ -251,6 +251,15 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("BoardServiceImpl qnaListSearch.size-> " + qnaListSearch.size());
 		return qnaListSearch;
 	}
+	
+	/* 내용수정 */
+	@Override
+	public int qnaUpdate(RnQDto rnQDto) {
+		System.out.println("BoardServiceImpl qnaUpdate Start...");
+		int qnaUpdateCtn = 0;
+		qnaUpdateCtn = boardDao.qnaUpdate(rnQDto);
+		return qnaUpdateCtn;
+	}
 
 	/* 글 삭제 */
 	@Override
@@ -258,10 +267,9 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("BoardServiceImpl qnaDelete Start...");
 		int qnaDeleteResult = 0;
 		qnaDeleteResult = boardDao.qnaDelete(rq_id);	
-		System.out.println("BoardServiceImpl totalQnaSearch qnaDeleteResult-> "+qnaDeleteResult);
+		System.out.println("BoardServiceImpl qnaDelete qnaDeleteResult-> "+qnaDeleteResult);
 		return qnaDeleteResult;
 	}
-
 
 	
 

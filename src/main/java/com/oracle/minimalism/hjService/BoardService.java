@@ -59,8 +59,11 @@ public interface BoardService {
 	int totalQnaSearch(RnQDto rnQDto);
 	/* 검색 리스트  */
 	List<RnQDto> qnaListSearch(RnQDto rnQDto);
+	/* 내용 수정 */
+	int qnaUpdate(RnQDto rnQDto);
 	/* 글 삭제 */
 	int qnaDelete(int rq_id);
+	
 
 
 

@@ -1,5 +1,7 @@
 package com.oracle.minimalism.hjController;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,8 @@ public class ProductDetailController {
 	
 	/* 제품 상세 페이지 */
 	@GetMapping(value = "/productDetail/{product_number}")
-	public String productDetail(@PathVariable("product_number") int  product_number, ProductDto productDto, Model model) {
+	public String productDetail(@PathVariable("product_number") int  product_number, 
+								ProductDto productDto, Model model) {
 		log.info("productDetail Start...");
 		System.out.println("ProductController productDetail product_number->"+product_number);
 		
@@ -29,5 +32,16 @@ public class ProductDetailController {
 		
 		return "/productDetail";
 	}
+	
+	/* 제품 설명 */
+//	@GetMapping(value = "/description/{product_number}")
+//	public String productDescription(@PathVariable("product_number") int  product_number, 
+//									ProductDto productDto, Model model) {
+//		System.out.println("ProductController productDescription product_number-> " + product_number);
+//		List<ProductDto> descripList = productService.descripList(product_number);
+//		
+//		model.addAttribute("productDesc",descripList);
+//		return "redirect:productDetail";
+//	}
 
 }

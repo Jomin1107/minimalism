@@ -16,9 +16,9 @@
 		FROM
         		( SELECT ROWNUM rn, a.*
         		  FROM
-                            (SELECT     * 
-                             FROM       notice
-                             WHERE      n_delete = 0
+                            (SELECT  * 
+                             FROM    notice
+                             WHERE   n_delete = 0
                              ORDER BY   notice_id
                              ) a
         		)
@@ -107,6 +107,14 @@
 			 #{n_level    , jdbcType=VARCHAR}, 
 			 #{n_delete   , jdbcType=VARCHAR}
 			 )
+	</insert>
+	<insert id="hjNoticeInsert1" parameterType="NoticeDto">
+		INSERT INTO notice VALUES 
+			( notice_seq.nextval,
+			 #{notice_title}, #{notice_name}, #{notice_content},
+			 sysdate, 
+			 notice_seq.currval ,
+			 #{n_step}, #{n_level}, #{n_delete} )
 	</insert>
 
 </mapper>

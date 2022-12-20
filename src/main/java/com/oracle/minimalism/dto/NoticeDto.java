@@ -19,9 +19,11 @@ public class NoticeDto {
 	private int    n_delete;			// 삭제여부 (기본0)
 	
 	/* 조회용 */
-	private String search;             
-	private String keyword;
-	private String pagaNum;  		   
-	private int    start;			   
-	private int    end;
+	private String search;    			// 검색         
+	private String keyword;				// 검색어
+	private String pagaNum;  		   	// 페이징 갯수
+	private int    start;				// 페이지 시작		   
+	private int    end;					// 페이지 끝
+	
+	private String id;			// 아이디
 }

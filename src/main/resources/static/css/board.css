@@ -1,73 +1,114 @@
 @charset "UTF-8";
+	/* -----------공용 css------------ */
 	body {
 		  margin: 0px;
 	}
 	.flex-container {
-            display: flex;  /* 컨테이너들 수직정렬 */
-            justify-content: center;
+    	display: flex;  /* 컨테이너들 수직정렬 */
+    	justify-content: center;
     }
+    .flex-container.p{
+		padding: 50px;
+		margin-top: 100px;
+	}
+	.flex-container.p h2 {
+		text-align: center;
+      	margin-bottom: 50px;
+      	color: #1a1a1a;
+       	font-size: 24px;
+       	font-weight: 300;
+	}
 	div {
-		/* border: 1px solid black;   */
+		/* border: 1px solid black;  */
 	}
-	table {
-		   width: 80%;
-		   border-top: 1px solid black;
-		   border-bottom: 1px solid #d5d5d5;
-		   padding-top: 10px;
-		   padding-bottom: 10px;
+	
+	/* -----------공지사항 css------------ */
+	.flex-container.noticeWritebutton {
+		height: 50px;
+		justify-content: center;
+		margin-left: 1150px;
+		margin-top: 20px;
 	}
-	table th {
+	.noticeWriteSubmit_box{
+		border-radius: 0px;
+    	border: 1px solid #d5d5d5;
+    	width: 80px;
+    	height: 37px;
+    	background-color: white;
+    	color: black;   
+    	padding: 5px;
+    	margin-top: 10px;		
+	}
+	.noticeList {
+		width: 65%;
+		border-top: 1px solid black;
 		border-bottom: 1px solid #d5d5d5;
-		font-weight: normal;
-		font-size: 12px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		margin-bottom: 20px;
+	}
+	.noticeList th {
+		border-bottom: 1px solid #d5d5d5;
+		font-weight: bold;
+		font-size: 14px;
 		padding: 10px;
 		text-align: center;
+		background-color: #F6F6F6;
+		background: #F6F6F6;
 	}
-	table td {
+	.noticeList td {
 		text-align: center;
 		padding-top: 12px;
 		padding-bottom: 12px;
-		font-size: 12px;
+		font-size: 14px;	
 	}
-	.flex-container.p {
-					   font-size: 23px;
-					   font-weight: lighter;
-					   padding: 50px;
-					   margin-top: 100px;
-	}
-	.flex-container.noticeListForm {
-								    height: 500px;
-								    margin-bottom: 5px;
-								    align-items: flex-start;
-	}
-	.flex-container.rnqListForm {
-								    
-								    margin-bottom: 5px;
-								    align-items: flex-start;
-	}
-	.flex-container.writebutton {
+	/* -----------리뷰문의 css------------ */
+	.flex-container.reviewWritebutton {
 		height: 50px;
 		justify-content: center;
-		margin-left: 1050px;
+		margin-left: 1150px;
 		margin-top: 20px;
 	}
-	.writeSubmit_box {
-    			 border-radius: 0px;
-    			 border: 1px solid #d5d5d5;
-    			 width: 80px;
-    			 height: 37px;
-    			 background-color: white;
-    			 color: black;   
-    			 padding: 5px;		
-    			 font-size: 13px; 
-    }
-	.flex-container.pageForm {
-							  height: 50px;
-							  margin-bottom: 5px;
+	.reviewWriteSubmit_box{
+		border-radius: 0px;
+    	border: 1px solid #d5d5d5;
+    	width: 80px;
+    	height: 37px;
+    	background-color: white;
+    	color: black;   
+    	padding: 5px;
+    	margin-top: 10px;		
 	}
-	.flex-container.searchForm {
-								height: 50px;
-								margin-bottom: 30px;						
+	.reviewList {
+		width: 65%;
+		border-top: 1px solid black;
+		border-bottom: 1px solid #d5d5d5;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		margin-bottom: 20px;
+	}
+	.reviewList th {
+		border-bottom: 1px solid #d5d5d5;
+		font-weight: bold;
+		font-size: 14px;
+		padding: 10px;
+		text-align: center;
+		background-color: #F6F6F6;
+		background: #F6F6F6;
+	}
+	.reviewList td {
+		text-align: center;
+		padding-top: 12px;
+		padding-bottom: 12px;
+		font-size: 14px;	
+	}
+	/* -----------마이페이지 게시물관리 css------------ */
+	
+
+	/* -----------페이징 공용 css------------ */
+	.flex-container.pageForm {
+		height: 50px;
+		margin-bottom: 5px;
 	}
 	.flex-container.pageForm button {
 		text-align: center;
@@ -76,8 +117,13 @@
 		width: 30px;
 		height: 30px;
 		border: 1px solid white;
-		background-color: white;
-		
+		background-color: white;	
+	}
+
+	/* -----------검색공용 css------------ */
+	.flex-container.searchForm {
+		height: 50px;
+		margin-bottom: 30px;						
 	}
 	.search {
 			padding-bottom: 5px;
@@ -96,7 +142,7 @@
 		   height: 36px;
 		   padding: 5px;
 		   margin-top: -1px;
-		   font-size: 13px; 
+		   font-size: 14px; 
     }
     .submit_box {
     		border-radius: 0px;
@@ -106,13 +152,5 @@
     		background-color: black;
     		color: white;   
     		padding: 5px;		
-    		font-size: 13px;  
-    }
-    .rnqselectForm {
-    	width: 70%;
-    	float: left;
-    }
-    .rnqSelectBox{
-    	margin: 10px;
-    	padding-left: -300px;
+    		font-size: 14px;  
     }

@@ -14,7 +14,7 @@ public class BoardPaging {
 	
 //	                                     총갯수 			   현재 페이지
 	public BoardPaging(int total, String currentPage1) {
-		this.total = total;   // 7
+		this.total = total;   // 
 		if(currentPage1 != null) {
 			this.currentPage = Integer.parseInt(currentPage1); //2
 		}

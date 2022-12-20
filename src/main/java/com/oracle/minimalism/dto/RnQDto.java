@@ -2,11 +2,10 @@ package com.oracle.minimalism.dto;
 
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Data
 public class RnQDto {
 	private int    rq_id;		        // 리뷰문의 번호
 	private String id;			        // 회원아이디
@@ -32,4 +31,10 @@ public class RnQDto {
 	private String pagaNum;  		    // 페이지 갯수
 	private int    start;			    // 행의 시작
 	private int    end; 				// 행의 끝
+	
+	/* 리뷰 상세조회 */
+	private String rq_filename;			// 리뷰이미지파일명
+	private int    rq_imgnumber;		// 이미지 번호
+	
+	private String username;	// 이름
 }

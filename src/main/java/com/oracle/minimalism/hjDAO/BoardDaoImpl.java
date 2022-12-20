@@ -291,6 +291,10 @@ public class BoardDaoImpl implements BoardDao {
 		int reviewUpdateCtn = 0;
 		
 		try {
+			System.out.println("BoardDaoImpl reviewUpdate rnQDto->"+rnQDto);
+			System.out.println("BoardDaoImpl reviewUpdate rnQDto.getRq_title()->"+rnQDto.getRq_title());
+			System.out.println("BoardDaoImpl reviewUpdate rnQDto.getRq_content()->"+rnQDto.getRq_content());
+			System.out.println("BoardDaoImpl reviewUpdate rnQDto.getRq_id()->"+rnQDto.getRq_id());
 			reviewUpdateCtn = session.update("hjReviewUpdate", rnQDto);
 		} catch (Exception e) {
 			System.out.println("BoardDaoImpl reviewUpdate Exception Message-> " + e.getMessage());
@@ -415,6 +419,19 @@ public class BoardDaoImpl implements BoardDao {
 		}
 		return qnaListSearch;
 	}
+	
+	/* 내용 수정 */
+	@Override
+	public int qnaUpdate(RnQDto rnQDto) {
+		System.out.println("BoardDaoImpl qnaUpdate Start...");
+		int qnaUpdateCtn = 0;
+		try {
+			qnaUpdateCtn = session.update("hjQnaUpdate", rnQDto);
+		} catch (Exception e) {
+			System.out.println("BoardDaoImpl qnaUpdate Exception Message-> " + e.getMessage());
+		}
+		return qnaUpdateCtn;
+	}
 
 	/* 내용 삭제 */
 	@Override
@@ -430,6 +447,7 @@ public class BoardDaoImpl implements BoardDao {
 		}
 		return qnaDeleteResult;
 	}
+	
 
 
 }

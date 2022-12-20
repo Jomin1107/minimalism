@@ -2,38 +2,354 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.oracle.minimalism.RnqDtoMapper">
-	<!-- 리뷰 -->
+	<!-- =============================== 리뷰 =============================== -->
+	<!-- 총갯수 -->
 	<select id="hjReviewTotal" resultType="int">
-		SELECT Count(*) FROM RnQ
+		SELECT Count(*) 
+		FROM  RnQ  
+		WHERE rq_category = 'r'
+		AND   rq_delete = 0 
 	</select>
-	
+	<!-- 리스트 출력 -->
 	<select id="hjReviewAll" parameterType="RnqDto" resultType="RnqDto">
 		SELECT * 
 		FROM
         		(
         		SELECT ROWNUM rn, a.*
         		FROM
-                	(SELECT    r.rq_id, p.stored_thumbnail, r.rq_title, r.rq_name, rq_date,  r.rq_readcount
-                      FROM     rnq r , product_img p
-                      WHERE    p.product_number = r.product_number
-                      AND      rq_category = 'r') a
+                	(  SELECT   p.product_number, p.product_name,  r.rq_id,  r.rq_title, r.rq_name, r.rq_date,  r.rq_readcount, i.stored_thumbnail
+                       FROM     rnq r  , product p, product_img i
+                       WHERE    r.product_number = i.product_number
+                       AND      r.product_number =p.product_number
+                       AND      rq_category = 'r' 
+                       AND      rq_delete = 0 
+     				   ORDER BY   r.rq_date DESC
+                      ) a
         		)
 		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
-	<!-- 문의 -->
-	<select id="hjQnaTotal" resultType="int">
-		SELECT Count(*) FROM RnQ
+	
+	<!-- 검색 총갯수 -->	
+	<select id="hjReviewTotalKeyword" parameterType="RnqDto" resultType="int">
+		SELECT    Count(*)
+		FROM 
+				(  
+		<choose>
+			<when test="search == 'product_name' ">	
+   				SELECT *
+                FROM     rnq r, product p
+                WHERE    r.product_number = p.product_number
+                AND	     r.rq_category = 'r' 
+                AND      r.rq_delete = 0 
+                AND      p.product_name   LIKE '%' ||   #{keyword}   || '%'  
+			</when>
+			<when test="search == 'rq_name' ">		
+   				SELECT *
+                FROM     rnq r, product p
+                WHERE    r.product_number = p.product_number
+                AND	     r.rq_category = 'r' 
+                AND      r.rq_delete = 0 
+                AND      r.rq_name   LIKE '%' ||   #{keyword}   || '%'   
+			</when>
+		</choose>
+				)
 	</select>
 	
+	<!-- 검색기능 리스트 -->
+	<select id="hjReviewSearch" parameterType="RnqDto" resultType="RnqDto">
+		SELECT  *
+		FROM
+				(
+				SELECT ROWNUM rn, a.*
+				FROM
+					(
+							
+		<choose>
+			<when test="search == 'product_name' ">	
+                SELECT     p.product_number, p.product_name,  r.rq_id,  r.rq_title, r.rq_name, r.rq_date,  r.rq_readcount, i.stored_thumbnail
+				FROM       rnq r  , product p, product_img i
+				WHERE      r.product_number = i.product_number
+				AND        r.product_number =p.product_number
+				AND        r.rq_category = 'r' 
+				AND        r.rq_delete = 0 
+				AND        p.product_name  LIKE  '%' ||  #{keyword}  || '%'
+				ORDER BY   r.rq_date DESC) a
+			</when>
+			<when test="search == 'rq_name' ">		
+                SELECT     p.product_number, p.product_name,  r.rq_id,  r.rq_title, r.rq_name, r.rq_date,  r.rq_readcount, i.stored_thumbnail
+				FROM       rnq r  , product p, product_img i
+				WHERE      r.product_number = i.product_number
+				AND        r.product_number =p.product_number
+				AND        r.rq_category = 'r' 
+				AND        r.rq_delete = 0 
+				AND        r.rq_name  LIKE  '%' ||  #{keyword}  || '%'
+				ORDER BY   r.rq_date DESC) a
+			</when>
+		</choose>
+					)
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+	
+	<!-- 글쓰기 페이지 내에 상품명 노출 -->
+	<select id="hjProductNameList" resultType="ProductDto">
+		SELECT     product_number, product_name
+		FROM       product
+		WHERE      product_name IN (SELECT product_name FROM product)
+		ORDER BY   product_number
+	</select>
+	
+	<!-- 메인 리뷰 글쓰기 -->
+	<insert id="hjReviewInsert" parameterType="RnqDto"
+	                            useGeneratedKeys="true" 
+	                            keyColumn="rq_id" 
+	                            keyProperty="rq_id"
+	>
+		INSERT INTO rnq VALUES
+			( rnq_seq.nextval ,
+			  #{id},
+			  #{product_number},
+			  #{rq_category,     jdbcType=VARCHAR},
+			  #{rq_title},
+			  #{rq_name},
+			  #{rq_content},
+			  sysdate,
+			  rnq_seq.currval ,
+			  #{rq_step,      jdbcType=VARCHAR},
+			  #{rq_level,     jdbcType=VARCHAR},
+			  #{rq_readcount, jdbcType=VARCHAR},
+			  #{rq_secret,    jdbcType=VARCHAR},
+			  #{rq_delete,    jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<!-- 이미지 등록 -->
+	<insert id="hjReviewImgInsert" parameterType="RnQImg">
+		INSERT INTO rnq_img VALUES
+			( #{rq_id},
+			  (SELECT NVL(MAX(RQ_IMGNUMBER),0)+1
+               FROM    RNQ_IMG
+               WHERE  RQ_ID = #{rq_id}
+               ),
+			  #{rq_filename}
+			)
+	</insert>
+		
+	<!-- 상세보기 -->	
+	<select id="hjReviewDetail" parameterType="RnqDto" resultType="RnqDto">
+		SELECT  r.rq_id, 
+                p.product_number, p.product_name, 
+                r.rq_name, r.rq_title, r.rq_date, r.rq_content, 
+                i.rq_imgnumber, i.rq_filename
+		FROM    rnq r, product p, rnq_img i
+		WHERE   r.product_number = p.product_number
+		AND     r.rq_id = i.rq_id(+)
+		AND     r.rq_category = 'r'  
+		AND 	r.rq_id = #{rq_id}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<insert id="hjReviewReadcount" parameterType="int">
+		UPDATE rnq SET rq_readcount = rq_readcount + 1 
+		WHERE rq_id = #{rq_id}
+	</insert>
+	
+	<!-- 내용 수정 -->
+	<update id="hjReviewUpdate"  parameterType="RnqDto">
+		UPDATE rnq SET rq_title = #{rq_title}
+		             , rq_content = #{rq_content}
+		WHERE  rq_id = #{rq_id}
+	</update>
+	
+	<!-- 내용 삭제 (삭제여부 변경) -->
+	<update id="hjReviewDelete" parameterType="int">
+		UPDATE  rnq
+		SET     rq_delete = 1
+		WHERE   rq_category = 'r'  
+		AND     rq_id = #{rq_id}
+	</update>
+	
+	<!-- 내용 삭제 (데이터 삭제) -->
+	<delete id="hjReviewDelete1" parameterType="int">
+		DELETE FROM rnq WHERE rq_id = #{rq_id}
+	</delete>
+
+
+	
+	<!-- =============================== 문의 =============================== -->
+	<!-- 목록 총갯수 -->
+	<select id="hjQnaTotal" resultType="int">
+		SELECT Count(*) 
+		FROM  RnQ  
+		WHERE rq_category = 'q' 
+		AND   rq_delete = 0 	
+	</select>
+	<!-- 목록 리스트 -->
 	<select id="hjQnaAll" parameterType="RnqDto" resultType="RnqDto">
 		SELECT * 
 		FROM
         		(
         		SELECT ROWNUM rn, a.*
         		FROM
-                	(SELECT * FROM RnQ
-                	 WHERE rq_category = 'q'
-                	 ORDER BY rq_id) a
+                	(  SELECT   p.product_number, p.product_name,  r.rq_id,  r.rq_title, r.rq_name, r.rq_date,  r.rq_readcount, i.stored_thumbnail
+                       FROM     rnq r  , product p, product_img i
+                       WHERE    r.product_number = i.product_number
+                       AND      r.product_number =p.product_number
+                       AND      rq_category = 'q' 
+                       AND      rq_delete = 0 
+     				   ORDER BY   r.rq_date DESC
+                      ) a
+        		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 상세보기 -->
+	<select id="hjQnaDetail" parameterType="RnqDto" resultType="RnqDto">
+		SELECT  r.rq_id, 
+                p.product_number, p.product_name, 
+                r.rq_name, r.rq_title, r.rq_date, r.rq_content, 
+                i.rq_imgnumber, i.rq_filename
+		FROM    rnq r, product p, rnq_img i
+		WHERE   r.product_number = p.product_number
+		AND     r.rq_id = i.rq_id(+)
+		AND     r.rq_category = 'q'  
+		AND 	r.rq_id = #{rq_id}
+	</select>
+	
+	<!-- 메인 리뷰 글쓰기 -->
+	<insert id="hjQnaInsert" parameterType="RnqDto"
+	                            useGeneratedKeys="true" 
+	                            keyColumn="rq_id" 
+	                            keyProperty="rq_id"    >
+		INSERT INTO rnq VALUES
+			( rnq_seq.nextval ,
+			  #{id},
+			  #{product_number},
+			  #{rq_category,     jdbcType=VARCHAR},
+			  #{rq_title},
+			  #{rq_name},
+			  #{rq_content},
+			  sysdate,
+			  rnq_seq.currval ,
+			  #{rq_step,      jdbcType=VARCHAR},
+			  #{rq_level,     jdbcType=VARCHAR},
+			  #{rq_readcount, jdbcType=VARCHAR},
+			  #{rq_secret,    jdbcType=VARCHAR},
+			  #{rq_delete,    jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<!-- 이미지 등록 -->
+	<insert id="hjQnaImgInsert" parameterType="RnQImg">
+		INSERT INTO rnq_img VALUES
+			( #{rq_id},
+			  (SELECT NVL(MAX(RQ_IMGNUMBER),0)+1
+               FROM    RNQ_IMG
+               WHERE  RQ_ID = #{rq_id}
+               ),
+			  #{rq_filename}
+			)
+	</insert>
+	<!-- 검색 총갯수 -->
+	<select id="hjQnaTotalKeyword" parameterType="RnqDto" resultType="int">
+		SELECT    Count(*)
+		FROM 
+				(  
+		<choose>
+			<when test="search == 'product_name' ">	
+   				SELECT *
+                FROM     rnq r, product p
+                WHERE    r.product_number = p.product_number
+                AND	     r.rq_category = 'q' 
+                AND      r.rq_delete = 0 
+                AND      p.product_name   LIKE '%' ||   #{keyword}   || '%'  
+			</when>
+			<when test="search == 'rq_name' ">		
+   				SELECT *
+                FROM     rnq r, product p
+                WHERE    r.product_number = p.product_number
+                AND	     r.rq_category = 'q' 
+                AND      r.rq_delete = 0 
+                AND      r.rq_name   LIKE '%' ||   #{keyword}   || '%'   
+			</when>
+		</choose>
+				)
+	</select>
+	
+	<!-- 검색 리스트 -->
+	<select id="hjQnaSearch" parameterType="RnqDto" resultType="RnqDto">
+		SELECT  *
+		FROM
+				(
+				SELECT ROWNUM rn, a.*
+				FROM
+					(
+							
+		<choose>
+			<when test="search == 'product_name' ">	
+                SELECT     p.product_number, p.product_name,  r.rq_id,  r.rq_title, r.rq_name, r.rq_date,  r.rq_readcount, i.stored_thumbnail
+				FROM       rnq r  , product p, product_img i
+				WHERE      r.product_number = i.product_number
+				AND        r.product_number =p.product_number
+				AND        r.rq_category = 'q' 
+				AND        r.rq_delete = 0 
+				AND        p.product_name  LIKE  '%' ||  #{keyword}  || '%'
+				ORDER BY   r.rq_date DESC) a
+			</when>
+			<when test="search == 'rq_name' ">		
+                SELECT     p.product_number, p.product_name,  r.rq_id,  r.rq_title, r.rq_name, r.rq_date,  r.rq_readcount, i.stored_thumbnail
+				FROM       rnq r  , product p, product_img i
+				WHERE      r.product_number = i.product_number
+				AND        r.product_number =p.product_number
+				AND        r.rq_category = 'q' 
+				AND        r.rq_delete = 0 
+				AND        r.rq_name  LIKE  '%' ||  #{keyword}  || '%'
+				ORDER BY   r.rq_date DESC) a
+			</when>
+		</choose>
+					)
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 내용 수정 -->
+	<update id="hjQnaUpdate"  parameterType="RnqDto">
+		UPDATE rnq SET rq_title = #{rq_title}
+		             , rq_content = #{rq_content}
+		WHERE  rq_id = #{rq_id}
+	</update>
+	
+	<!-- 내용 삭제 (삭제여부 변경) -->
+	<update id="hjQnaDelete" parameterType="int">
+		UPDATE  rnq
+		SET     rq_delete = 1
+		WHERE   rq_category = 'q'  
+		AND     rq_id = #{rq_id}
+	</update>
+	<!-- =============================== 마이페이지 =============================== -->
+	<!-- 총갯수 -->
+	<select id="hjMypageTotal"  parameterType="UserDto"  resultType="int">
+		SELECT    Count(*)
+		FROM       
+                ( SELECT    *
+                   FROM     rnq
+                   WHERE    rq_delete = 0 
+                   AND      rq_name LIKE '%'||#{username}||'%'  )
+	</select>
+	<!-- 리스트 출력 -->
+	<select id="hjMypageList" parameterType="RnqDto" resultType="RnqDto">
+		SELECT * 
+		FROM
+        		(
+        		SELECT ROWNUM rn, a.*
+        		FROM
+                	(  SELECT     p.product_number, p.product_name,  
+                				  r.rq_id,  r.rq_title, r.rq_name, r.rq_date,  r.rq_readcount, r.rq_category,
+                				  i.stored_thumbnail
+                       FROM       rnq r  , product p, product_img i
+                       WHERE      r.product_number = i.product_number
+                       AND        r.product_number =p.product_number 
+                       AND        r.rq_delete = 0
+     				   ORDER BY   r.rq_date DESC
+                      ) a
         		)
 		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
