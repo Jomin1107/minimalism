@@ -68,35 +68,36 @@ function sample6_execDaumPostcode() {
 	     .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
 	}
 </script>
+
 </head>
 <body>
 	<main>
 		<div class="box">
 		<h4>ORDER</h4>
-		<form action="/order/create" id="orderForm" method="post">
+		<form action="/order/create1" id="orderForm" method="post">
 			<div class="delivery">
 				<div class="black">주문/결제</div>
 				<div class="title">배송지</div>
-				<table>
-					<tr>
-						<th scope="row">받는사람</th>
-						<td>
-							<input type="hidden" name="id" value="${loginUser.id}">  
-							<input type="text" class="username" id="username" name="receiver_name" value="${loginUser.username}" required="required">
-						</td>
-					<tr/>
-					<tr>
-				  		<th scope="row">주소</th>
-				      	<td><input type="text" id="address1" name="receiver_address1" value="${loginUser.address1}">
-						<input type="button" id="Abutton" onclick="sample6_execDaumPostcode()" value="우편번호" required="required"><br>
-						<input type="text" id="address2" name="receiver_address2" value="${loginUser.address2}" required="required" ><span class="msg" >기본주소</span><br>
-						<input type="text" id="address3" name="receiver_address3" value="${loginUser.address3}" ><span class="msg">상세주소</span><br>
-			   		</tr>
-			   		<tr>
-			   			<th scope="row">전화번호</th>
-			   			<td><input type="text" class="phone" id="phone" name="receiver_phone" oninput="autoHyphen2(this)" placeholder="010-XXXX-XXXX" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${loginUser.phone}" required="required"></td>
-					</tr>
-				</table>	
+					<table>
+						<tr>
+							<th scope="row">받는사람</th>
+							<td>
+								<input type="hidden" name="id" value="${loginUser.id}">  
+								<input type="text" class="username" id="username" name="receiver_name" value="${loginUser.username}" required="required">
+							</td>
+						<tr/>
+						<tr>
+					  		<th scope="row">주소</th>
+					      	<td><input type="text" id="address1" name="receiver_address1" value="${loginUser.address1}">
+							<input type="button" id="Abutton" onclick="sample6_execDaumPostcode()" value="우편번호" required="required"><br>
+							<input type="text" id="address2" name="receiver_address2" value="${loginUser.address2}" required="required" ><span class="msg" >기본주소</span><br>
+							<input type="text" id="address3" name="receiver_address3" value="${loginUser.address3}" ><span class="msg">상세주소</span><br>
+				   		</tr>
+				   		<tr>
+				   			<th scope="row">전화번호</th>
+				   			<td><input type="text" class="phone" id="phone" name="receiver_phone" oninput="autoHyphen2(this)" placeholder="010-XXXX-XXXX" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" value="${loginUser.phone}" required="required"></td>
+						</tr>
+					</table>	
 			</div>
 			<div class="order">
 				<div class="title">주문상품</div>
@@ -123,24 +124,24 @@ function sample6_execDaumPostcode() {
 					</tr>
 				</table>
 			</div>
-			<div class="pay">
-				<div class="title">결제정보</div>
-					<div>
-						<p class="left">배송비</p>
-						<p class="right">+0원</p> 
+				<div class="pay">
+					<div class="title">결제정보</div>
+						<div>
+							<p class="left">배송비</p>
+							<p class="right">+0원</p> 
+						</div>
+						<div class="gray">
+							<p class="left">결제금액</p>
+							<p class="right">
+								<fmt:formatNumber value="${orderPriceSum}" pattern="#,###원"/>
+							</p> 
+						</div>
+					<div class="black">
+						<a class="pay" onclick="$('#orderForm').submit()">
+							<fmt:formatNumber value="${orderPriceSum}" pattern="#,###원"/> 결제하기
+						</a>
 					</div>
-					<div class="gray">
-						<p class="left">결제금액</p>
-						<p class="right">
-							<fmt:formatNumber value="${orderPriceSum}" pattern="#,###원"/>
-						</p> 
-					</div>
-				<div class="black">
-					<a class="pay" onclick="$('#orderForm').submit()">
-						<fmt:formatNumber value="${orderPriceSum}" pattern="#,###원"/> 결제하기
-					</a>
 				</div>
-			</div>
 		</form>
 		</div>
 	</main>
