@@ -119,6 +119,16 @@
 		border: 1px solid white;
 		background-color: white;	
 	}
+	
+/* 	a {
+		text-align: center;
+		text-decoration: none;
+		color: black;
+		width: 30px;
+		height: 30px;
+		border: 1px solid white;
+		background-color: white;	
+	} */
 
 	/* -----------검색공용 css------------ */
 	.flex-container.searchForm {

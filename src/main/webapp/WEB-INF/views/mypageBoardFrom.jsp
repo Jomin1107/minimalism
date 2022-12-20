@@ -97,7 +97,7 @@
 			<a href="mypageBoardService?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
 		</c:if>
 		<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-			<a href="mypageBoardService?currentPage=${i}">[${i}]</a>
+			<a href="mypageBoardService?currentPage=${i}">${i}</a>
 		</c:forEach>
 		<c:if test="${page.endPage < page.totalPage}">
 			<a href="mypageBoardService?currentPage=${page.startPage + page.pageBlock}">[다음]</a>

@@ -79,7 +79,7 @@
 				</li>
 				<li class="content">
 					<img src="img/userWrite.PNG" class="img">
-					<a href="">
+					<a href="/mypageBoardService">
 						<strong class="content">Board</strong>
 						<span class="item">게시물 관리</span>
 					</a>
