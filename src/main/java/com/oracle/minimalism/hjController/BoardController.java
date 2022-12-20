@@ -695,7 +695,7 @@ public class BoardController {
 		int qnaUpdateCtn = boardService.qnaUpdate(rnQDto);
 		System.out.println("BoardController reviewUpdate noticeUpdateCtn-> " + qnaUpdateCtn);
 		
-		return "forward:/board/qnas";
+		return "redirect:/board/qnas";
 	}
 	
 	/* 글 삭제 */

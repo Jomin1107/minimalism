@@ -73,7 +73,7 @@
 			</div>
 			<div class="flex-container btnBox">
 			    <div class="reviewLeftBtnbox">
-			        <input class="reviewSubmit_box" type="button" value="목록" onclick="location.href='/board/reviews'">
+			        <input class="reviewSubmit_box" type="button" value="목록" onclick="location.href='/board/qnas'">
 			    </div>
 			    <c:forEach var="qna" items="${qnaDetailList}" varStatus="status">
 			    <c:if test="${status.index == 0}">
