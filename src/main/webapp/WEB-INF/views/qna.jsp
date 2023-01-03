@@ -55,7 +55,8 @@
 					<th>작성자</th>
 					<th>작성일</th>
 					<th>조회</th>
-				</tr>		
+				</tr>
+				
 				<c:forEach var="qna" items="${qnaList}">
 					<tr>
 						<td>${qna.rq_id}</td>
@@ -75,12 +76,13 @@
 					</tr>
 					<c:set var="num" value="${num - 1 }"></c:set>
 				</c:forEach>
-				<c:if test="${totalQnA == null}">
+
+				<c:if test="${totalQnA <= 0}">
 					<tr>
 						<td colspan="10"
 							style="padding: 100px;">게시글이 없습니다.</td>
 					</tr>
-				</c:if>
+				</c:if>	
 			</table>		
 		</div>
 		
