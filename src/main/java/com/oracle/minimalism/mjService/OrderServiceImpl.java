@@ -25,15 +25,6 @@ public class OrderServiceImpl implements OrderService {
 		return productDetailOrder;
 	}
 	
-
-	@Override
-	public List<OrderDtoVO> productDetailOrderList(OrderDtoVO orderVo) {
-	    System.out.println("OrderServiceImpl productDetailOrder 실행");
-		List<OrderDtoVO> productDetailOrderList = orderDao.productDetailGetList(orderVo);
-		return productDetailOrderList;	
-		}
-
-	
 	@Override
 	public int createProductOrder(OrderDtoVO order) {
 		System.out.println("OrderServiceImpl createProductOrder 실행");

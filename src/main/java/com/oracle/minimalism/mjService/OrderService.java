@@ -7,9 +7,11 @@ import com.oracle.minimalism.dto.OrderDto;
 import com.oracle.minimalism.dto.OrderDtoVO;
 
 public interface OrderService {
-	/* 주문 페이지 이동 */
+	/* 상품상세페이지에서 주문 페이지 이동 */
 	public OrderDtoVO productDetailOrder(OrderDtoVO orderVo);
-	public List<OrderDtoVO> productDetailOrderList(OrderDtoVO orderVo);
+	
+	/* 장바구니에서 여러개의 상품 주문 페이지 이동 */
+	public List<CartDto> productCartList(List<String> cart_numberList);
 	
 	/* 상품상세페이지에서 주문하기 */
 	int createProductOrder(OrderDtoVO order);
@@ -27,7 +29,6 @@ public interface OrderService {
 	/* 주문 취소 */
 	int cancleOrder(OrderDto order);
 
-	public List<CartDto> productCartList(List<String> cart_numberList);
 	
 
 

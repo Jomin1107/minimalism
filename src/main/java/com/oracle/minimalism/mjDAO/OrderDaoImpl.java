@@ -18,24 +18,6 @@ public class OrderDaoImpl implements OrderDao {
 		// Mybatis DB 연동 
 		@Autowired
 		private SqlSession session;
-
-		@Override
-		public List<OrderDtoVO> productDetailGetList(OrderDtoVO orderVo) {
-			System.out.println("OrderDaoImpl productDetailGetList 실행");
-			
-			List<OrderDtoVO> productDetailOrderList = null;
-			
-			try {
-				productDetailOrderList = session.selectList("productDetailOrderList", orderVo);
-				System.out.println("OrderDaoImpl productDetailGetList productDetailOrder.size() => " + productDetailOrderList.size());
-			} catch (NumberFormatException e) {
-				System.out.println("OrderDaoImpl productDetailGetList NumberFormatException => " + e.getMessage());
-			} catch (Exception e) {
-				System.out.println("OrderDaoImpl productDetailGetList Exception => " + e.getMessage());
-			}
-			
-			return productDetailOrderList;
-		}
 		
 		public OrderDtoVO productDetailGet(OrderDtoVO orderVo) {
 			System.out.println("OrderDaoImpl productDetailGet 실행");
