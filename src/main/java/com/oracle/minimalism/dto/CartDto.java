@@ -14,7 +14,7 @@ public class CartDto {
 	private int    product_price;  // 상품가격 
 	private String product_color;  // 상품색상
 	
-	private int totalPrice;
+	private int totalPrice;        // 총상품가격
 	
 	private String stored_thumbnail; // 상품이미지
 	private int order_number;        // 임시 -> 주문상세를 하기위해서
